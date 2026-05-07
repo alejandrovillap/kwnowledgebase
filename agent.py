@@ -1,0 +1,172 @@
+#!/usr/bin/env python3
+"""
+agent.py — Orchestrate the full KnowledgeBase pipeline for a single file:
+           ocr → classify → file_note → git_commit
+
+Usage:
+    python agent.py path/to/00-Inbox/raw/scan.pdf
+    python agent.py scan.pdf --no-commit   (skip git step)
+    python agent.py scan.pdf --dry-run     (OCR + classify only, no writes)
+"""
+
+import sys
+import logging
+import argparse
+from pathlib import Path
+from datetime import datetime
+
+# ── Logging ───────────────────────────────────────────────────────────────────
+LOG_FILE = Path(__file__).parent / "pipeline.log"
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [agent] %(levelname)s %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
+    handlers=[
+        logging.StreamHandler(sys.stdout),
+        logging.FileHandler(LOG_FILE, encoding="utf-8"),
+    ],
+)
+log = logging.getLogger("agent")
+
+BASE = Path(__file__).parent
+
+
+# ── Helpers ───────────────────────────────────────────────────────────────────
+
+def _step(name: str):
+    """Context manager that logs entry/exit and re-raises with context."""
+    class _Ctx:
+        def __enter__(self):
+            log.info("── %s …", name)
+            return self
+        def __exit__(self, exc_type, exc_val, _tb):
+            if exc_type:
+                log.error("FAILED [%s]: %s", name, exc_val)
+                return False  # re-raise
+            log.info("── %s OK", name)
+            return False
+    return _Ctx()
+
+
+# ── Pipeline ──────────────────────────────────────────────────────────────────
+
+def run(file_path: str | Path, *, commit: bool = True, dry_run: bool = False) -> dict:
+    """
+    Run the full pipeline for one file.
+
+    Returns a result dict:
+        {
+          "file":    str,
+          "title":   str,
+          "folder":  str,
+          "date":    str,
+          "success": bool,
+          "error":   str | None,
+        }
+    """
+    path = Path(file_path).resolve()
+    log.info("═══ Pipeline start: %s", path.name)
+    started = datetime.now()
+
+    result = {
+        "file":    path.name,
+        "title":   "",
+        "folder":  "",
+        "date":    "",
+        "success": False,
+        "error":   None,
+    }
+
+    try:
+        # ── 1. OCR ────────────────────────────────────────────────────────────
+        with _step("ocr"):
+            from ocr import ocr
+            ocr_result = ocr(path)
+            text          = ocr_result["text"]
+            markdown_body = ocr_result["markdown_body"]
+            diagrams      = ocr_result["diagrams"]
+            log.info("   extracted %d chars, %d diagram(s)",
+                     len(text), len(diagrams))
+
+        if not text.strip():
+            raise ValueError("OCR returned empty text — aborting.")
+
+        # ── 2. Classify ───────────────────────────────────────────────────────
+        with _step("classify"):
+            from classify_note import classify
+            meta = classify(text.strip())
+            log.info("   title=%r  folder=%s  confidence=%s",
+                     meta.get("title"), meta.get("target_folder"), meta.get("confidence"))
+            result["title"]  = meta.get("title", "")
+            result["folder"] = meta.get("target_folder", "")
+            result["date"]   = meta.get("date", "")
+
+        if dry_run:
+            log.info("dry-run mode — stopping before file writes.")
+            result["success"] = True
+            return result
+
+        # ── 3. File note ──────────────────────────────────────────────────────
+        with _step("file_note"):
+            from file_note import file_note, FOLDER_DEPTH
+            folder_key = meta.get("target_folder", "40-Reference")
+            depth      = FOLDER_DEPTH.get(folder_key, 1)
+
+            # Re-run ocr body with correct depth if needed
+            from ocr import _build_markdown_body
+            if depth != 1:
+                markdown_body = _build_markdown_body(text, diagrams, depth)
+
+            filed = file_note(
+                text=text,
+                markdown_body=markdown_body,
+                meta=meta,
+                source_path=path,
+            )
+            result.update(filed)
+
+        # ── 4. Git commit ─────────────────────────────────────────────────────
+        if commit:
+            with _step("git_commit"):
+                from git_commit import commit as git_commit
+                ok, msg = git_commit(
+                    title=result["title"] or path.stem,
+                    folder=result["folder"] or "40-Reference",
+                    note_date=result["date"] or None,
+                )
+                if not ok:
+                    raise RuntimeError(msg)
+                log.info("   %s", msg)
+
+        result["success"] = True
+
+    except Exception as exc:
+        result["error"] = str(exc)
+        log.error("Pipeline FAILED for %s: %s", path.name, exc)
+
+    elapsed = (datetime.now() - started).total_seconds()
+    status  = "SUCCESS" if result["success"] else "FAILURE"
+    log.info("═══ Pipeline %s in %.1fs: %s", status, elapsed, path.name)
+    return result
+
+
+# ── CLI ───────────────────────────────────────────────────────────────────────
+
+def main():
+    ap = argparse.ArgumentParser(description="Run the full KB pipeline on a file.")
+    ap.add_argument("file",        help="PDF or image file to process")
+    ap.add_argument("--no-commit", action="store_true", help="Skip git commit step")
+    ap.add_argument("--dry-run",   action="store_true",
+                    help="OCR + classify only, no file writes or commits")
+    args = ap.parse_args()
+
+    result = run(
+        args.file,
+        commit=not args.no_commit,
+        dry_run=args.dry_run,
+    )
+    sys.exit(0 if result["success"] else 1)
+
+
+if __name__ == "__main__":
+    main()

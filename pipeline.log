@@ -1,0 +1,22 @@
+2026-05-06 20:17:01 [agent] INFO ═══ Pipeline start: NOMBREARCHIVO.pdf
+2026-05-06 20:17:01 [agent] INFO ── ocr …
+2026-05-06 20:17:27 [agent] ERROR FAILED [ocr]: no such file: 'C:\Users\villa\OneDrive\onyx\TabUltraCPro\Notebooks\NOMBREARCHIVO.pdf'
+2026-05-06 20:17:27 [agent] ERROR Pipeline FAILED for NOMBREARCHIVO.pdf: no such file: 'C:\Users\villa\OneDrive\onyx\TabUltraCPro\Notebooks\NOMBREARCHIVO.pdf'
+2026-05-06 20:17:27 [agent] INFO ═══ Pipeline FAILURE in 26.9s: NOMBREARCHIVO.pdf
+2026-05-06 20:21:22 [agent] INFO ═══ Pipeline start: scenario 1.pdf
+2026-05-06 20:21:22 [agent] INFO ── ocr …
+2026-05-06 20:21:26 [agent] ERROR FAILED [ocr]: "Could not resolve authentication method. Expected one of api_key, auth_token, or credentials to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted"
+2026-05-06 20:21:26 [agent] ERROR Pipeline FAILED for scenario 1.pdf: "Could not resolve authentication method. Expected one of api_key, auth_token, or credentials to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted"
+2026-05-06 20:21:26 [agent] INFO ═══ Pipeline FAILURE in 3.7s: scenario 1.pdf
+2026-05-06 20:23:50 [agent] INFO ═══ Pipeline start: scenario 1.pdf
+2026-05-06 20:23:50 [agent] INFO ── ocr …
+2026-05-06 20:24:02 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-06 20:24:02 [agent] INFO    extracted 372 chars, 1 diagram(s)
+2026-05-06 20:24:02 [agent] INFO ── ocr OK
+2026-05-06 20:24:02 [agent] INFO ── classify …
+2026-05-06 20:24:06 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-06 20:24:06 [agent] ERROR FAILED [classify]: Expecting value: line 1 column 1 (char 0)
+2026-05-06 20:24:06 [agent] ERROR Pipeline FAILED for scenario 1.pdf: Expecting value: line 1 column 1 (char 0)
+2026-05-06 20:24:06 [agent] INFO ═══ Pipeline FAILURE in 16.1s: scenario 1.pdf
+2026-05-06 20:26:26 [agent] INFO ═══ Pipeline start: scenario 1.pdf
+2026-05-06 20:26:26 [agent] INFO ── ocr …

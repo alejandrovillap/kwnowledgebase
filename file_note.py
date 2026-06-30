@@ -48,7 +48,9 @@ FOLDER_DEPTH: dict[str, int] = {
 
 
 def _slug(text: str) -> str:
-    return text.strip().replace(" ", "_").replace("/", "-")[:80]
+    for ch in r'/\:*?"<>|':
+        text = text.replace(ch, "-")
+    return text.strip().replace(" ", "_")[:80]
 
 
 def _frontmatter(meta: dict) -> str:

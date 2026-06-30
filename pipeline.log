@@ -199,3 +199,18 @@
 2026-06-30 15:47:15 [agent] INFO -- classify OK
 2026-06-30 15:47:15 [agent] INFO -- file_note ...
 2026-06-30 15:47:16 [agent] INFO -- file_note OK
+2026-06-30 15:47:16 [agent] INFO -- git_commit ...
+2026-06-30 15:47:16 [agent] INFO    [agent] YYYY-MM-DD - Reencuadre cognitivo: creencias limitantes y perspectivas sobre rechazo laboral → Journal
+2026-06-30 15:47:16 [agent] INFO -- git_commit OK
+2026-06-30 15:47:16 [agent] INFO === Pipeline SUCCESS in 23.6s: 04. PNL.pdf
+2026-06-30 15:47:27 [agent] INFO === Pipeline start: modos.pdf
+2026-06-30 15:47:27 [agent] INFO -- ocr ...
+2026-06-30 15:47:46 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-06-30 15:47:46 [agent] INFO    extracted 1086 chars, 1 diagram(s)
+2026-06-30 15:47:46 [agent] INFO -- ocr OK
+2026-06-30 15:47:46 [agent] INFO -- classify ...
+2026-06-30 15:47:51 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-06-30 15:47:51 [agent] INFO    title='Árbol de decisión - Casos de uso Claude API y MCP'  folder=10-Work  confidence=medium
+2026-06-30 15:47:51 [agent] INFO -- classify OK
+2026-06-30 15:47:51 [agent] INFO -- file_note ...
+2026-06-30 15:47:51 [agent] INFO -- file_note OK

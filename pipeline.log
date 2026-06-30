@@ -169,3 +169,13 @@
 2026-06-30 15:44:01 [agent] INFO -- classify OK
 2026-06-30 15:44:01 [agent] INFO -- file_note ...
 2026-06-30 15:44:01 [agent] INFO -- file_note OK
+2026-06-30 15:44:01 [agent] INFO -- git_commit ...
+2026-06-30 15:44:08 [agent] INFO    [agent] 2024-01-01 - Handheld/Pegasus - Account Health & Device Protection Notes → 10-Work
+2026-06-30 15:44:08 [agent] INFO -- git_commit OK
+2026-06-30 15:44:08 [agent] INFO === Pipeline SUCCESS in 23.1s: intx.pdf
+2026-06-30 15:44:12 [agent] INFO === Pipeline start: modos.pdf
+2026-06-30 15:44:12 [agent] INFO -- ocr ...
+2026-06-30 15:44:27 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-06-30 15:44:27 [agent] INFO    extracted 295 chars, 1 diagram(s)
+2026-06-30 15:44:27 [agent] INFO -- ocr OK
+2026-06-30 15:44:27 [agent] INFO -- classify ...

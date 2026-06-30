@@ -19,7 +19,7 @@ import subprocess
 from pathlib import Path
 
 try:
-    from watchdog.observers import Observer
+    from watchdog.observers.polling import PollingObserver
     from watchdog.events import FileSystemEventHandler
 except ImportError:
     print("watchdog is required: pip install watchdog", file=sys.stderr)
@@ -120,16 +120,18 @@ class _Handler(FileSystemEventHandler):
                 _trigger(path, self.inbox)
 
 
-def watch(source: Path, inbox: Path) -> None:
+def watch(source: Path, inbox: Path, poll_interval: int = 10) -> None:
     if not source.exists():
-        log.warning("Source folder does not exist yet: %s — will watch anyway.", source)
+        log.warning("Source folder does not exist yet: %s", source)
     inbox.mkdir(parents=True, exist_ok=True)
 
     log.info("Watching : %s", source)
     log.info("Staging  : %s", inbox)
-    log.info("Press Ctrl-C to stop.")
+    log.info("Poll interval: %ds  (Ctrl-C to stop)", poll_interval)
 
-    observer = Observer()
+    # PollingObserver is required for OneDrive folders — native filesystem
+    # events are not fired reliably when OneDrive materialises synced files.
+    observer = PollingObserver(timeout=poll_interval)
     observer.schedule(_Handler(inbox), str(source), recursive=True)
     observer.start()
 
@@ -150,8 +152,10 @@ def main():
                     help=f"Folder to watch (default: {BOOX_FOLDER})")
     ap.add_argument("--inbox",  type=Path, default=INBOX_RAW,
                     help=f"Staging folder (default: {INBOX_RAW})")
+    ap.add_argument("--interval", type=int, default=10,
+                    help="Polling interval in seconds (default: 10)")
     args = ap.parse_args()
-    watch(args.source, args.inbox)
+    watch(args.source, args.inbox, args.interval)
 
 
 if __name__ == "__main__":

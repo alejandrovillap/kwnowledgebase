@@ -214,3 +214,18 @@
 2026-06-30 15:47:51 [agent] INFO -- classify OK
 2026-06-30 15:47:51 [agent] INFO -- file_note ...
 2026-06-30 15:47:51 [agent] INFO -- file_note OK
+2026-06-30 15:47:51 [agent] INFO -- git_commit ...
+2026-06-30 15:47:52 [agent] INFO    [agent] 2026-06-30 - Árbol de decisión - Casos de uso Claude API y MCP → 10-Work
+2026-06-30 15:47:52 [agent] INFO -- git_commit OK
+2026-06-30 15:47:52 [agent] INFO === Pipeline SUCCESS in 24.4s: modos.pdf
+2026-06-30 16:03:07 [agent] INFO === Pipeline start: prueba.pdf
+2026-06-30 16:03:07 [agent] INFO -- ocr ...
+2026-06-30 16:03:15 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-06-30 16:03:15 [agent] INFO    extracted 6 chars, 0 diagram(s)
+2026-06-30 16:03:15 [agent] INFO -- ocr OK
+2026-06-30 16:03:15 [agent] INFO -- classify ...
+2026-06-30 16:03:19 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-06-30 16:03:19 [agent] INFO    title='Prueba'  folder=50-Archive  confidence=low
+2026-06-30 16:03:19 [agent] INFO -- classify OK
+2026-06-30 16:03:19 [agent] INFO -- file_note ...
+2026-06-30 16:03:19 [agent] INFO -- file_note OK

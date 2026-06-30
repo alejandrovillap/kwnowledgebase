@@ -18,6 +18,9 @@ from pathlib import Path
 from datetime import date
 
 import anthropic
+from dotenv import load_dotenv
+
+load_dotenv(Path(__file__).parent / ".env")
 
 BASE       = Path(__file__).parent
 ASSETS_DIR = BASE / "assets"

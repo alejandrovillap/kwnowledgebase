@@ -20,3 +20,152 @@
 2026-05-06 20:24:06 [agent] INFO ═══ Pipeline FAILURE in 16.1s: scenario 1.pdf
 2026-05-06 20:26:26 [agent] INFO ═══ Pipeline start: scenario 1.pdf
 2026-05-06 20:26:26 [agent] INFO ── ocr …
+2026-05-06 20:26:38 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-06 20:26:38 [agent] INFO    extracted 371 chars, 1 diagram(s)
+2026-05-06 20:26:38 [agent] INFO ── ocr OK
+2026-05-06 20:26:38 [agent] INFO ── classify …
+2026-05-06 20:26:42 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-06 20:26:42 [agent] INFO    title='Agente con Tools - Flujo y Hooks'  folder=40-Reference  confidence=medium
+2026-05-06 20:26:42 [agent] INFO ── classify OK
+2026-05-06 20:26:42 [agent] INFO ── file_note …
+2026-05-06 20:26:42 [agent] INFO ── file_note OK
+2026-05-06 20:26:42 [agent] INFO ── git_commit …
+2026-05-06 20:26:44 [agent] INFO    [agent] 2025-01-01 - Agente con Tools - Flujo y Hooks → 40-Reference
+2026-05-06 20:26:44 [agent] INFO ── git_commit OK
+2026-05-06 20:26:44 [agent] INFO ═══ Pipeline SUCCESS in 18.1s: scenario 1.pdf
+2026-06-30 15:32:49 [agent] INFO ═══ Pipeline start: 01. Estoicismo.pdf
+2026-06-30 15:32:49 [agent] INFO ── ocr …
+2026-06-30 15:33:10 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-06-30 15:33:30 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-06-30 15:33:41 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-06-30 15:33:59 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-06-30 15:34:15 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-06-30 15:34:27 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-06-30 15:34:34 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-06-30 15:34:46 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-06-30 15:34:58 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-06-30 15:35:12 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-06-30 15:35:25 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-06-30 15:35:33 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-06-30 15:35:42 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-06-30 15:35:50 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-06-30 15:35:58 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-06-30 15:36:06 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-06-30 15:36:16 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-06-30 15:36:27 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-06-30 15:36:35 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-06-30 15:36:42 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-06-30 15:36:54 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-06-30 15:37:07 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-06-30 15:37:20 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-06-30 15:37:21 [agent] INFO    extracted 9915 chars, 21 diagram(s)
+2026-06-30 15:37:21 [agent] INFO ── ocr OK
+2026-06-30 15:37:21 [agent] INFO ── classify …
+2026-06-30 15:37:27 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-06-30 15:37:27 [agent] INFO    title='Diario de control y reflexión personal - búsqueda de trabajo y gestión emocional'  folder=Journal  confidence=high
+2026-06-30 15:37:27 [agent] INFO ── classify OK
+2026-06-30 15:37:27 [agent] INFO ── file_note …
+2026-06-30 15:37:27 [agent] ERROR FAILED [file_note]: 'charmap' codec can't encode character '\u2192' in position 5: character maps to <undefined>
+2026-06-30 15:37:27 [agent] ERROR Pipeline FAILED for 01. Estoicismo.pdf: 'charmap' codec can't encode character '\u2192' in position 5: character maps to <undefined>
+2026-06-30 15:37:27 [agent] INFO ═══ Pipeline FAILURE in 278.6s: 01. Estoicismo.pdf
+2026-06-30 15:37:28 [agent] INFO ═══ Pipeline start: 02. Coaching.pdf
+2026-06-30 15:37:28 [agent] INFO ── ocr …
+2026-06-30 15:37:43 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-06-30 15:37:59 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-06-30 15:38:10 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-06-30 15:38:18 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-06-30 15:38:30 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-06-30 15:38:40 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-06-30 15:38:49 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-06-30 15:38:59 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-06-30 15:39:20 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-06-30 15:39:30 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-06-30 15:39:38 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-06-30 15:39:54 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-06-30 15:40:09 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-06-30 15:40:09 [agent] INFO    extracted 5217 chars, 19 diagram(s)
+2026-06-30 15:40:09 [agent] INFO ── ocr OK
+2026-06-30 15:40:09 [agent] INFO ── classify …
+2026-06-30 15:40:15 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-06-30 15:40:15 [agent] INFO    title='Fundamentos del Coaching - Sesión de Formación'  folder=20-Learning/Certifications  confidence=medium
+2026-06-30 15:40:15 [agent] INFO ── classify OK
+2026-06-30 15:40:15 [agent] INFO ── file_note …
+2026-06-30 15:40:16 [agent] ERROR FAILED [file_note]: 'charmap' codec can't encode character '\u2192' in position 5: character maps to <undefined>
+2026-06-30 15:40:16 [agent] ERROR Pipeline FAILED for 02. Coaching.pdf: 'charmap' codec can't encode character '\u2192' in position 5: character maps to <undefined>
+2026-06-30 15:40:16 [agent] INFO ═══ Pipeline FAILURE in 167.6s: 02. Coaching.pdf
+2026-06-30 15:40:16 [agent] INFO ═══ Pipeline start: 04. PNL.pdf
+2026-06-30 15:40:16 [agent] INFO ── ocr …
+2026-06-30 15:40:33 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-06-30 15:40:33 [agent] INFO    extracted 777 chars, 1 diagram(s)
+2026-06-30 15:40:33 [agent] INFO ── ocr OK
+2026-06-30 15:40:33 [agent] INFO ── classify …
+2026-06-30 15:40:38 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-06-30 15:40:38 [agent] INFO    title='Reencuadre cognitivo: creencias limitantes y perspectivas subjetivas'  folder=Journal  confidence=medium
+2026-06-30 15:40:38 [agent] INFO ── classify OK
+2026-06-30 15:40:38 [agent] INFO ── file_note …
+2026-06-30 15:40:38 [agent] ERROR FAILED [file_note]: 'charmap' codec can't encode character '\u2192' in position 5: character maps to <undefined>
+2026-06-30 15:40:38 [agent] ERROR Pipeline FAILED for 04. PNL.pdf: 'charmap' codec can't encode character '\u2192' in position 5: character maps to <undefined>
+2026-06-30 15:40:38 [agent] INFO ═══ Pipeline FAILURE in 22.2s: 04. PNL.pdf
+2026-06-30 15:40:39 [agent] INFO ═══ Pipeline start: 4 mundos de Claude.pdf
+2026-06-30 15:40:39 [agent] INFO ── ocr …
+2026-06-30 15:41:26 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-06-30 15:41:26 [agent] INFO    extracted 2197 chars, 1 diagram(s)
+2026-06-30 15:41:26 [agent] INFO ── ocr OK
+2026-06-30 15:41:26 [agent] INFO ── classify …
+2026-06-30 15:41:31 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-06-30 15:41:31 [agent] INFO    title='Claude Code & Multi-Agent Systems - Architecture Notes'  folder=20-Learning/CCA-F  confidence=medium
+2026-06-30 15:41:31 [agent] INFO ── classify OK
+2026-06-30 15:41:31 [agent] INFO ── file_note …
+2026-06-30 15:41:32 [agent] ERROR FAILED [file_note]: 'charmap' codec can't encode character '\u2192' in position 5: character maps to <undefined>
+2026-06-30 15:41:32 [agent] ERROR Pipeline FAILED for 4 mundos de Claude.pdf: 'charmap' codec can't encode character '\u2192' in position 5: character maps to <undefined>
+2026-06-30 15:41:32 [agent] INFO ═══ Pipeline FAILURE in 52.4s: 4 mundos de Claude.pdf
+2026-06-30 15:41:32 [agent] INFO ═══ Pipeline start: Automatizacion desatendida.pdf
+2026-06-30 15:41:32 [agent] INFO ── ocr …
+2026-06-30 15:41:49 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-06-30 15:41:49 [agent] INFO    extracted 605 chars, 1 diagram(s)
+2026-06-30 15:41:49 [agent] INFO ── ocr OK
+2026-06-30 15:41:49 [agent] INFO ── classify …
+2026-06-30 15:41:54 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-06-30 15:41:54 [agent] INFO    title='Gusto External - Claude Pipeline Gate Architecture'  folder=10-Work  confidence=medium
+2026-06-30 15:41:54 [agent] INFO ── classify OK
+2026-06-30 15:41:54 [agent] INFO ── file_note …
+2026-06-30 15:41:54 [agent] ERROR FAILED [file_note]: 'charmap' codec can't encode character '\u2192' in position 5: character maps to <undefined>
+2026-06-30 15:41:54 [agent] ERROR Pipeline FAILED for Automatizacion desatendida.pdf: 'charmap' codec can't encode character '\u2192' in position 5: character maps to <undefined>
+2026-06-30 15:41:54 [agent] INFO ═══ Pipeline FAILURE in 21.3s: Automatizacion desatendida.pdf
+2026-06-30 15:41:55 [agent] INFO ═══ Pipeline start: Desarrollo asistido - Claude code.pdf
+2026-06-30 15:41:55 [agent] INFO ── ocr …
+2026-06-30 15:42:20 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-06-30 15:42:20 [agent] INFO    extracted 1602 chars, 1 diagram(s)
+2026-06-30 15:42:20 [agent] INFO ── ocr OK
+2026-06-30 15:42:20 [agent] INFO ── classify …
+2026-06-30 15:42:24 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-06-30 15:42:24 [agent] INFO    title='Arquitectura de Equipo y Configuración de Desarrollo'  folder=10-Work  confidence=low
+2026-06-30 15:42:24 [agent] INFO ── classify OK
+2026-06-30 15:42:24 [agent] INFO ── file_note …
+2026-06-30 15:42:24 [agent] ERROR FAILED [file_note]: 'charmap' codec can't encode character '\u2192' in position 5: character maps to <undefined>
+2026-06-30 15:42:24 [agent] ERROR Pipeline FAILED for Desarrollo asistido - Claude code.pdf: 'charmap' codec can't encode character '\u2192' in position 5: character maps to <undefined>
+2026-06-30 15:42:24 [agent] INFO ═══ Pipeline FAILURE in 29.5s: Desarrollo asistido - Claude code.pdf
+2026-06-30 15:42:25 [agent] INFO ═══ Pipeline start: Transformers and Large Language Models.pdf
+2026-06-30 15:42:25 [agent] INFO ── ocr …
+2026-06-30 15:42:42 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-06-30 15:42:43 [agent] INFO    extracted 542 chars, 3 diagram(s)
+2026-06-30 15:42:43 [agent] INFO ── ocr OK
+2026-06-30 15:42:43 [agent] INFO ── classify …
+2026-06-30 15:42:48 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-06-30 15:42:48 [agent] INFO    title='Feed Forward Neural Network - Architecture & Training Concepts'  folder=20-Learning  confidence=high
+2026-06-30 15:42:48 [agent] INFO ── classify OK
+2026-06-30 15:42:48 [agent] INFO ── file_note …
+2026-06-30 15:42:48 [agent] ERROR FAILED [file_note]: 'charmap' codec can't encode character '\u2192' in position 5: character maps to <undefined>
+2026-06-30 15:42:48 [agent] ERROR Pipeline FAILED for Transformers and Large Language Models.pdf: 'charmap' codec can't encode character '\u2192' in position 5: character maps to <undefined>
+2026-06-30 15:42:48 [agent] INFO ═══ Pipeline FAILURE in 23.0s: Transformers and Large Language Models.pdf
+2026-06-30 15:43:44 [agent] INFO === Pipeline start: intx.pdf
+2026-06-30 15:43:44 [agent] INFO -- ocr ...
+2026-06-30 15:43:57 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-06-30 15:43:57 [agent] INFO    extracted 264 chars, 1 diagram(s)
+2026-06-30 15:43:57 [agent] INFO -- ocr OK
+2026-06-30 15:43:57 [agent] INFO -- classify ...
+2026-06-30 15:44:01 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-06-30 15:44:01 [agent] INFO    title='Handheld/Pegasus - Account Health & Device Protection Notes'  folder=10-Work  confidence=low
+2026-06-30 15:44:01 [agent] INFO -- classify OK
+2026-06-30 15:44:01 [agent] INFO -- file_note ...
+2026-06-30 15:44:01 [agent] INFO -- file_note OK

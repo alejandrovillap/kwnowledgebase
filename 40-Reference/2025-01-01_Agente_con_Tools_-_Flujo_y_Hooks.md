@@ -1,31 +1,17 @@
 ---
-certification: ''
+title: "Agente con Tools - Flujo y Hooks"
+date: "2025-01-01"
+type: reference
+technology: "gen-ai"
+status: "to-review"
+tags: ["agent-workflow", tools, hooks, "customer-service", "refund-pipeline"]
+keywords: [agente, tools, get_customer, lookup_order, process_refund, escalate_to_human, post_tool_use_hook, normalizar, predefined_hook]
+certification: ""
 confidence: medium
-date: '2025-01-01'
-keywords:
-- agente
-- tools
-- get_customer
-- lookup_order
-- process_refund
-- escalate_to_human
-- post_tool_use_hook
-- normalizar
-- predefined_hook
-project: ''
-status: to-review
-tags:
-- agent
-- tools
-- hooks
-- refund
-- escalation
-- pipeline
-target_folder: 40-Reference
-technology: gen-ai
-title: Agente con Tools - Flujo y Hooks
-type: idea
+project: ""
+target_folder: "40-Reference"
 ---
+
 
 Cliente
 ↓

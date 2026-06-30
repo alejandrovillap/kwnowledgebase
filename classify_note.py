@@ -12,7 +12,11 @@ import sys
 import json
 import argparse
 import os
+from pathlib import Path
 import anthropic
+from dotenv import load_dotenv
+
+load_dotenv(Path(__file__).parent / ".env")
 
 SYSTEM_PROMPT = """You are a knowledge management assistant.
 Given the OCR text of a handwritten note, return ONLY valid JSON:

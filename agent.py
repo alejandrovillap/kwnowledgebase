@@ -22,7 +22,7 @@ logging.basicConfig(
     format="%(asctime)s [agent] %(levelname)s %(message)s",
     datefmt="%Y-%m-%d %H:%M:%S",
     handlers=[
-        logging.StreamHandler(sys.stdout),
+        logging.StreamHandler(open(sys.stdout.fileno(), mode="w", encoding="utf-8", closefd=False)),
         logging.FileHandler(LOG_FILE, encoding="utf-8"),
     ],
 )
@@ -37,13 +37,13 @@ def _step(name: str):
     """Context manager that logs entry/exit and re-raises with context."""
     class _Ctx:
         def __enter__(self):
-            log.info("── %s …", name)
+            log.info("-- %s ...", name)
             return self
         def __exit__(self, exc_type, exc_val, _tb):
             if exc_type:
                 log.error("FAILED [%s]: %s", name, exc_val)
                 return False  # re-raise
-            log.info("── %s OK", name)
+            log.info("-- %s OK", name)
             return False
     return _Ctx()
 
@@ -65,7 +65,7 @@ def run(file_path: str | Path, *, commit: bool = True, dry_run: bool = False) ->
         }
     """
     path = Path(file_path).resolve()
-    log.info("═══ Pipeline start: %s", path.name)
+    log.info("=== Pipeline start: %s", path.name)
     started = datetime.now()
 
     result = {
@@ -146,7 +146,7 @@ def run(file_path: str | Path, *, commit: bool = True, dry_run: bool = False) ->
 
     elapsed = (datetime.now() - started).total_seconds()
     status  = "SUCCESS" if result["success"] else "FAILURE"
-    log.info("═══ Pipeline %s in %.1fs: %s", status, elapsed, path.name)
+    log.info("=== Pipeline %s in %.1fs: %s", status, elapsed, path.name)
     return result
 
 

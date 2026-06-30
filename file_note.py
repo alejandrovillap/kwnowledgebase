@@ -105,7 +105,7 @@ def file_note(
         src = Path(source_path)
         shutil.move(str(src), PROCESSED / src.name)
 
-    print(f"[OK] → {dest_md.relative_to(BASE)}")
+    print(f"[OK] -> {dest_md.relative_to(BASE)}")
     print(f"     folder: {folder_key} | confidence: {meta.get('confidence')} | type: {meta.get('type')}")
 
     return {"dest_md": str(dest_md), "folder": folder_key, "title": title, "date": note_date}

@@ -266,3 +266,23 @@
 2026-07-13 19:09:19 [agent] INFO -- classify OK
 2026-07-13 19:09:19 [agent] INFO -- file_note ...
 2026-07-13 19:09:19 [agent] INFO -- file_note OK
+2026-07-13 19:09:19 [agent] INFO -- git_commit ...
+2026-07-13 19:09:20 [agent] INFO    [agent] 2025-01-01 - Why AI Projects Differ from Traditional Projects & AI/DS Project Lifecycle → 20-Learning/Cognitive-PM-AI
+2026-07-13 19:09:20 [agent] INFO -- git_commit OK
+2026-07-13 19:09:20 [agent] INFO -- build_index ...
+2026-07-13 19:09:21 [agent] INFO    global: 133 notes | folders updated: 7
+2026-07-13 19:09:21 [agent] INFO -- build_index OK
+2026-07-13 19:09:21 [agent] INFO -- build_dashboard ...
+2026-07-13 19:09:21 [agent] INFO    dashboard written to dashboard.html
+2026-07-13 19:09:21 [agent] INFO -- build_dashboard OK
+2026-07-13 19:09:21 [agent] INFO === Pipeline SUCCESS in 39.1s: CPMAI.pdf
+2026-07-13 19:09:54 [agent] INFO === Pipeline start: CPMAI.pdf
+2026-07-13 19:09:54 [agent] INFO -- ocr ...
+2026-07-13 19:10:04 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-07-13 19:10:04 [agent] INFO    extracted 604 chars, 0 diagram(s)
+2026-07-13 19:10:04 [agent] INFO -- ocr OK
+2026-07-13 19:10:04 [agent] INFO -- classify ...
+2026-07-13 19:10:10 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-07-13 19:10:10 [agent] INFO    title='Why AI Projects Differ from Traditional Projects & AI/DS Project Lifecycle'  folder=20-Learning/Cognitive-PM-AI  confidence=high
+2026-07-13 19:10:10 [agent] INFO -- classify OK
+2026-07-13 19:10:10 [agent] INFO -- file_note ...

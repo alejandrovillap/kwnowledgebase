@@ -1,8 +1,8 @@
 # KnowledgeBase — Global Index
 
-132 notes | Last updated: 2026-07-13
+133 notes | Last updated: 2026-07-13
 
-**Work & Projects** 58 | **Learning** 2 | **CCA-F Certification** 62 | **Certifications** 1 | **Reference** 7 | **Journal** 2
+**Work & Projects** 58 | **Learning** 2 | **CCA-F Certification** 62 | **Certifications** 1 | **Cognitive PM AI** 1 | **Reference** 7 | **Journal** 2
 
 ## 2026-06 — June 2026
 
@@ -163,6 +163,7 @@
 | 2025-01-01 | [Feed Forward Neural Network - Architecture & Training Concepts](20-Learning\2025-01-01_Feed_Forward_Neural_Network_-_Architecture_&_Training_Concepts.md) | `lesson-learned` · `20-Learning` |
 | 2025-01-01 | [Agente con Tools - Flujo y Hooks](40-Reference\2025-01-01_Agente_con_Tools_-_Flujo_y_Hooks.md) | `reference` · `40-Reference` |
 | 2025-01-01 | [Claude Code & Multi-Agent Systems - Architecture Notes](20-Learning\CCA-F\2025-01-01_Claude_Code_&_Multi-Agent_Systems_-_Architecture_Notes.md) | `lesson-learned` · `20-Learning/CCA-F` |
+| 2025-01-01 | [Why AI Projects Differ from Traditional Projects & AI/DS Project Lifecycle](20-Learning\Cognitive-PM-AI\2025-01-01_Why_AI_Projects_Differ_from_Traditional_Projects_&_AI-DS_Project_Lifecycle.md) | `lesson-learned` · `20-Learning/Cognitive-PM-AI` |
 
 ## 2024-01 — January 2024
 

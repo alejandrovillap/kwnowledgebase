@@ -1,6 +1,6 @@
 # Learning
 
-65 notes | Last updated: 2026-07-13
+66 notes | Last updated: 2026-07-13
 
 ## 2026-06 — June 2026
 
@@ -91,3 +91,4 @@
 | 2025-01-01 | [English Tenses Timeline Overview](2025-01-01_English_Tenses_Timeline_Overview.md) | `lesson-learned` · `20-Learning` |
 | 2025-01-01 | [Feed Forward Neural Network - Architecture & Training Concepts](2025-01-01_Feed_Forward_Neural_Network_-_Architecture_&_Training_Concepts.md) | `lesson-learned` · `20-Learning` |
 | 2025-01-01 | [Claude Code & Multi-Agent Systems - Architecture Notes](CCA-F\2025-01-01_Claude_Code_&_Multi-Agent_Systems_-_Architecture_Notes.md) | `lesson-learned` · `20-Learning/CCA-F` |
+| 2025-01-01 | [Why AI Projects Differ from Traditional Projects & AI/DS Project Lifecycle](Cognitive-PM-AI\2025-01-01_Why_AI_Projects_Differ_from_Traditional_Projects_&_AI-DS_Project_Lifecycle.md) | `lesson-learned` · `20-Learning/Cognitive-PM-AI` |

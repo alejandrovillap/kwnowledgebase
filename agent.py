@@ -106,37 +106,61 @@ def run(file_path: str | Path, *, commit: bool = True, dry_run: bool = False) ->
             result["success"] = True
             return result
 
-        # ── 3. File note ──────────────────────────────────────────────────────
+        # ── 3. File note (create or update) ──────────────────────────────────
         with _step("file_note"):
-            from file_note import file_note, FOLDER_DEPTH
-            folder_key = meta.get("target_folder", "40-Reference")
-            depth      = FOLDER_DEPTH.get(folder_key, 1)
-
-            # Re-run ocr body with correct depth if needed
+            from file_note import file_note, update_note, find_existing, FOLDER_DEPTH
             from ocr import _build_markdown_body
-            if depth != 1:
-                markdown_body = _build_markdown_body(text, diagrams, depth)
 
-            filed = file_note(
-                text=text,
-                markdown_body=markdown_body,
-                meta=meta,
-                source_path=path,
-            )
+            existing_md = find_existing(path.name)
+
+            if existing_md:
+                log.info("   existing note found: %s — updating", existing_md.name)
+                filed = update_note(
+                    existing_md=existing_md,
+                    markdown_body=markdown_body,
+                    source_path=path,
+                )
+            else:
+                folder_key = meta.get("target_folder", "40-Reference")
+                depth      = FOLDER_DEPTH.get(folder_key, 1)
+                if depth != 1:
+                    markdown_body = _build_markdown_body(text, diagrams, depth)
+                filed = file_note(
+                    text=text,
+                    markdown_body=markdown_body,
+                    meta=meta,
+                    source_path=path,
+                )
+
             result.update(filed)
 
         # ── 4. Git commit ─────────────────────────────────────────────────────
         if commit:
             with _step("git_commit"):
                 from git_commit import commit as git_commit
+                is_update = result.get("updated", False)
                 ok, msg = git_commit(
                     title=result["title"] or path.stem,
                     folder=result["folder"] or "40-Reference",
                     note_date=result["date"] or None,
+                    update=is_update,
                 )
                 if not ok:
                     raise RuntimeError(msg)
                 log.info("   %s", msg)
+
+        # ── 5. Rebuild indexes ────────────────────────────────────────────────
+        with _step("build_index"):
+            from build_index import build_all
+            counts = build_all()
+            log.info("   global: %d notes | folders updated: %d",
+                     counts.get("_global", 0), len(counts) - 1)
+
+        # ── 6. Rebuild dashboard ──────────────────────────────────────────────
+        with _step("build_dashboard"):
+            from build_dashboard import build_dashboard
+            dest = build_dashboard()
+            log.info("   dashboard written to %s", dest.name)
 
         result["success"] = True
 

@@ -24,7 +24,7 @@ def _run(cmd: list[str], cwd: Path) -> tuple[int, str, str]:
     return r.returncode, r.stdout.strip(), r.stderr.strip()
 
 
-def commit(title: str, folder: str, note_date: str | None = None) -> tuple[bool, str]:
+def commit(title: str, folder: str, note_date: str | None = None, update: bool = False) -> tuple[bool, str]:
     """
     Stage all changes under BASE and create a commit.
 
@@ -50,7 +50,8 @@ def commit(title: str, folder: str, note_date: str | None = None) -> tuple[bool,
     if not status:
         return True, "Nothing to commit — working tree clean."
 
-    msg = f"[agent] {d} - {title} → {folder}"
+    prefix = "[agent][update]" if update else "[agent]"
+    msg = f"{prefix} {d} - {title} → {folder}"
     code, out, err = _run(["git", "commit", "-m", msg], BASE)
     if code != 0:
         return False, f"git commit failed: {err or out}"

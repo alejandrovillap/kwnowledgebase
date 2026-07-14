@@ -25,6 +25,7 @@ BASE = Path(__file__).parent
 SCHEMA: dict = {
     "title":         "",
     "date":          "",
+    "updated":       None,
     "type":          "idea",
     "status":        "to-review",
     "technology":    None,
@@ -34,6 +35,7 @@ SCHEMA: dict = {
     "certification": "",
     "target_folder": "",
     "confidence":    "medium",
+    "source":        None,
 }
 
 # Folders that are not part of the note corpus

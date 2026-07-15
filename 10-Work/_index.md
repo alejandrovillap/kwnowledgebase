@@ -1,6 +1,6 @@
 # Work & Projects
 
-58 notes | Last updated: 2026-07-13
+57 notes | Last updated: 2026-07-13
 
 ## 2026-06 — June 2026
 
@@ -26,7 +26,6 @@
 | Date | Note | Type |
 |------|------|------|
 | 2026-01-16 | [Equipos distribuidos y co-localizados](equipos-distribuidos.md) | `concept` · `10-Work` |
-| 2026-01-15 | [Agile Metrics — Guía Completa](agie-metrics.md) | `reference` · `10-Work` |
 | 2026-01-13 | [Disciplined Agile](disciplined-agile.md) | `resume` · `10-Work` |
 | 2026-01-13 | [Extreme Programming (XP)](extreme-programming-xp.md) | `resume` · `10-Work` |
 | 2026-01-13 | [Nexus](nexus.md) | `resume` · `10-Work` |
@@ -66,9 +65,9 @@
 | Date | Note | Type |
 |------|------|------|
 | 2025-12-30 | [12 Principles](12-principles.md) | `reference` · `10-Work` |
+| 2025-12-30 | [Agile Metrics — Guía Completa](2025-12-30_Agile_Metrics_—_Guía_Completa_merged.md) *(updated 2026-07-13)* | `reference` · `10-Work` |
 | 2025-12-30 | [5 Dysfunctions of a team](5-dysfunctions-team.md) | `resume` · `10-Work` |
 | 2025-12-30 | [5 Levels of Conflict](5-levels-of-conflict.md) | `concept` · `10-Work` |
-| 2025-12-30 | [Agile Metrics](agile-metrics.md) | `reference` · `10-Work` |
 | 2025-12-30 | [Agile Values — Guía de Aplicación](agile-values.md) | `concept` · `10-Work` |
 | 2025-12-30 | [Gulf of evaluation](gulf-of-evaluation.md) | `reference` · `10-Work` |
 | 2025-12-30 | [Lean Startup Methodology](lean-startup.md) | `resume` · `10-Work` |

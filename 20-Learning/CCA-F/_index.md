@@ -1,17 +1,15 @@
 # CCA-F Certification
 
-62 notes | Last updated: 2026-07-13
+57 notes | Last updated: 2026-07-13
 
 ## 2026-04 — April 2026
 
 | Date | Note | Type |
 |------|------|------|
-| 2026-04-19 | [Python](python-fundamentals.md) | `reference` · `20-Learning/CCA-F` |
-| 2026-04-19 | [Python](python.md) | `reference` · `20-Learning/CCA-F` |
+| 2026-04-19 | [Python](2026-04-19_Python_merged.md) *(updated 2026-07-13)* | `reference` · `20-Learning/CCA-F` |
 | 2026-04-16 | [Cinco modos de Claude Code](cinco-modos-de-claude-code.md) | `resume` · `20-Learning/CCA-F` |
+| 2026-04-15 | [AI Foundations — lo que yo entiendo](2026-04-15_AI_Foundations_—_lo_que_yo_entiendo_merged.md) *(updated 2026-07-13)* | `resume` · `20-Learning/CCA-F` |
 | 2026-04-15 | [Agentic & RAG — lo que yo entiendo](agentic-rag-reflexion.md) | `question` · `20-Learning/CCA-F` |
-| 2026-04-15 | [AI Foundations — lo que yo entiendo](ai-foundations-lo-que-entiendo.md) | `resume` · `20-Learning/CCA-F` |
-| 2026-04-15 | [AI Foundations — lo que yo entiendo](ai-foundations-reflexion.md) | `question` · `20-Learning/CCA-F` |
 | 2026-04-15 | [Claude Code & CCA — lo que yo entiendo](claude-code-cca-reflexion.md) | `journal` · `20-Learning/CCA-F` |
 | 2026-04-15 | [Herramientas & Comparativas — lo que yo entiendo](herramientas-reflexion.md) | `capture` · `20-Learning/CCA-F` |
 | 2026-04-15 | [MCP — lo que yo entiendo](mcp-reflexion.md) | `journal` · `20-Learning/CCA-F` |
@@ -21,15 +19,13 @@
 | 2026-04-10 | [MCP Architecture](mcp-architecture.md) | `resume` · `20-Learning/CCA-F` |
 | 2026-04-09 | [Limitations of AI](limitations-of-ai.md) | `concept` · `20-Learning/CCA-F` |
 | 2026-04-08 | [MCP Accessing resources](mcp-accessing-resources.md) | `resume` · `20-Learning/CCA-F` |
-| 2026-04-08 | [MCP Client](mcp-client.md) | `resume` · `20-Learning/CCA-F` |
 | 2026-04-08 | [MCP Defining prompts](mcp-defining-prompts.md) | `resume` · `20-Learning/CCA-F` |
 | 2026-04-08 | [MCP](mcp.md) | `resume` · `20-Learning/CCA-F` |
 | 2026-04-03 | [Implementing a client](implementing-a-client.md) | `resume` · `20-Learning/CCA-F` |
+| 2026-04-02 | [MCP Client — JSON Schema & Deep Dive](2026-04-02_MCP_Client_—_JSON_Schema_&_Deep_Dive_merged.md) *(updated 2026-07-13)* | `resume` · `20-Learning/CCA-F` |
 | 2026-04-02 | [Code execution and the Files API](code-execution-files-api.md) | `resume` · `20-Learning/CCA-F` |
 | 2026-04-02 | [Defining Tools with MCP](defining-tools-with-mcp.md) | `resume` · `20-Learning/CCA-F` |
 | 2026-04-02 | [Introducing MCP](introducing-mcp.md) | `resume` · `20-Learning/CCA-F` |
-| 2026-04-02 | [MCP Client — Internals](mcp-client-internals.md) | `resume` · `20-Learning/CCA-F` |
-| 2026-04-02 | [MCP Client — JSON Schema & Deep Dive](mcp-client-json-schema.md) | `resume` · `20-Learning/CCA-F` |
 | 2026-04-02 | [MCP Project Setup — CLI Chatbot](mcp-project-setup.md) | `project` · `20-Learning/CCA-F` |
 | 2026-04-02 | [Prompt Caching](prompt-caching.md) | `resume` · `20-Learning/CCA-F` |
 | 2026-04-01 | [Extended thinking](extended-thinking.md) | `resume` · `20-Learning/CCA-F` |
@@ -57,6 +53,7 @@
 | 2026-03-23 | [Agentic loop and stop reason](agentic-loop-and-stop-reason.md) | `resume` · `20-Learning/CCA-F` |
 | 2026-03-23 | [AI Glossary — CCA Reference](ai-glossary.md) | `reference` · `20-Learning/CCA-F` |
 | 2026-03-23 | [LLMs capabilities and boundaries](llm-capabilities-boundaries.md) | `reference` · `20-Learning/CCA-F` |
+| 2026-03-21 | [Prompt Engineering — Techniques](2026-03-21_Prompt_Engineering_—_Techniques_merged.md) *(updated 2026-07-13)* | `resume` · `20-Learning/CCA-F` |
 | 2026-03-21 | [Claude API process](claude-api-process.md) | `resume` · `20-Learning/CCA-F` |
 | 2026-03-21 | [Claude - First request via API](claude-first-api-request.md) | `resume` · `20-Learning/CCA-F` |
 | 2026-03-21 | [Claude Schema — JSON Schema for Tool Use](claude-schema.md) | `resume` · `20-Learning/CCA-F` |
@@ -68,8 +65,6 @@
 | 2026-03-21 | [Handling message blocks](handling-message-blocks.md) | `resume` · `20-Learning/CCA-F` |
 | 2026-03-21 | [Implementing multiple turns](implementing-multiple-turns.md) | `resume` · `20-Learning/CCA-F` |
 | 2026-03-21 | [Model Based Grading](model-based-grading.md) | `concept` · `20-Learning/CCA-F` |
-| 2026-03-21 | [Prompt Engineering — Techniques](prompt-engineering-techniques.md) | `resume` · `20-Learning/CCA-F` |
-| 2026-03-21 | [Prompt Engineering](prompt-engineering.md) | `resume` · `20-Learning/CCA-F` |
 | 2026-03-21 | [Prompt Evaluation](prompt-evaluation.md) | `resume` · `20-Learning/CCA-F` |
 
 ## 2026-01 — January 2026

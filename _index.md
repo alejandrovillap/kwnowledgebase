@@ -1,8 +1,8 @@
 # KnowledgeBase — Global Index
 
-133 notes | Last updated: 2026-07-13
+138 notes | Last updated: 2026-07-13
 
-**Work & Projects** 58 | **Learning** 2 | **CCA-F Certification** 62 | **Certifications** 1 | **Cognitive PM AI** 1 | **Reference** 7 | **Journal** 2
+**Work & Projects** 57 | **Learning** 2 | **CCA-F Certification** 57 | **Certifications** 1 | **Cognitive PM AI** 1 | **Reference** 7 | **Archive** 11 | **Journal** 2
 
 ## 2026-06 — June 2026
 
@@ -16,12 +16,14 @@
 
 | Date | Note | Type |
 |------|------|------|
-| 2026-04-19 | [Python](20-Learning\CCA-F\python-fundamentals.md) | `reference` · `20-Learning/CCA-F` |
-| 2026-04-19 | [Python](20-Learning\CCA-F\python.md) | `reference` · `20-Learning/CCA-F` |
+| 2026-04-19 | [Python](50-Archive\python-fundamentals.md) | `reference` · `50-Archive` |
+| 2026-04-19 | [Python](50-Archive\python.md) | `reference` · `50-Archive` |
+| 2026-04-19 | [Python](20-Learning\CCA-F\2026-04-19_Python_merged.md) *(updated 2026-07-13)* | `reference` · `20-Learning/CCA-F` |
 | 2026-04-16 | [Cinco modos de Claude Code](20-Learning\CCA-F\cinco-modos-de-claude-code.md) | `resume` · `20-Learning/CCA-F` |
+| 2026-04-15 | [AI Foundations — lo que yo entiendo](50-Archive\ai-foundations-lo-que-entiendo.md) | `resume` · `50-Archive` |
+| 2026-04-15 | [AI Foundations — lo que yo entiendo](50-Archive\ai-foundations-reflexion.md) | `question` · `50-Archive` |
+| 2026-04-15 | [AI Foundations — lo que yo entiendo](20-Learning\CCA-F\2026-04-15_AI_Foundations_—_lo_que_yo_entiendo_merged.md) *(updated 2026-07-13)* | `resume` · `20-Learning/CCA-F` |
 | 2026-04-15 | [Agentic & RAG — lo que yo entiendo](20-Learning\CCA-F\agentic-rag-reflexion.md) | `question` · `20-Learning/CCA-F` |
-| 2026-04-15 | [AI Foundations — lo que yo entiendo](20-Learning\CCA-F\ai-foundations-lo-que-entiendo.md) | `resume` · `20-Learning/CCA-F` |
-| 2026-04-15 | [AI Foundations — lo que yo entiendo](20-Learning\CCA-F\ai-foundations-reflexion.md) | `question` · `20-Learning/CCA-F` |
 | 2026-04-15 | [Claude Code & CCA — lo que yo entiendo](20-Learning\CCA-F\claude-code-cca-reflexion.md) | `journal` · `20-Learning/CCA-F` |
 | 2026-04-15 | [Herramientas & Comparativas — lo que yo entiendo](20-Learning\CCA-F\herramientas-reflexion.md) | `capture` · `20-Learning/CCA-F` |
 | 2026-04-15 | [MCP — lo que yo entiendo](20-Learning\CCA-F\mcp-reflexion.md) | `journal` · `20-Learning/CCA-F` |
@@ -30,17 +32,18 @@
 | 2026-04-10 | [Los 3 niveles de CLAUDE.md](20-Learning\CCA-F\claude-md-niveles.md) | `resume` · `20-Learning/CCA-F` |
 | 2026-04-10 | [MCP Architecture](20-Learning\CCA-F\mcp-architecture.md) | `resume` · `20-Learning/CCA-F` |
 | 2026-04-09 | [Limitations of AI](20-Learning\CCA-F\limitations-of-ai.md) | `concept` · `20-Learning/CCA-F` |
+| 2026-04-08 | [MCP Client](50-Archive\mcp-client.md) | `resume` · `50-Archive` |
 | 2026-04-08 | [MCP Accessing resources](20-Learning\CCA-F\mcp-accessing-resources.md) | `resume` · `20-Learning/CCA-F` |
-| 2026-04-08 | [MCP Client](20-Learning\CCA-F\mcp-client.md) | `resume` · `20-Learning/CCA-F` |
 | 2026-04-08 | [MCP Defining prompts](20-Learning\CCA-F\mcp-defining-prompts.md) | `resume` · `20-Learning/CCA-F` |
 | 2026-04-08 | [MCP](20-Learning\CCA-F\mcp.md) | `resume` · `20-Learning/CCA-F` |
 | 2026-04-03 | [RPA Platforms — Comparative Table](40-Reference\rpas-comparative-table.md) | `reference` · `40-Reference` |
 | 2026-04-03 | [Implementing a client](20-Learning\CCA-F\implementing-a-client.md) | `resume` · `20-Learning/CCA-F` |
+| 2026-04-02 | [MCP Client — Internals](50-Archive\mcp-client-internals.md) | `resume` · `50-Archive` |
+| 2026-04-02 | [MCP Client — JSON Schema & Deep Dive](50-Archive\mcp-client-json-schema.md) | `resume` · `50-Archive` |
+| 2026-04-02 | [MCP Client — JSON Schema & Deep Dive](20-Learning\CCA-F\2026-04-02_MCP_Client_—_JSON_Schema_&_Deep_Dive_merged.md) *(updated 2026-07-13)* | `resume` · `20-Learning/CCA-F` |
 | 2026-04-02 | [Code execution and the Files API](20-Learning\CCA-F\code-execution-files-api.md) | `resume` · `20-Learning/CCA-F` |
 | 2026-04-02 | [Defining Tools with MCP](20-Learning\CCA-F\defining-tools-with-mcp.md) | `resume` · `20-Learning/CCA-F` |
 | 2026-04-02 | [Introducing MCP](20-Learning\CCA-F\introducing-mcp.md) | `resume` · `20-Learning/CCA-F` |
-| 2026-04-02 | [MCP Client — Internals](20-Learning\CCA-F\mcp-client-internals.md) | `resume` · `20-Learning/CCA-F` |
-| 2026-04-02 | [MCP Client — JSON Schema & Deep Dive](20-Learning\CCA-F\mcp-client-json-schema.md) | `resume` · `20-Learning/CCA-F` |
 | 2026-04-02 | [MCP Project Setup — CLI Chatbot](20-Learning\CCA-F\mcp-project-setup.md) | `project` · `20-Learning/CCA-F` |
 | 2026-04-02 | [Prompt Caching](20-Learning\CCA-F\prompt-caching.md) | `resume` · `20-Learning/CCA-F` |
 | 2026-04-01 | [Extended thinking](20-Learning\CCA-F\extended-thinking.md) | `resume` · `20-Learning/CCA-F` |
@@ -76,6 +79,9 @@
 | 2026-03-21 | [SDLC AI - DM Playbook](10-Work\sdlc-ai-dm-playbook.md) | `reference` · `10-Work` |
 | 2026-03-21 | [SDLC AI](10-Work\sdlc-ai.md) | `reference` · `10-Work` |
 | 2026-03-21 | [Spec-Kit](10-Work\spec-kit.md) | `resume` · `10-Work` |
+| 2026-03-21 | [Prompt Engineering — Techniques](50-Archive\prompt-engineering-techniques.md) | `resume` · `50-Archive` |
+| 2026-03-21 | [Prompt Engineering](50-Archive\prompt-engineering.md) | `resume` · `50-Archive` |
+| 2026-03-21 | [Prompt Engineering — Techniques](20-Learning\CCA-F\2026-03-21_Prompt_Engineering_—_Techniques_merged.md) *(updated 2026-07-13)* | `resume` · `20-Learning/CCA-F` |
 | 2026-03-21 | [Claude API process](20-Learning\CCA-F\claude-api-process.md) | `resume` · `20-Learning/CCA-F` |
 | 2026-03-21 | [Claude - First request via API](20-Learning\CCA-F\claude-first-api-request.md) | `resume` · `20-Learning/CCA-F` |
 | 2026-03-21 | [Claude Schema — JSON Schema for Tool Use](20-Learning\CCA-F\claude-schema.md) | `resume` · `20-Learning/CCA-F` |
@@ -87,8 +93,6 @@
 | 2026-03-21 | [Handling message blocks](20-Learning\CCA-F\handling-message-blocks.md) | `resume` · `20-Learning/CCA-F` |
 | 2026-03-21 | [Implementing multiple turns](20-Learning\CCA-F\implementing-multiple-turns.md) | `resume` · `20-Learning/CCA-F` |
 | 2026-03-21 | [Model Based Grading](20-Learning\CCA-F\model-based-grading.md) | `concept` · `20-Learning/CCA-F` |
-| 2026-03-21 | [Prompt Engineering — Techniques](20-Learning\CCA-F\prompt-engineering-techniques.md) | `resume` · `20-Learning/CCA-F` |
-| 2026-03-21 | [Prompt Engineering](20-Learning\CCA-F\prompt-engineering.md) | `resume` · `20-Learning/CCA-F` |
 | 2026-03-21 | [Prompt Evaluation](20-Learning\CCA-F\prompt-evaluation.md) | `resume` · `20-Learning/CCA-F` |
 | 2026-03-12 | [Product roadmap](10-Work\product-roadmap.md) | `concept` · `10-Work` |
 | 2026-03-12 | [User stories y product backlog](10-Work\user-stories-product-backlog.md) | `resume` · `10-Work` |
@@ -99,7 +103,7 @@
 | Date | Note | Type |
 |------|------|------|
 | 2026-01-16 | [Equipos distribuidos y co-localizados](10-Work\equipos-distribuidos.md) | `concept` · `10-Work` |
-| 2026-01-15 | [Agile Metrics — Guía Completa](10-Work\agie-metrics.md) | `reference` · `10-Work` |
+| 2026-01-15 | [Agile Metrics — Guía Completa](50-Archive\agie-metrics.md) | `reference` · `50-Archive` |
 | 2026-01-13 | [Disciplined Agile](10-Work\disciplined-agile.md) | `resume` · `10-Work` |
 | 2026-01-13 | [Extreme Programming (XP)](10-Work\extreme-programming-xp.md) | `resume` · `10-Work` |
 | 2026-01-13 | [Nexus](10-Work\nexus.md) | `resume` · `10-Work` |
@@ -142,9 +146,9 @@
 | Date | Note | Type |
 |------|------|------|
 | 2025-12-30 | [12 Principles](10-Work\12-principles.md) | `reference` · `10-Work` |
+| 2025-12-30 | [Agile Metrics — Guía Completa](10-Work\2025-12-30_Agile_Metrics_—_Guía_Completa_merged.md) *(updated 2026-07-13)* | `reference` · `10-Work` |
 | 2025-12-30 | [5 Dysfunctions of a team](10-Work\5-dysfunctions-team.md) | `resume` · `10-Work` |
 | 2025-12-30 | [5 Levels of Conflict](10-Work\5-levels-of-conflict.md) | `concept` · `10-Work` |
-| 2025-12-30 | [Agile Metrics](10-Work\agile-metrics.md) | `reference` · `10-Work` |
 | 2025-12-30 | [Agile Values — Guía de Aplicación](10-Work\agile-values.md) | `concept` · `10-Work` |
 | 2025-12-30 | [Gulf of evaluation](10-Work\gulf-of-evaluation.md) | `reference` · `10-Work` |
 | 2025-12-30 | [Lean Startup Methodology](10-Work\lean-startup.md) | `resume` · `10-Work` |
@@ -152,6 +156,7 @@
 | 2025-12-30 | [Systems thinking](10-Work\systems-thinking.md) | `concept` · `10-Work` |
 | 2025-12-30 | [Values](10-Work\values.md) | `concept` · `10-Work` |
 | 2025-12-30 | [VUCA](10-Work\vuca.md) | `concept` · `10-Work` |
+| 2025-12-30 | [Agile Metrics](50-Archive\agile-metrics.md) | `reference` · `50-Archive` |
 
 ## 2025-01 — January 2025
 
@@ -163,7 +168,7 @@
 | 2025-01-01 | [Feed Forward Neural Network - Architecture & Training Concepts](20-Learning\2025-01-01_Feed_Forward_Neural_Network_-_Architecture_&_Training_Concepts.md) | `lesson-learned` · `20-Learning` |
 | 2025-01-01 | [Agente con Tools - Flujo y Hooks](40-Reference\2025-01-01_Agente_con_Tools_-_Flujo_y_Hooks.md) | `reference` · `40-Reference` |
 | 2025-01-01 | [Claude Code & Multi-Agent Systems - Architecture Notes](20-Learning\CCA-F\2025-01-01_Claude_Code_&_Multi-Agent_Systems_-_Architecture_Notes.md) | `lesson-learned` · `20-Learning/CCA-F` |
-| 2025-01-01 | [Why AI Projects Differ from Traditional Projects & AI/DS Project Lifecycle](20-Learning\Cognitive-PM-AI\2025-01-01_Why_AI_Projects_Differ_from_Traditional_Projects_&_AI-DS_Project_Lifecycle.md) | `lesson-learned` · `20-Learning/Cognitive-PM-AI` |
+| 2025-01-01 | [Why AI Projects Differ from Traditional Projects & AI/DS Project Lifecycle](20-Learning\Cognitive-PM-AI\2025-01-01_Why_AI_Projects_Differ_from_Traditional_Projects_&_AI-DS_Project_Lifecycle.md) *(updated 2026-07-13)* | `lesson-learned` · `20-Learning/Cognitive-PM-AI` |
 
 ## 2024-01 — January 2024
 

@@ -273,6 +273,92 @@ aside {
 .type-chip:hover { border-color: var(--accent); color: var(--text-1); }
 .type-chip.active { background: var(--accent-bg); border-color: var(--accent); color: var(--accent); }
 
+/* ── Index panel ─────────────────────────────────────────────────────────── */
+.index-panel {
+  margin-bottom: 32px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.index-panel-header {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 14px 18px 10px;
+  border-bottom: 1px solid var(--border);
+}
+.index-panel-title {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+.index-total {
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent);
+}
+.index-date {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text-3);
+  margin-left: auto;
+}
+.index-folders {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 12px 18px;
+  border-bottom: 1px solid var(--border);
+}
+.index-folder-badge {
+  font-family: var(--mono);
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 4px;
+  border: 1px solid;
+  cursor: pointer;
+  transition: opacity .15s;
+}
+.index-folder-badge:hover { opacity: .75; }
+.index-months {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 1px;
+  background: var(--border);
+}
+.index-month-cell {
+  background: var(--surface);
+  padding: 8px 14px;
+  cursor: pointer;
+  transition: background .1s;
+}
+.index-month-cell:hover { background: var(--surface-2); }
+.imc-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-2);
+  font-variant-numeric: tabular-nums;
+}
+.imc-count {
+  font-family: var(--mono);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-1);
+  line-height: 1.2;
+}
+.imc-bar {
+  height: 3px;
+  background: var(--accent);
+  border-radius: 2px;
+  margin-top: 4px;
+  opacity: .5;
+}
+
 /* ── Main feed ───────────────────────────────────────────────────────────── */
 main {
   flex: 1;
@@ -353,6 +439,49 @@ main {
   border: 1px solid var(--border);
 }
 
+/* ── Timeline bar ────────────────────────────────────────────────────────── */
+.timeline-bar {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 7px 20px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  overflow-x: auto;
+  flex-shrink: 0;
+}
+.timeline-bar::-webkit-scrollbar { height: 3px; }
+.tl-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  white-space: nowrap;
+  padding-right: 8px;
+  border-right: 1px solid var(--border);
+  margin-right: 4px;
+}
+.month-pill {
+  font-family: var(--mono);
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--text-2);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: border-color .12s, color .12s;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.month-pill:hover { border-color: var(--accent); color: var(--text-1); }
+.month-pill.active { border-color: var(--accent); color: var(--accent); background: var(--accent-bg); }
+.mpill-count { color: var(--text-3); font-size: 10px; }
+
 /* ── Scrollbar ───────────────────────────────────────────────────────────── */
 ::-webkit-scrollbar { width: 5px; height: 5px; }
 ::-webkit-scrollbar-track { background: transparent; }
@@ -374,6 +503,10 @@ main {
   <button class="theme-btn" onclick="toggleTheme()">◑</button>
 </header>
 
+<div class="timeline-bar" id="timeline-bar">
+  <span class="tl-label">Índice</span>
+</div>
+
 <div class="layout">
   <aside>
     <div class="sidebar-section">
@@ -390,7 +523,10 @@ main {
     </div>
   </aside>
 
-  <main id="main-feed"></main>
+  <main id="main-area">
+    <div id="index-panel"></div>
+    <div id="main-feed"></div>
+  </main>
 </div>
 
 <script>
@@ -507,6 +643,69 @@ function buildTypeFilters() {
   });
 }
 
+// ── Index panel ────────────────────────────────────────────────────────────
+function buildIndexPanel() {
+  const panel = document.getElementById('index-panel');
+  const isFiltered = activeFolder || activeTag || activeType || searchQuery;
+
+  if (isFiltered) { panel.innerHTML = ''; return; }
+
+  // Folder summary
+  const byFolder = DATA.stats.by_folder;
+  const folderBadges = Object.entries(byFolder)
+    .sort((a,b) => b[1]-a[1])
+    .map(([key, count]) => {
+      const fm = FOLDER_META[key] || {label: key, color: 'var(--text-3)'};
+      return `<button class="index-folder-badge"
+        style="color:${fm.color};border-color:${fm.color}55;background:${fm.color}18"
+        onclick="setFolder('${key}')">${fm.label} <strong>${count}</strong></button>`;
+    }).join('');
+
+  // Month breakdown
+  const byMonth = {};
+  DATA.notes.forEach(n => {
+    const key = n.date.slice(0,7);
+    if (!byMonth[key]) {
+      const d = new Date(n.date + 'T12:00:00');
+      byMonth[key] = { label: d.toLocaleString('es', {month:'short', year:'2-digit'}), count: 0 };
+    }
+    byMonth[key].count++;
+  });
+  const maxCount = Math.max(...Object.values(byMonth).map(m => m.count));
+  const monthCells = Object.entries(byMonth)
+    .sort((a,b) => b[0].localeCompare(a[0]))
+    .map(([key, {label, count}]) => {
+      const pct = Math.round((count / maxCount) * 100);
+      return `<div class="index-month-cell" onclick="jumpMonth('${key}')">
+        <div class="imc-label">${label}</div>
+        <div class="imc-count">${count}</div>
+        <div class="imc-bar" style="width:${pct}%"></div>
+      </div>`;
+    }).join('');
+
+  panel.innerHTML = `
+    <div class="index-panel">
+      <div class="index-panel-header">
+        <span class="index-panel-title">Índice Global</span>
+        <span class="index-total">${DATA.stats.total} notas</span>
+        <span class="index-date">actualizado ${DATA.stats.last_updated}</span>
+      </div>
+      <div class="index-folders">${folderBadges}</div>
+      <div class="index-months">${monthCells}</div>
+    </div>`;
+}
+
+function setFolder(key) {
+  activeFolder = key; activeTag = null; activeType = null;
+  document.getElementById('search').value = ''; searchQuery = '';
+  refreshAll();
+}
+
+function jumpMonth(key) {
+  const anchor = document.getElementById('month-' + key);
+  if (anchor) anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
 // ── Feed ───────────────────────────────────────────────────────────────────
 function buildFeed(notes) {
   const feed = document.getElementById('main-feed');
@@ -531,6 +730,7 @@ function buildFeed(notes) {
     .forEach(([key, { label, notes: mnotes }]) => {
       const group = document.createElement('div');
       group.className = 'month-group';
+      group.id = 'month-' + key;
 
       const hdr = document.createElement('div');
       hdr.className = 'month-header';
@@ -584,6 +784,36 @@ function buildFeed(notes) {
     });
 }
 
+// ── Timeline bar ──────────────────────────────────────────────────────────
+function buildTimeline() {
+  const bar = document.getElementById('timeline-bar');
+  bar.innerHTML = '<span class="tl-label">Índice</span>';
+
+  const byMonth = {};
+  DATA.notes.forEach(n => {
+    const key = n.date.slice(0,7);
+    if (!byMonth[key]) {
+      const d = new Date(n.date + 'T12:00:00');
+      byMonth[key] = { label: d.toLocaleString('es', {month:'short', year:'2-digit'}), count: 0 };
+    }
+    byMonth[key].count++;
+  });
+
+  Object.entries(byMonth).sort((a,b) => b[0].localeCompare(a[0])).forEach(([key, {label, count}]) => {
+    const pill = document.createElement('button');
+    pill.className = 'month-pill';
+    pill.dataset.month = key;
+    pill.innerHTML = '<span>' + label + '</span><span class="mpill-count">' + count + '</span>';
+    pill.onclick = () => {
+      document.querySelectorAll('.month-pill').forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      const anchor = document.getElementById('month-' + key);
+      if (anchor) anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
+    bar.appendChild(pill);
+  });
+}
+
 // ── Stats pill ─────────────────────────────────────────────────────────────
 function updateStats(notes) {
   document.getElementById('total-pill').textContent = notes.length + ' notas';
@@ -602,6 +832,7 @@ function updateActiveFolder() {
 // ── Refresh ────────────────────────────────────────────────────────────────
 function refreshAll() {
   const notes = filtered();
+  buildIndexPanel();
   buildFeed(notes);
   updateStats(notes);
   buildTagCloud();
@@ -617,6 +848,7 @@ document.getElementById('search').addEventListener('input', e => {
 
 // ── Init ───────────────────────────────────────────────────────────────────
 buildSidebar();
+buildTimeline();
 refreshAll();
 </script>
 </body>

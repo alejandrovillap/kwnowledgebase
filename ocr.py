@@ -41,15 +41,21 @@ OCR_SYSTEM = (
 )
 
 OCR_PROMPT = """\
-Analyze this image carefully. Perform two tasks:
+Analyze this image of a handwritten note. Perform two tasks:
 
-1. EXTRACT all text verbatim. Preserve structure: headings, bullets, numbering, indentation.
+1. EXTRACT AND CLEAN the text. The source is handwritten, so:
+   - Read each word carefully, resolving ambiguous letterforms from context
+   - Fix obvious spelling errors caused by hard-to-read handwriting
+   - Preserve the original structure (headings, bullets, indentation, groupings)
+   - Do NOT invent or add content that isn't there
+   - Output clean, readable text — not raw OCR garbage
+
 2. IDENTIFY non-text visual elements: diagrams, flowcharts, mind maps, charts, sketches, tables with drawn borders.
    For each, produce a short title and a detailed description.
 
 Return ONLY valid JSON — no preamble, no fences:
 {
-  "text": "full extracted text",
+  "text": "cleaned and readable extracted text",
   "diagrams": [
     {"title": "short title", "description": "detailed description of what it shows"}
   ]

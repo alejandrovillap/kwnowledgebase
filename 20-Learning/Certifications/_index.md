@@ -1,6 +1,6 @@
 # Certifications
 
-1 notes | Last updated: 2026-07-13
+1 notes | Last updated: 2026-07-15
 
 ## 2026-06 — June 2026
 

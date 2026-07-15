@@ -49,16 +49,19 @@ def _strip_fences(text: str) -> str:
     return text
 
 
-def classify(ocr_text: str) -> dict:
+def classify(ocr_text: str, source_name: str = "") -> dict:
     import logging
     log = logging.getLogger(__name__)
 
     client  = anthropic.Anthropic(api_key=os.environ.get("ANTHROPIC_API_KEY"))
+    user_content = ocr_text
+    if source_name:
+        user_content = f"[Source file: {source_name}]\n\n{ocr_text}"
     message = client.messages.create(
         model="claude-sonnet-4-6",
         max_tokens=1024,
         system=SYSTEM_PROMPT,
-        messages=[{"role": "user", "content": ocr_text}],
+        messages=[{"role": "user", "content": user_content}],
     )
 
     # Log stop reason to surface truncation issues early

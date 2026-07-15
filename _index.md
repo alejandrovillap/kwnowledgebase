@@ -1,8 +1,14 @@
 # KnowledgeBase — Global Index
 
-138 notes | Last updated: 2026-07-13
+139 notes | Last updated: 2026-07-15
 
-**Work & Projects** 57 | **Learning** 2 | **CCA-F Certification** 57 | **Certifications** 1 | **Cognitive PM AI** 1 | **Reference** 7 | **Archive** 11 | **Journal** 2
+**Work & Projects** 58 | **Learning** 2 | **CCA-F Certification** 57 | **Certifications** 1 | **Cognitive PM AI** 1 | **Reference** 7 | **Archive** 11 | **Journal** 2
+
+## 2026-07 — July 2026
+
+| Date | Note | Type |
+|------|------|------|
+| 2026-07-15 | [Guitar Soul Platform - Design & Architecture Brainstorm](10-Work\2026-07-15_Guitar_Soul_Platform_-_Design_&_Architecture_Brainstorm.md) | `idea` · `10-Work` |
 
 ## 2026-06 — June 2026
 

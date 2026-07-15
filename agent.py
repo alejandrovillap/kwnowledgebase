@@ -94,7 +94,7 @@ def run(file_path: str | Path, *, commit: bool = True, dry_run: bool = False) ->
         # ── 2. Classify ───────────────────────────────────────────────────────
         with _step("classify"):
             from classify_note import classify
-            meta = classify(text.strip())
+            meta = classify(text.strip(), source_name=path.stem)
             log.info("   title=%r  folder=%s  confidence=%s",
                      meta.get("title"), meta.get("target_folder"), meta.get("confidence"))
             result["title"]  = meta.get("title", "")

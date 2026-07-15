@@ -1,6 +1,12 @@
 # Work & Projects
 
-57 notes | Last updated: 2026-07-13
+58 notes | Last updated: 2026-07-15
+
+## 2026-07 — July 2026
+
+| Date | Note | Type |
+|------|------|------|
+| 2026-07-15 | [Guitar Soul Platform - Design & Architecture Brainstorm](2026-07-15_Guitar_Soul_Platform_-_Design_&_Architecture_Brainstorm.md) | `idea` · `10-Work` |
 
 ## 2026-06 — June 2026
 

@@ -1,0 +1,23 @@
+# Generated files
+dashboard.html
+embeddings.npz
+embeddings_hashes.json
+_index.json
+
+# Logs
+*.log
+pipeline.log
+watcher.log
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Backups
+*.bak
+*.md.bak
+
+# OS
+.DS_Store
+Thumbs.db

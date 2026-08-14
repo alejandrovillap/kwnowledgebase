@@ -1,17 +1,34 @@
 ---
-title: Project Consulting
-date: 2026-01-12
-type: resume
-technology: "project-mgmt"
-status: active
-tags: ["project-consulting", "risk-assessment", "resource-allocation", "stakeholder-engagement", "change-management", "quality-assurance"]
-keywords: [project consulting, project planning, risk assessment, resource allocation, stakeholder engagement, quality assurance, change management, KPIs, "post-project evaluation", knowledge transfer]
-source: "notion-migration"
-project: ""
-certification: ""
+certification: ''
 confidence: high
+date: 2026-01-12
+keywords:
+- project consulting
+- project planning
+- risk assessment
+- resource allocation
+- stakeholder engagement
+- quality assurance
+- change management
+- KPIs
+- post-project evaluation
+- knowledge transfer
+project: ''
+source: notion-migration
+status: active
+tags:
+- project-consulting
+- risk-assessment
+- resource-allocation
+- stakeholder-engagement
+- change-management
+- quality-assurance
+target_folder: 10-Work
+technology: project-mgmt
+title: Project Consulting
+type: resume
+updated: '2026-07-31'
 ---
-
 # Project Consulting
 
 Project consulting is a service provided by professional consultants or consulting firms to assist organizations in project management and execution. Consultants offer expert advice, insights, and strategies to help clients plan, initiate, manage, and complete projects across industries (construction, IT, business process improvement, etc.).

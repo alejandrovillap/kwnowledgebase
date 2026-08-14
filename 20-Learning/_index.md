@@ -1,6 +1,20 @@
 # Learning
 
-61 notes | Last updated: 2026-07-15
+67 notes | Last updated: 2026-07-30
+
+## 2026-07 — July 2026
+
+| Date | Note | Type |
+|------|------|------|
+| 2026-07-30 | [2026-07-17_Guía_del_Consultor_de_Soluciones_Gemini_Enterprise](Gemini-Enterprise\2026-07-17_Guía_del_Consultor_de_Soluciones_Gemini_Enterprise.md) |  · `20-Learning/Gemini-Enterprise` |
+| 2026-07-30 | [2026-07-17_Módulo_1_—_Privacidad,_DLP_y_Cumplimiento_en_Gemini_Enterprise_(Google_Workspace](Gemini-Enterprise\2026-07-17_Módulo_1_—_Privacidad,_DLP_y_Cumplimiento_en_Gemini_Enterprise_(Google_Workspace.md) |  · `20-Learning/Gemini-Enterprise` |
+| 2026-07-17 | [2026-07-17_AI_SDLC_Bootcamp_Glossary_–_Full_Term_Reference](Cognitive-PM-AI\2026-07-17_AI_SDLC_Bootcamp_Glossary_–_Full_Term_Reference.md) |  · `20-Learning/Cognitive-PM-AI` |
+| 2026-07-17 | [Gemini Enterprise Change Management Methodology – People, Process, Technology & The Change Journey](Gemini-Enterprise\2026-07-17_Gemini_Enterprise_Change_Management_Methodology_–_People,_Process,_Technology_&_.md) | `lesson-learned` · `20-Learning/Gemini-Enterprise` |
+| 2026-07-17 | [Gemini Enterprise Platform Overview – Deployment, Adoption & Agentic Architecture](Gemini-Enterprise\2026-07-17_Gemini_Enterprise_Platform_Overview_–_Deployment,_Adoption_&_Agentic_Architectur.md) | `lesson-learned` · `20-Learning/Gemini-Enterprise` |
+| 2026-07-15 | [Antigravity Platform Architecture & Engineering Design](Antigravity\2026-07-15_Antigravity_Platform_Architecture_&_Engineering_Design.md) | `idea` · `20-Learning/Antigravity` |
+| 2026-07-15 | [2025-01-01_Claude_Code_&_Multi-Agent_Systems_-_Architecture_Notes](CCA-F\2025-01-01_Claude_Code_&_Multi-Agent_Systems_-_Architecture_Notes.md) |  · `20-Learning/CCA-F` |
+| 2026-07-15 | [cinco-modos-de-claude-code](CCA-F\cinco-modos-de-claude-code.md) |  · `20-Learning/CCA-F` |
+| 2026-07-15 | [claude-code-summary](CCA-F\claude-code-summary.md) |  · `20-Learning/CCA-F` |
 
 ## 2026-06 — June 2026
 
@@ -13,7 +27,6 @@
 | Date | Note | Type |
 |------|------|------|
 | 2026-04-19 | [Python](CCA-F\2026-04-19_Python_merged.md) *(updated 2026-07-13)* | `reference` · `20-Learning/CCA-F` |
-| 2026-04-16 | [Cinco modos de Claude Code](CCA-F\cinco-modos-de-claude-code.md) | `resume` · `20-Learning/CCA-F` |
 | 2026-04-15 | [AI Foundations — lo que yo entiendo](CCA-F\2026-04-15_AI_Foundations_—_lo_que_yo_entiendo_merged.md) *(updated 2026-07-13)* | `resume` · `20-Learning/CCA-F` |
 | 2026-04-15 | [Agentic & RAG — lo que yo entiendo](CCA-F\agentic-rag-reflexion.md) | `question` · `20-Learning/CCA-F` |
 | 2026-04-15 | [Claude Code & CCA — lo que yo entiendo](CCA-F\claude-code-cca-reflexion.md) | `journal` · `20-Learning/CCA-F` |
@@ -35,7 +48,6 @@
 | 2026-04-02 | [MCP Project Setup — CLI Chatbot](CCA-F\mcp-project-setup.md) | `project` · `20-Learning/CCA-F` |
 | 2026-04-02 | [Prompt Caching](CCA-F\prompt-caching.md) | `resume` · `20-Learning/CCA-F` |
 | 2026-04-01 | [Extended thinking](CCA-F\extended-thinking.md) | `resume` · `20-Learning/CCA-F` |
-| 2026-04-01 | [Vision](CCA-F\vision.md) | `capture` · `20-Learning/CCA-F` |
 
 ## 2026-03 — March 2026
 
@@ -53,7 +65,6 @@
 | 2026-03-25 | [D5 - Context Management & Reliability](CCA-F\d5-context-management.md) | `resume` · `20-Learning/CCA-F` |
 | 2026-03-25 | [Fine grained tool calling](CCA-F\fine-grained-tool-calling.md) | `resume` · `20-Learning/CCA-F` |
 | 2026-03-24 | [AI Engineering](CCA-F\ai-engineering.md) | `resume` · `20-Learning/CCA-F` |
-| 2026-03-24 | [Claude Code Summary](CCA-F\claude-code-summary.md) | `resume` · `20-Learning/CCA-F` |
 | 2026-03-24 | [D2 - Tool Design & MCP Integration](CCA-F\d2-tool-design-mcp-integration.md) | `resume` · `20-Learning/CCA-F` |
 | 2026-03-24 | [D3 - Claude Code Configuration and Workflows](CCA-F\d3-claude-code-configuration.md) | `resume` · `20-Learning/CCA-F` |
 | 2026-03-23 | [Agentic loop and stop reason](CCA-F\agentic-loop-and-stop-reason.md) | `resume` · `20-Learning/CCA-F` |
@@ -85,5 +96,5 @@
 |------|------|------|
 | 2025-01-01 | [English Tenses Timeline Overview](2025-01-01_English_Tenses_Timeline_Overview.md) | `lesson-learned` · `20-Learning` |
 | 2025-01-01 | [Feed Forward Neural Network - Architecture & Training Concepts](2025-01-01_Feed_Forward_Neural_Network_-_Architecture_&_Training_Concepts.md) | `lesson-learned` · `20-Learning` |
-| 2025-01-01 | [Claude Code & Multi-Agent Systems - Architecture Notes](CCA-F\2025-01-01_Claude_Code_&_Multi-Agent_Systems_-_Architecture_Notes.md) | `lesson-learned` · `20-Learning/CCA-F` |
+| 2025-01-01 | [Antigravity Platform - Editor and Agentic Flow Design](Antigravity\2025-01-01_Antigravity_Platform_-_Editor_and_Agentic_Flow_Design.md) | `idea` · `20-Learning/Antigravity` |
 | 2025-01-01 | [Why AI Projects Differ from Traditional Projects & AI/DS Project Lifecycle](Cognitive-PM-AI\2025-01-01_Why_AI_Projects_Differ_from_Traditional_Projects_&_AI-DS_Project_Lifecycle.md) *(updated 2026-07-13)* | `lesson-learned` · `20-Learning/Cognitive-PM-AI` |

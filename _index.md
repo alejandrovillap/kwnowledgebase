@@ -1,14 +1,22 @@
 # KnowledgeBase — Global Index
 
-139 notes | Last updated: 2026-07-15
+138 notes | Last updated: 2026-07-30
 
-**Work & Projects** 58 | **Learning** 2 | **CCA-F Certification** 57 | **Certifications** 1 | **Cognitive PM AI** 1 | **Reference** 7 | **Archive** 11 | **Journal** 2
+**Work & Projects** 51 | **Learning** 2 | **Antigravity** 2 | **CCA-F Certification** 56 | **Certifications** 1 | **Cognitive PM AI** 2 | **Gemini Enterprise** 4 | **Reference** 7 | **Archive** 11 | **Journal** 2
 
 ## 2026-07 — July 2026
 
 | Date | Note | Type |
 |------|------|------|
-| 2026-07-15 | [Guitar Soul Platform - Design & Architecture Brainstorm](10-Work\2026-07-15_Guitar_Soul_Platform_-_Design_&_Architecture_Brainstorm.md) | `idea` · `10-Work` |
+| 2026-07-30 | [2026-07-17_Guía_del_Consultor_de_Soluciones_Gemini_Enterprise](20-Learning\Gemini-Enterprise\2026-07-17_Guía_del_Consultor_de_Soluciones_Gemini_Enterprise.md) |  · `20-Learning/Gemini-Enterprise` |
+| 2026-07-30 | [2026-07-17_Módulo_1_—_Privacidad,_DLP_y_Cumplimiento_en_Gemini_Enterprise_(Google_Workspace](20-Learning\Gemini-Enterprise\2026-07-17_Módulo_1_—_Privacidad,_DLP_y_Cumplimiento_en_Gemini_Enterprise_(Google_Workspace.md) |  · `20-Learning/Gemini-Enterprise` |
+| 2026-07-17 | [2026-07-17_AI_SDLC_Bootcamp_Glossary_–_Full_Term_Reference](20-Learning\Cognitive-PM-AI\2026-07-17_AI_SDLC_Bootcamp_Glossary_–_Full_Term_Reference.md) |  · `20-Learning/Cognitive-PM-AI` |
+| 2026-07-17 | [Gemini Enterprise Change Management Methodology – People, Process, Technology & The Change Journey](20-Learning\Gemini-Enterprise\2026-07-17_Gemini_Enterprise_Change_Management_Methodology_–_People,_Process,_Technology_&_.md) | `lesson-learned` · `20-Learning/Gemini-Enterprise` |
+| 2026-07-17 | [Gemini Enterprise Platform Overview – Deployment, Adoption & Agentic Architecture](20-Learning\Gemini-Enterprise\2026-07-17_Gemini_Enterprise_Platform_Overview_–_Deployment,_Adoption_&_Agentic_Architectur.md) | `lesson-learned` · `20-Learning/Gemini-Enterprise` |
+| 2026-07-15 | [Antigravity Platform Architecture & Engineering Design](20-Learning\Antigravity\2026-07-15_Antigravity_Platform_Architecture_&_Engineering_Design.md) | `idea` · `20-Learning/Antigravity` |
+| 2026-07-15 | [2025-01-01_Claude_Code_&_Multi-Agent_Systems_-_Architecture_Notes](20-Learning\CCA-F\2025-01-01_Claude_Code_&_Multi-Agent_Systems_-_Architecture_Notes.md) |  · `20-Learning/CCA-F` |
+| 2026-07-15 | [cinco-modos-de-claude-code](20-Learning\CCA-F\cinco-modos-de-claude-code.md) |  · `20-Learning/CCA-F` |
+| 2026-07-15 | [claude-code-summary](20-Learning\CCA-F\claude-code-summary.md) |  · `20-Learning/CCA-F` |
 
 ## 2026-06 — June 2026
 
@@ -25,7 +33,6 @@
 | 2026-04-19 | [Python](50-Archive\python-fundamentals.md) | `reference` · `50-Archive` |
 | 2026-04-19 | [Python](50-Archive\python.md) | `reference` · `50-Archive` |
 | 2026-04-19 | [Python](20-Learning\CCA-F\2026-04-19_Python_merged.md) *(updated 2026-07-13)* | `reference` · `20-Learning/CCA-F` |
-| 2026-04-16 | [Cinco modos de Claude Code](20-Learning\CCA-F\cinco-modos-de-claude-code.md) | `resume` · `20-Learning/CCA-F` |
 | 2026-04-15 | [AI Foundations — lo que yo entiendo](50-Archive\ai-foundations-lo-que-entiendo.md) | `resume` · `50-Archive` |
 | 2026-04-15 | [AI Foundations — lo que yo entiendo](50-Archive\ai-foundations-reflexion.md) | `question` · `50-Archive` |
 | 2026-04-15 | [AI Foundations — lo que yo entiendo](20-Learning\CCA-F\2026-04-15_AI_Foundations_—_lo_que_yo_entiendo_merged.md) *(updated 2026-07-13)* | `resume` · `20-Learning/CCA-F` |
@@ -53,7 +60,6 @@
 | 2026-04-02 | [MCP Project Setup — CLI Chatbot](20-Learning\CCA-F\mcp-project-setup.md) | `project` · `20-Learning/CCA-F` |
 | 2026-04-02 | [Prompt Caching](20-Learning\CCA-F\prompt-caching.md) | `resume` · `20-Learning/CCA-F` |
 | 2026-04-01 | [Extended thinking](20-Learning\CCA-F\extended-thinking.md) | `resume` · `20-Learning/CCA-F` |
-| 2026-04-01 | [Vision](20-Learning\CCA-F\vision.md) | `capture` · `20-Learning/CCA-F` |
 
 ## 2026-03 — March 2026
 
@@ -71,7 +77,6 @@
 | 2026-03-25 | [D5 - Context Management & Reliability](20-Learning\CCA-F\d5-context-management.md) | `resume` · `20-Learning/CCA-F` |
 | 2026-03-25 | [Fine grained tool calling](20-Learning\CCA-F\fine-grained-tool-calling.md) | `resume` · `20-Learning/CCA-F` |
 | 2026-03-24 | [AI Engineering](20-Learning\CCA-F\ai-engineering.md) | `resume` · `20-Learning/CCA-F` |
-| 2026-03-24 | [Claude Code Summary](20-Learning\CCA-F\claude-code-summary.md) | `resume` · `20-Learning/CCA-F` |
 | 2026-03-24 | [D2 - Tool Design & MCP Integration](20-Learning\CCA-F\d2-tool-design-mcp-integration.md) | `resume` · `20-Learning/CCA-F` |
 | 2026-03-24 | [D3 - Claude Code Configuration and Workflows](20-Learning\CCA-F\d3-claude-code-configuration.md) | `resume` · `20-Learning/CCA-F` |
 | 2026-03-23 | [Framework Equivalence — TPS / Agile / PMI / Lean / Six Sigma](40-Reference\framework-equivalence.md) | `reference` · `40-Reference` |
@@ -82,7 +87,6 @@
 | 2026-03-22 | [Families](40-Reference\families.md) | `reference` · `40-Reference` |
 | 2026-03-21 | [AI Champion](10-Work\ai-champion.md) | `reference` · `10-Work` |
 | 2026-03-21 | [Openspec](10-Work\openspec.md) | `resume` · `10-Work` |
-| 2026-03-21 | [SDLC AI - DM Playbook](10-Work\sdlc-ai-dm-playbook.md) | `reference` · `10-Work` |
 | 2026-03-21 | [SDLC AI](10-Work\sdlc-ai.md) | `reference` · `10-Work` |
 | 2026-03-21 | [Spec-Kit](10-Work\spec-kit.md) | `resume` · `10-Work` |
 | 2026-03-21 | [Prompt Engineering — Techniques](50-Archive\prompt-engineering-techniques.md) | `resume` · `50-Archive` |
@@ -116,8 +120,6 @@
 | 2026-01-13 | [SAFe — Scaled Agile Framework](10-Work\safe-scaled-agile.md) | `resume` · `10-Work` |
 | 2026-01-12 | [Collaborative Planning](10-Work\collaborative-planning.md) | `resume` · `10-Work` |
 | 2026-01-12 | [Foster an Environment of Continuous Improvement](10-Work\foster-continuous-improvement.md) | `concept` · `10-Work` |
-| 2026-01-12 | [LESS](10-Work\less.md) | `resume` · `10-Work` |
-| 2026-01-12 | [Product Owner](10-Work\product-owner.md) | `resume` · `10-Work` |
 | 2026-01-12 | [Project Coaching](10-Work\project-coaching.md) | `concept` · `10-Work` |
 | 2026-01-12 | [Project Consulting](10-Work\project-consulting.md) | `resume` · `10-Work` |
 | 2026-01-12 | [Promote Agile Mindset and Values](10-Work\promote-agile-mindset.md) | `resume` · `10-Work` |
@@ -157,11 +159,8 @@
 | 2025-12-30 | [5 Levels of Conflict](10-Work\5-levels-of-conflict.md) | `concept` · `10-Work` |
 | 2025-12-30 | [Agile Values — Guía de Aplicación](10-Work\agile-values.md) | `concept` · `10-Work` |
 | 2025-12-30 | [Gulf of evaluation](10-Work\gulf-of-evaluation.md) | `reference` · `10-Work` |
-| 2025-12-30 | [Lean Startup Methodology](10-Work\lean-startup.md) | `resume` · `10-Work` |
 | 2025-12-30 | [Pillars](10-Work\pillars.md) | `concept` · `10-Work` |
-| 2025-12-30 | [Systems thinking](10-Work\systems-thinking.md) | `concept` · `10-Work` |
 | 2025-12-30 | [Values](10-Work\values.md) | `concept` · `10-Work` |
-| 2025-12-30 | [VUCA](10-Work\vuca.md) | `concept` · `10-Work` |
 | 2025-12-30 | [Agile Metrics](50-Archive\agile-metrics.md) | `reference` · `50-Archive` |
 
 ## 2025-01 — January 2025
@@ -173,7 +172,7 @@
 | 2025-01-01 | [English Tenses Timeline Overview](20-Learning\2025-01-01_English_Tenses_Timeline_Overview.md) | `lesson-learned` · `20-Learning` |
 | 2025-01-01 | [Feed Forward Neural Network - Architecture & Training Concepts](20-Learning\2025-01-01_Feed_Forward_Neural_Network_-_Architecture_&_Training_Concepts.md) | `lesson-learned` · `20-Learning` |
 | 2025-01-01 | [Agente con Tools - Flujo y Hooks](40-Reference\2025-01-01_Agente_con_Tools_-_Flujo_y_Hooks.md) | `reference` · `40-Reference` |
-| 2025-01-01 | [Claude Code & Multi-Agent Systems - Architecture Notes](20-Learning\CCA-F\2025-01-01_Claude_Code_&_Multi-Agent_Systems_-_Architecture_Notes.md) | `lesson-learned` · `20-Learning/CCA-F` |
+| 2025-01-01 | [Antigravity Platform - Editor and Agentic Flow Design](20-Learning\Antigravity\2025-01-01_Antigravity_Platform_-_Editor_and_Agentic_Flow_Design.md) | `idea` · `20-Learning/Antigravity` |
 | 2025-01-01 | [Why AI Projects Differ from Traditional Projects & AI/DS Project Lifecycle](20-Learning\Cognitive-PM-AI\2025-01-01_Why_AI_Projects_Differ_from_Traditional_Projects_&_AI-DS_Project_Lifecycle.md) *(updated 2026-07-13)* | `lesson-learned` · `20-Learning/Cognitive-PM-AI` |
 
 ## 2024-01 — January 2024

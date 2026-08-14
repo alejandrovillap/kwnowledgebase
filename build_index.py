@@ -23,7 +23,7 @@ except ImportError:
 
 BASE = Path(__file__).parent
 
-SKIP_DIRS  = {"00-Inbox", ".git", "assets", "__pycache__"}
+SKIP_DIRS  = {"00-Inbox", ".git", "assets", "__pycache__", "_trash"}
 SKIP_FILES = {"_index.md"}
 
 INDEXED_FOLDERS = {
@@ -32,6 +32,8 @@ INDEXED_FOLDERS = {
     "20-Learning/CCA-F":          "CCA-F Certification",
     "20-Learning/Certifications": "Certifications",
     "20-Learning/Cognitive-PM-AI":"Cognitive PM AI",
+    "20-Learning/Antigravity":    "Antigravity",
+    "20-Learning/Gemini-Enterprise":"Gemini Enterprise",
     "40-Reference":               "Reference",
     "50-Archive":                 "Archive",
     "Journal":                    "Journal",

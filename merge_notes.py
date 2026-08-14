@@ -39,6 +39,8 @@ FOLDER_MAP = {
     "20-Learning/CCA-F":            BASE / "20-Learning" / "CCA-F",
     "20-Learning/Certifications":   BASE / "20-Learning" / "Certifications",
     "20-Learning/Cognitive-PM-AI":  BASE / "20-Learning" / "Cognitive-PM-AI",
+    "20-Learning/Antigravity":      BASE / "20-Learning" / "Antigravity",
+    "20-Learning/Gemini-Enterprise":BASE / "20-Learning" / "Gemini-Enterprise",
     "40-Reference":                 BASE / "40-Reference",
     "50-Archive":                   BASE / "50-Archive",
     "Journal":                      BASE / "Journal",

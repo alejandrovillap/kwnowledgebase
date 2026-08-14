@@ -95,6 +95,11 @@ def run(file_path: str | Path, *, commit: bool = True, dry_run: bool = False) ->
         with _step("classify"):
             from classify_note import classify
             meta = classify(text.strip(), source_name=path.stem)
+            # If no real date found, default to today (avoids 1970-01-01 / epoch dates)
+            raw_date = meta.get("date") or ""
+            if not raw_date or raw_date < "2020-01-01":
+                meta["date"] = started.strftime("%Y-%m-%d")
+                log.info("   date fallback → today (%s)", meta["date"])
             log.info("   title=%r  folder=%s  confidence=%s",
                      meta.get("title"), meta.get("target_folder"), meta.get("confidence"))
             result["title"]  = meta.get("title", "")
@@ -108,7 +113,7 @@ def run(file_path: str | Path, *, commit: bool = True, dry_run: bool = False) ->
 
         # ── 3. File note (create or update) ──────────────────────────────────
         with _step("file_note"):
-            from file_note import file_note, update_note, find_existing, FOLDER_DEPTH
+            from file_note import file_note, update_note, find_existing, _resolve_folder
             from ocr import _build_markdown_body
 
             existing_md = find_existing(path.name)
@@ -122,7 +127,7 @@ def run(file_path: str | Path, *, commit: bool = True, dry_run: bool = False) ->
                 )
             else:
                 folder_key = meta.get("target_folder", "40-Reference")
-                depth      = FOLDER_DEPTH.get(folder_key, 1)
+                _, depth   = _resolve_folder(folder_key)
                 if depth != 1:
                     markdown_body = _build_markdown_body(text, diagrams, depth)
                 filed = file_note(
@@ -133,6 +138,15 @@ def run(file_path: str | Path, *, commit: bool = True, dry_run: bool = False) ->
                 )
 
             result.update(filed)
+
+        # ── 3b. Enrich: add rich markdown formatting ──────────────────────────
+        with _step("format_note"):
+            from enrich_notes import enrich_file
+            note_md = result.get("dest_md")
+            if note_md:
+                enrich_file(Path(note_md), dry_run=False)
+            else:
+                log.warning("   no dest_md in result — skipping format step")
 
         # ── 4. Git commit ─────────────────────────────────────────────────────
         if commit:

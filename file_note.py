@@ -35,6 +35,8 @@ FOLDER_MAP: dict[str, Path] = {
     "20-Learning/CCA-F":            BASE / "20-Learning" / "CCA-F",
     "20-Learning/Certifications":   BASE / "20-Learning" / "Certifications",
     "20-Learning/Cognitive-PM-AI":  BASE / "20-Learning" / "Cognitive-PM-AI",
+    "20-Learning/Antigravity":      BASE / "20-Learning" / "Antigravity",
+    "20-Learning/Gemini-Enterprise":BASE / "20-Learning" / "Gemini-Enterprise",
     "40-Reference":                 BASE / "40-Reference",
     "50-Archive":                   BASE / "50-Archive",
     "Journal":                      BASE / "Journal",
@@ -44,9 +46,31 @@ FOLDER_MAP: dict[str, Path] = {
 FOLDER_DEPTH: dict[str, int] = {
     "10-Work": 1, "20-Learning": 1, "40-Reference": 1,
     "50-Archive": 1, "Journal": 1,
+    "20-Learning/Antigravity": 2, "20-Learning/Gemini-Enterprise": 2,
     "20-Learning/CCA-F": 2, "20-Learning/Certifications": 2,
     "20-Learning/Cognitive-PM-AI": 2,
 }
+
+
+def _resolve_folder(folder_key: str) -> tuple[Path, int]:
+    """Return (dest_path, depth) for a folder key.
+    Supports dynamically created subfolders under 20-Learning.
+    """
+    if folder_key in FOLDER_MAP:
+        depth = FOLDER_DEPTH.get(folder_key, 1)
+        return FOLDER_MAP[folder_key], depth
+
+    # Allow new one-level subfolders under 20-Learning (e.g. "20-Learning/PMI-ACP")
+    if folder_key.startswith("20-Learning/"):
+        parts = folder_key.split("/")
+        if len(parts) == 2 and parts[1]:
+            subfolder = parts[1].replace(" ", "-")
+            path = BASE / "20-Learning" / subfolder
+            return path, 2
+
+    # Fallback to 40-Reference
+    print(f"[WARN] Unknown folder '{folder_key}', using 40-Reference")
+    return FOLDER_MAP["40-Reference"], 1
 
 
 def _slug(text: str) -> str:
@@ -154,7 +178,7 @@ def file_note(
         meta["source"] = Path(source_path).name
 
     folder_key = meta.get("target_folder") or "40-Reference"
-    dest_dir   = FOLDER_MAP.get(folder_key, FOLDER_MAP["40-Reference"])
+    dest_dir, _ = _resolve_folder(folder_key)
     dest_dir.mkdir(parents=True, exist_ok=True)
 
     title     = meta.get("title") or "untitled"

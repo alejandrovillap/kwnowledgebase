@@ -330,3 +330,48 @@
 2026-07-15 10:31:57 [agent] INFO -- classify OK
 2026-07-15 10:31:57 [agent] INFO -- file_note ...
 2026-07-15 10:31:57 [agent] INFO -- file_note OK
+2026-07-15 10:31:57 [agent] INFO -- git_commit ...
+2026-07-15 10:31:58 [agent] INFO    [agent] 2025-01-01 - Antigravity Platform Architecture & Engineering Design → 10-Work
+2026-07-15 10:31:58 [agent] INFO -- git_commit OK
+2026-07-15 10:31:58 [agent] INFO -- build_index ...
+2026-07-15 10:31:59 [agent] INFO    global: 139 notes | folders updated: 8
+2026-07-15 10:31:59 [agent] INFO -- build_index OK
+2026-07-15 10:31:59 [agent] INFO -- build_dashboard ...
+2026-07-15 10:32:00 [agent] INFO    dashboard written to dashboard.html
+2026-07-15 10:32:00 [agent] INFO -- build_dashboard OK
+2026-07-15 10:32:00 [agent] INFO === Pipeline SUCCESS in 28.0s: Antigravity.pdf
+2026-07-15 14:22:32 [agent] INFO === Pipeline start: Antigravity.pdf
+2026-07-15 14:22:32 [agent] INFO -- ocr ...
+2026-07-15 14:23:27 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-07-15 14:23:28 [agent] INFO    extracted 798 chars, 1 diagram(s)
+2026-07-15 14:23:28 [agent] INFO -- ocr OK
+2026-07-15 14:23:28 [agent] INFO -- classify ...
+2026-07-15 14:23:32 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-07-15 14:23:32 [agent] INFO    title='Antigravity Platform - Editor and Agentic Flow Design'  folder=10-Work/Antigravity  confidence=medium
+2026-07-15 14:23:32 [agent] INFO -- classify OK
+2026-07-15 14:23:32 [agent] INFO -- file_note ...
+2026-07-15 14:23:34 [agent] INFO -- file_note OK
+2026-07-15 14:23:34 [agent] INFO -- git_commit ...
+2026-07-15 14:23:35 [agent] ERROR FAILED [git_commit]: git add failed: warning: in the working copy of '20-Learning/CCA-F/cinco-modos-de-claude-code.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '20-Learning/CCA-F/claude-code-summary.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'agent.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'build_dashboard.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'build_index.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'classify_note.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'file_note.py', LF will be replaced by CRLF the next time Git touches it
+error: short read while indexing merge_notes.py
+error: merge_notes.py: failed to insert into database
+error: unable to index file 'merge_notes.py'
+fatal: updating files failed
+2026-07-15 14:23:35 [agent] ERROR Pipeline FAILED for Antigravity.pdf: git add failed: warning: in the working copy of '20-Learning/CCA-F/cinco-modos-de-claude-code.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '20-Learning/CCA-F/claude-code-summary.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'agent.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'build_dashboard.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'build_index.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'classify_note.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'file_note.py', LF will be replaced by CRLF the next time Git touches it
+error: short read while indexing merge_notes.py
+error: merge_notes.py: failed to insert into database
+error: unable to index file 'merge_notes.py'
+fatal: updating files failed
+2026-07-15 14:23:35 [agent] INFO === Pipeline FAILURE in 63.0s: Antigravity.pdf

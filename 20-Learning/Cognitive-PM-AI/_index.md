@@ -1,6 +1,12 @@
 # Cognitive PM AI
 
-1 notes | Last updated: 2026-07-15
+2 notes | Last updated: 2026-07-30
+
+## 2026-07 — July 2026
+
+| Date | Note | Type |
+|------|------|------|
+| 2026-07-17 | [2026-07-17_AI_SDLC_Bootcamp_Glossary_–_Full_Term_Reference](2026-07-17_AI_SDLC_Bootcamp_Glossary_–_Full_Term_Reference.md) |  · `20-Learning/Cognitive-PM-AI` |
 
 ## 2025-01 — January 2025
 

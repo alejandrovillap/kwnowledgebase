@@ -1,17 +1,36 @@
 ---
-title: Integrated Consulting
-date: 2026-01-01
-type: resume
-technology: consulting
-status: active
-tags: ["integrated-consulting", epam, "epam-continuum", "consulting-framework", "value-creation", "delivery-process"]
-keywords: [integrated consulting, EPAM, EPAM Continuum, consulting framework, Frame, Investigate, Envision, Evaluate, Design, Launch, Operate, value creation]
-source: "notion-migration"
-project: ""
-certification: ""
+certification: ''
 confidence: high
+date: 2026-01-01
+keywords:
+- integrated consulting
+- EPAM
+- EPAM Continuum
+- consulting framework
+- Frame
+- Investigate
+- Envision
+- Evaluate
+- Design
+- Launch
+- Operate
+- value creation
+project: ''
+source: notion-migration
+status: active
+tags:
+- integrated-consulting
+- epam
+- epam-continuum
+- consulting-framework
+- value-creation
+- delivery-process
+target_folder: 10-Work
+technology: consulting
+title: Integrated Consulting
+type: resume
+updated: '2026-07-31'
 ---
-
 # Integrated Consulting
 
 The Integrated Consulting Framework is part of EPAM Consulting Offering. EPAM Continuum has been established as a value creation network (VCN) within EPAM and acts as a front-end for consulting offerings.

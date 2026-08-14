@@ -1,13 +1,20 @@
 # CCA-F Certification
 
-57 notes | Last updated: 2026-07-15
+56 notes | Last updated: 2026-07-30
+
+## 2026-07 — July 2026
+
+| Date | Note | Type |
+|------|------|------|
+| 2026-07-15 | [2025-01-01_Claude_Code_&_Multi-Agent_Systems_-_Architecture_Notes](2025-01-01_Claude_Code_&_Multi-Agent_Systems_-_Architecture_Notes.md) |  · `20-Learning/CCA-F` |
+| 2026-07-15 | [cinco-modos-de-claude-code](cinco-modos-de-claude-code.md) |  · `20-Learning/CCA-F` |
+| 2026-07-15 | [claude-code-summary](claude-code-summary.md) |  · `20-Learning/CCA-F` |
 
 ## 2026-04 — April 2026
 
 | Date | Note | Type |
 |------|------|------|
 | 2026-04-19 | [Python](2026-04-19_Python_merged.md) *(updated 2026-07-13)* | `reference` · `20-Learning/CCA-F` |
-| 2026-04-16 | [Cinco modos de Claude Code](cinco-modos-de-claude-code.md) | `resume` · `20-Learning/CCA-F` |
 | 2026-04-15 | [AI Foundations — lo que yo entiendo](2026-04-15_AI_Foundations_—_lo_que_yo_entiendo_merged.md) *(updated 2026-07-13)* | `resume` · `20-Learning/CCA-F` |
 | 2026-04-15 | [Agentic & RAG — lo que yo entiendo](agentic-rag-reflexion.md) | `question` · `20-Learning/CCA-F` |
 | 2026-04-15 | [Claude Code & CCA — lo que yo entiendo](claude-code-cca-reflexion.md) | `journal` · `20-Learning/CCA-F` |
@@ -29,7 +36,6 @@
 | 2026-04-02 | [MCP Project Setup — CLI Chatbot](mcp-project-setup.md) | `project` · `20-Learning/CCA-F` |
 | 2026-04-02 | [Prompt Caching](prompt-caching.md) | `resume` · `20-Learning/CCA-F` |
 | 2026-04-01 | [Extended thinking](extended-thinking.md) | `resume` · `20-Learning/CCA-F` |
-| 2026-04-01 | [Vision](vision.md) | `capture` · `20-Learning/CCA-F` |
 
 ## 2026-03 — March 2026
 
@@ -47,7 +53,6 @@
 | 2026-03-25 | [D5 - Context Management & Reliability](d5-context-management.md) | `resume` · `20-Learning/CCA-F` |
 | 2026-03-25 | [Fine grained tool calling](fine-grained-tool-calling.md) | `resume` · `20-Learning/CCA-F` |
 | 2026-03-24 | [AI Engineering](ai-engineering.md) | `resume` · `20-Learning/CCA-F` |
-| 2026-03-24 | [Claude Code Summary](claude-code-summary.md) | `resume` · `20-Learning/CCA-F` |
 | 2026-03-24 | [D2 - Tool Design & MCP Integration](d2-tool-design-mcp-integration.md) | `resume` · `20-Learning/CCA-F` |
 | 2026-03-24 | [D3 - Claude Code Configuration and Workflows](d3-claude-code-configuration.md) | `resume` · `20-Learning/CCA-F` |
 | 2026-03-23 | [Agentic loop and stop reason](agentic-loop-and-stop-reason.md) | `resume` · `20-Learning/CCA-F` |
@@ -72,9 +77,3 @@
 | Date | Note | Type |
 |------|------|------|
 | 2026-01-01 | [D1 — Agentic Architecture](d1-agentic-architecture.md) | `resume` · `20-Learning/CCA-F` |
-
-## 2025-01 — January 2025
-
-| Date | Note | Type |
-|------|------|------|
-| 2025-01-01 | [Claude Code & Multi-Agent Systems - Architecture Notes](2025-01-01_Claude_Code_&_Multi-Agent_Systems_-_Architecture_Notes.md) | `lesson-learned` · `20-Learning/CCA-F` |

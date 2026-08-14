@@ -1,12 +1,6 @@
 # Work & Projects
 
-58 notes | Last updated: 2026-07-15
-
-## 2026-07 — July 2026
-
-| Date | Note | Type |
-|------|------|------|
-| 2026-07-15 | [Guitar Soul Platform - Design & Architecture Brainstorm](2026-07-15_Guitar_Soul_Platform_-_Design_&_Architecture_Brainstorm.md) | `idea` · `10-Work` |
+51 notes | Last updated: 2026-07-30
 
 ## 2026-06 — June 2026
 
@@ -20,7 +14,6 @@
 |------|------|------|
 | 2026-03-21 | [AI Champion](ai-champion.md) | `reference` · `10-Work` |
 | 2026-03-21 | [Openspec](openspec.md) | `resume` · `10-Work` |
-| 2026-03-21 | [SDLC AI - DM Playbook](sdlc-ai-dm-playbook.md) | `reference` · `10-Work` |
 | 2026-03-21 | [SDLC AI](sdlc-ai.md) | `reference` · `10-Work` |
 | 2026-03-21 | [Spec-Kit](spec-kit.md) | `resume` · `10-Work` |
 | 2026-03-12 | [Product roadmap](product-roadmap.md) | `concept` · `10-Work` |
@@ -38,8 +31,6 @@
 | 2026-01-13 | [SAFe — Scaled Agile Framework](safe-scaled-agile.md) | `resume` · `10-Work` |
 | 2026-01-12 | [Collaborative Planning](collaborative-planning.md) | `resume` · `10-Work` |
 | 2026-01-12 | [Foster an Environment of Continuous Improvement](foster-continuous-improvement.md) | `concept` · `10-Work` |
-| 2026-01-12 | [LESS](less.md) | `resume` · `10-Work` |
-| 2026-01-12 | [Product Owner](product-owner.md) | `resume` · `10-Work` |
 | 2026-01-12 | [Project Coaching](project-coaching.md) | `concept` · `10-Work` |
 | 2026-01-12 | [Project Consulting](project-consulting.md) | `resume` · `10-Work` |
 | 2026-01-12 | [Promote Agile Mindset and Values](promote-agile-mindset.md) | `resume` · `10-Work` |
@@ -76,11 +67,8 @@
 | 2025-12-30 | [5 Levels of Conflict](5-levels-of-conflict.md) | `concept` · `10-Work` |
 | 2025-12-30 | [Agile Values — Guía de Aplicación](agile-values.md) | `concept` · `10-Work` |
 | 2025-12-30 | [Gulf of evaluation](gulf-of-evaluation.md) | `reference` · `10-Work` |
-| 2025-12-30 | [Lean Startup Methodology](lean-startup.md) | `resume` · `10-Work` |
 | 2025-12-30 | [Pillars](pillars.md) | `concept` · `10-Work` |
-| 2025-12-30 | [Systems thinking](systems-thinking.md) | `concept` · `10-Work` |
 | 2025-12-30 | [Values](values.md) | `concept` · `10-Work` |
-| 2025-12-30 | [VUCA](vuca.md) | `concept` · `10-Work` |
 
 ## 2025-01 — January 2025
 

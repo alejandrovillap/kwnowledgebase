@@ -948,6 +948,8 @@ main {
 .note-body a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
 .note-body a:hover { opacity: .8; }
 .note-body img { max-width: 100%; border-radius: 4px; margin: 8px 0; display: block; }
+.note-body .mermaid { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 16px; margin: 14px 0; overflow-x: auto; text-align: center; }
+.note-body .mermaid svg { max-width: 100%; height: auto; }
 
 /* ── Wikilinks ────────────────────────────────────────────────── */
 .wikilink {
@@ -1661,6 +1663,7 @@ main {
 }
 .stats-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
 </head>
 <body>
 
@@ -2011,15 +2014,21 @@ function renderMd(raw) {
 
     // Fenced code block
     if (line.startsWith('```')) {
-      const lang = esc(line.slice(3).trim());
+      const lang = line.slice(3).trim();
       const codeLines = [];
       i++;
       while (i < lines.length && !lines[i].startsWith('```')) {
-        codeLines.push(esc(lines[i]));
+        codeLines.push(lines[i]);
         i++;
       }
       i++; // skip closing ```
-      out.push(`<pre><code${lang ? ` class="lang-${lang}"` : ''}>${codeLines.join('\n')}</code></pre>`);
+      if (lang === 'mermaid') {
+        // Raw content — Mermaid.js parses it; do not HTML-escape
+        out.push(`<pre class="mermaid">${codeLines.join('\n')}</pre>`);
+      } else {
+        const escapedLang = esc(lang);
+        out.push(`<pre><code${escapedLang ? ` class="lang-${escapedLang}"` : ''}>${codeLines.map(l => esc(l)).join('\n')}</code></pre>`);
+      }
       continue;
     }
 
@@ -2185,6 +2194,17 @@ function openNoteById(id) {
 
   // Build outline from rendered headers
   buildOutline(note.body || '');
+
+  // Render Mermaid diagrams inside the freshly injected HTML
+  if (typeof mermaid !== 'undefined') {
+    const mNodes = inner.querySelectorAll('.mermaid:not([data-processed])');
+    if (mNodes.length) {
+      const isDark = document.documentElement.dataset.theme === 'dark' ||
+        (!document.documentElement.dataset.theme && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      mermaid.initialize({ startOnLoad: false, theme: isDark ? 'dark' : 'default', securityLevel: 'loose' });
+      mermaid.run({ nodes: mNodes });
+    }
+  }
 
   // Async: populate related notes
   if (semanticReady) loadRelatedNotes(id);

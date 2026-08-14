@@ -36,7 +36,15 @@ Rules:
 - Use *italics* for examples, clarifications, or secondary context
 - Do NOT add a title heading (it's already in frontmatter)
 - Do NOT add introductory phrases like "Here is the formatted note:"
-- Output ONLY the formatted Markdown body"""
+- Output ONLY the formatted Markdown body
+
+Diagram and Mermaid rules (CRITICAL):
+- If the text contains ```mermaid ... ``` blocks, preserve them VERBATIM — do not alter a single character inside the fence
+- If the text contains nested bullet lists that represent mind maps or hierarchies, preserve the indentation exactly
+- If the text contains markdown tables, preserve their column structure; you may align | separators for readability but never add or remove columns
+- Do NOT convert Mermaid blocks into plain text descriptions — they must stay as code fences
+- Do NOT "clean up" or "simplify" diagram-originated content — it was machine-generated from a visual and must be kept intact
+- If diagram content appears mid-paragraph mixed with prose, keep the mermaid block as its own fenced section and surround it with appropriate prose context"""
 
 
 def format_body(raw_text: str, title: str = "", note_type: str = "") -> str:

@@ -4023,7 +4023,7 @@ let serverOnline = false;
 
 async function checkServer() {
   try {
-    const r = await fetch(SERVER + '/embed/status', { method: 'GET', signal: AbortSignal.timeout(800) });
+    const r = await fetch(SERVER + '/embed/status', { method: 'GET', signal: AbortSignal.timeout(3000) });
     serverOnline = r.ok || r.status < 500;
   } catch {
     serverOnline = false;

@@ -126,6 +126,11 @@ def index():
     return send_file(DASHBOARD)
 
 
+@app.route("/favicon.ico")
+def favicon():
+    return "", 204
+
+
 @app.route("/upload", methods=["POST"])
 def upload():
     """

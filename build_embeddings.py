@@ -2,11 +2,11 @@
 """
 build_embeddings.py — Generate and store semantic embeddings for all KB notes.
 
-Uses sentence-transformers (all-MiniLM-L6-v2, ~80 MB, runs on CPU).
+Uses Voyage AI API (voyage-3-lite). Requires VOYAGE_API_KEY in .env.
 Embeddings are saved to embeddings.npz — a numpy archive with:
   - paths   : array of relative paths (string keys)
   - ids     : array of note IDs aligned with paths
-  - matrix  : (N, 384) float32 embedding matrix
+  - matrix  : (N, 512) float32 embedding matrix
 
 Usage:
     python build_embeddings.py           # index all notes
@@ -18,12 +18,16 @@ import argparse
 import hashlib
 import numpy as np
 from pathlib import Path
+from dotenv import load_dotenv
+
+load_dotenv(Path(__file__).parent / ".env")
 
 from build_index import load_notes, BASE, FRONTMATTER_RE
 
 EMBED_FILE  = BASE / "embeddings.npz"
 HASH_FILE   = BASE / "embeddings_hashes.json"
-MODEL_NAME  = "all-MiniLM-L6-v2"
+MODEL_NAME  = "voyage-3-lite"
+BATCH_SIZE  = 64
 MAX_CHARS   = 2000   # chars of body used per note (title + tags + excerpt)
 
 
@@ -50,9 +54,23 @@ def _hash(text: str) -> str:
     return hashlib.md5(text.encode()).hexdigest()
 
 
-def build_embeddings(force: bool = False) -> int:
-    from sentence_transformers import SentenceTransformer
+def _voyage_embed(texts: list[str], input_type: str = "document") -> list[np.ndarray]:
+    """Call Voyage AI API and return list of normalized float32 vectors."""
+    import voyageai
+    vo = voyageai.Client()
+    vecs = []
+    for i in range(0, len(texts), BATCH_SIZE):
+        batch = texts[i : i + BATCH_SIZE]
+        result = vo.embed(batch, model=MODEL_NAME, input_type=input_type)
+        for emb in result.embeddings:
+            v = np.array(emb, dtype=np.float32)
+            v /= np.linalg.norm(v) + 1e-9
+            vecs.append(v)
+        print(f"[embed] {min(i + BATCH_SIZE, len(texts))}/{len(texts)} embedidos")
+    return vecs
 
+
+def build_embeddings(force: bool = False) -> int:
     notes = load_notes()
     if not notes:
         print("[WARN] No notes found.")
@@ -69,9 +87,6 @@ def build_embeddings(force: bool = False) -> int:
         data = np.load(EMBED_FILE, allow_pickle=True)
         for path, vec in zip(data["paths"].tolist(), data["matrix"]):
             existing_matrix[path] = vec
-
-    print(f"[embed] Loading model: {MODEL_NAME}")
-    model = SentenceTransformer(MODEL_NAME)
 
     texts_to_embed, paths_to_embed, ids_to_embed = [], [], []
     skip_count = 0
@@ -93,12 +108,7 @@ def build_embeddings(force: bool = False) -> int:
     print(f"[embed] {skip_count} notas sin cambios (skip) · {len(texts_to_embed)} a embeber")
 
     if texts_to_embed:
-        new_vecs = model.encode(
-            texts_to_embed,
-            show_progress_bar=True,
-            batch_size=32,
-            normalize_embeddings=True,
-        )
+        new_vecs = _voyage_embed(texts_to_embed, input_type="document")
         for rel, vec in zip(paths_to_embed, new_vecs):
             existing_matrix[rel] = vec
 
@@ -136,16 +146,14 @@ def semantic_search(query: str, k: int = 10) -> list[dict]:
     if not EMBED_FILE.exists():
         return []
 
-    from sentence_transformers import SentenceTransformer
-    model = SentenceTransformer(MODEL_NAME)
-
     data = np.load(EMBED_FILE, allow_pickle=True)
     matrix = data["matrix"].astype(np.float32)
     paths  = data["paths"].tolist()
     ids    = data["ids"].tolist()
 
-    q_vec = model.encode([query], normalize_embeddings=True)[0].astype(np.float32)
-    scores = matrix @ q_vec          # cosine similarity (normalized)
+    q_vecs = _voyage_embed([query], input_type="query")
+    q_vec  = q_vecs[0]
+    scores = matrix @ q_vec
     top_k  = np.argsort(scores)[::-1][:k]
 
     return [

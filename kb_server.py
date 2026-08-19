@@ -53,25 +53,34 @@ def handle_exception(e):
 
 # ── Embedding index (loaded once at startup) ───────────────────────────────────
 
-_embed_model  = None
+_embed_ready  = False
 _embed_matrix = None   # (N, D) float32
 _embed_paths  = None   # list[str]
 _embed_ids    = None   # list[int]
 _embed_lock   = threading.Lock()
 
 
+def _voyage_encode(texts: list[str], input_type: str = "query") -> np.ndarray:
+    """Call Voyage AI and return (N, D) float32 matrix, rows normalized."""
+    import voyageai
+    vo = voyageai.Client()
+    result = vo.embed(texts, model="voyage-3-lite", input_type=input_type)
+    vecs = np.array(result.embeddings, dtype=np.float32)
+    norms = np.linalg.norm(vecs, axis=1, keepdims=True) + 1e-9
+    return vecs / norms
+
+
 def _load_embeddings():
-    global _embed_model, _embed_matrix, _embed_paths, _embed_ids
+    global _embed_ready, _embed_matrix, _embed_paths, _embed_ids
     if not EMBED_FILE.exists():
         return
     try:
-        from sentence_transformers import SentenceTransformer
         data = np.load(EMBED_FILE, allow_pickle=True)
         with _embed_lock:
             _embed_matrix = data["matrix"].astype(np.float32)
             _embed_paths  = data["paths"].tolist()
             _embed_ids    = data["ids"].tolist()
-            _embed_model  = SentenceTransformer("all-MiniLM-L6-v2")
+            _embed_ready  = True
         print(f"[embed] Loaded {_embed_matrix.shape[0]} embeddings")
     except Exception as e:
         print(f"[embed] Could not load embeddings: {e}")
@@ -264,17 +273,20 @@ def semantic_search():
         return jsonify({"error": "Missing query"}), 400
 
     with _embed_lock:
-        if _embed_model is None or _embed_matrix is None:
+        if not _embed_ready or _embed_matrix is None:
             return jsonify({"error": "Embeddings not ready. Run: python build_embeddings.py", "ready": False}), 503
+        matrix = _embed_matrix
+        paths  = _embed_paths
+        ids    = _embed_ids
 
-        q_vec  = _embed_model.encode([query], normalize_embeddings=True)[0].astype(np.float32)
-        scores = _embed_matrix @ q_vec
-        top_k  = np.argsort(scores)[::-1][:k]
+    q_vec  = _voyage_encode([query], input_type="query")[0]
+    scores = matrix @ q_vec
+    top_k  = np.argsort(scores)[::-1][:k]
 
-        results = [
-            {"id": int(_embed_ids[i]), "path": _embed_paths[i], "score": round(float(scores[i]), 4)}
-            for i in top_k
-        ]
+    results = [
+        {"id": int(ids[i]), "path": paths[i], "score": round(float(scores[i]), 4)}
+        for i in top_k
+    ]
 
     return jsonify({"results": results, "query": query, "ready": True})
 
@@ -283,7 +295,7 @@ def semantic_search():
 def embed_status():
     """Check if embeddings are loaded and ready."""
     with _embed_lock:
-        ready = _embed_model is not None and _embed_matrix is not None
+        ready = _embed_ready and _embed_matrix is not None
         n     = int(_embed_matrix.shape[0]) if ready else 0
     return jsonify({"ready": ready, "count": n})
 
@@ -312,16 +324,19 @@ def chat():
         return jsonify({"error": "Missing query"}), 400
 
     with _embed_lock:
-        if _embed_model is None or _embed_matrix is None:
+        if not _embed_ready or _embed_matrix is None:
             return jsonify({"error": "Embeddings not ready. Run: python build_embeddings.py"}), 503
+        matrix = _embed_matrix
+        paths  = _embed_paths
+        ids    = _embed_ids
 
-        q_vec  = _embed_model.encode([query], normalize_embeddings=True)[0].astype(np.float32)
-        scores = _embed_matrix @ q_vec
-        top_k  = np.argsort(scores)[::-1][:k]
-        raw_sources = [
-            {"id": int(_embed_ids[i]), "path": _embed_paths[i], "score": round(float(scores[i]), 4)}
-            for i in top_k if scores[i] > 0.15   # skip low-relevance notes
-        ]
+    q_vec  = _voyage_encode([query], input_type="query")[0]
+    scores = matrix @ q_vec
+    top_k  = np.argsort(scores)[::-1][:k]
+    raw_sources = [
+        {"id": int(ids[i]), "path": paths[i], "score": round(float(scores[i]), 4)}
+        for i in top_k if scores[i] > 0.15
+    ]
 
     # Read note bodies from disk (may have been edited)
     sources = []

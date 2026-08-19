@@ -582,7 +582,19 @@ def _vision(client: anthropic.Anthropic, img_b64: str, media_type: str, *, repai
     if raw.startswith("```"):
         parts = raw.split("```")
         raw = parts[1].lstrip("json").strip() if len(parts) > 1 else raw
-    result = json.loads(raw)
+    # Find outermost JSON object in case Claude added prose around it
+    brace_start = raw.find("{")
+    brace_end   = raw.rfind("}")
+    if brace_start != -1 and brace_end != -1:
+        raw = raw[brace_start : brace_end + 1]
+    try:
+        result = json.loads(raw)
+    except json.JSONDecodeError:
+        # Last resort: ask Claude to fix its own JSON
+        import re as _re
+        # Strip control characters that break JSON strings
+        raw_clean = _re.sub(r'[\x00-\x08\x0b\x0c\x0e-\x1f]', '', raw)
+        result = json.loads(raw_clean)
 
     # Tag the result with the detected type for downstream use
     result["content_type"] = content_type

@@ -517,6 +517,34 @@ def _sanitize_json(raw: str) -> str:
     return ''.join(out)
 
 
+def _regex_extract(raw: str) -> dict:
+    """Regex fallback when JSON parsing fails (e.g. unescaped quotes in text)."""
+    import re as _re
+    # The "text" field is always first; the next field is always "diagrams"
+    # Match greedily up to the last occurrence of the next-field marker
+    text_m = _re.search(
+        r'"text"\s*:\s*"(.*?)"\s*,\s*[\r\n]*\s*"(?:diagrams|confidence|uncertain_regions)"',
+        raw, _re.DOTALL
+    )
+    if text_m:
+        text_val = text_m.group(1).replace('\\n', '\n').replace('\\"', '"')
+        # Reconstruct parseable JSON for remaining fields
+        rest = '{"text":"",' + raw[text_m.end(1) + 1:].lstrip(', \r\n')
+        try:
+            d = json.loads(rest)
+            d['text'] = text_val
+            return d
+        except Exception:
+            pass
+    # Ultimate fallback: return raw text with safe defaults
+    return {
+        "text": raw,
+        "diagrams": [],
+        "confidence": "low",
+        "uncertain_regions": ["JSON parse failed — content extracted via fallback"],
+    }
+
+
 def _preprocess(img_data: bytes) -> bytes:
     """
     Prepare an image for Claude Vision:
@@ -619,16 +647,11 @@ def _vision(client: anthropic.Anthropic, img_b64: str, media_type: str, *, repai
         raw = raw[brace_start : brace_end + 1]
     try:
         result = json.loads(raw)
-    except json.JSONDecodeError as _e1:
-        sanitized = _sanitize_json(raw)
+    except json.JSONDecodeError:
         try:
-            result = json.loads(sanitized)
-        except json.JSONDecodeError as _e2:
-            import logging as _log
-            _log.getLogger("agent").error(
-                "[ocr] Raw response (first 800 chars): %s", repr(raw[:800])
-            )
-            raise _e2
+            result = json.loads(_sanitize_json(raw))
+        except json.JSONDecodeError:
+            result = _regex_extract(raw)
 
     # Tag the result with the detected type for downstream use
     result["content_type"] = content_type

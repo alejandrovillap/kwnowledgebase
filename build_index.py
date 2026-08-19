@@ -26,18 +26,27 @@ BASE = Path(__file__).parent
 SKIP_DIRS  = {"00-Inbox", ".git", "assets", "__pycache__", "_trash"}
 SKIP_FILES = {"_index.md"}
 
-INDEXED_FOLDERS = {
+_STATIC_FOLDERS = {
     "10-Work":                    "Work & Projects",
-    "20-Learning":                "Learning",
-    "20-Learning/CCA-F":          "CCA-F Certification",
-    "20-Learning/Certifications": "Certifications",
-    "20-Learning/Cognitive-PM-AI":"Cognitive PM AI",
-    "20-Learning/Antigravity":    "Antigravity",
-    "20-Learning/Gemini-Enterprise":"Gemini Enterprise",
     "40-Reference":               "Reference",
     "50-Archive":                 "Archive",
     "Journal":                    "Journal",
 }
+
+def _discover_folders() -> dict[str, str]:
+    """Return all note folders: static ones + auto-discovered subdirs of 20-Learning."""
+    base = Path(__file__).parent
+    folders = dict(_STATIC_FOLDERS)
+    learning = base / "20-Learning"
+    if learning.exists():
+        folders["20-Learning"] = "Learning"
+        for sub in sorted(learning.iterdir()):
+            if sub.is_dir() and not sub.name.startswith("."):
+                key = f"20-Learning/{sub.name}"
+                folders[key] = sub.name.replace("-", " ")
+    return folders
+
+INDEXED_FOLDERS = _discover_folders()
 
 FRONTMATTER_RE = re.compile(r"^---\s*\n(.*?)\n---\s*\n", re.DOTALL)
 

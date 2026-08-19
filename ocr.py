@@ -614,8 +614,16 @@ def _vision(client: anthropic.Anthropic, img_b64: str, media_type: str, *, repai
         raw = raw[brace_start : brace_end + 1]
     try:
         result = json.loads(raw)
-    except json.JSONDecodeError:
-        result = json.loads(_sanitize_json(raw))
+    except json.JSONDecodeError as _e1:
+        sanitized = _sanitize_json(raw)
+        try:
+            result = json.loads(sanitized)
+        except json.JSONDecodeError as _e2:
+            import logging as _log
+            _log.getLogger("agent").error(
+                "[ocr] Raw response (first 800 chars): %s", repr(raw[:800])
+            )
+            raise _e2
 
     # Tag the result with the detected type for downstream use
     result["content_type"] = content_type

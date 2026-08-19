@@ -1290,6 +1290,72 @@ main {
   display: none; box-shadow: 0 4px 14px rgba(0,0,0,.55);
 }
 
+/* ── Kanban overlay ─────────────────────────────────────────────── */
+.kanban-overlay {
+  position: fixed; inset: 0; z-index: 200;
+  background: var(--bg); display: none; flex-direction: column;
+}
+.kanban-overlay.open { display: flex; }
+.kanban-topbar {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 16px; border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.kanban-topbar-title { font-size: 14px; font-weight: 700; color: var(--text-1); margin-right: auto; }
+.kanban-body { display: flex; flex: 1; overflow: hidden; }
+.kanban-sidebar {
+  width: 220px; flex-shrink: 0; border-right: 1px solid var(--border);
+  overflow-y: auto; padding: 12px 8px; display: flex; flex-direction: column; gap: 4px;
+}
+.kanban-proj-item {
+  padding: 8px 10px; border-radius: var(--radius); cursor: pointer;
+  font-size: 13px; color: var(--text-2); transition: background .1s;
+  border: 1px solid transparent;
+}
+.kanban-proj-item:hover { background: var(--surface-2); color: var(--text-1); }
+.kanban-proj-item.active { background: var(--accent-bg); border-color: var(--accent); color: var(--text-1); font-weight: 600; }
+.kanban-proj-status { font-size: 10px; color: var(--text-3); margin-top: 2px; }
+.kanban-board {
+  flex: 1; display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 16px; padding: 16px; overflow-y: auto; align-items: start;
+}
+.kanban-col { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; display: flex; flex-direction: column; }
+.kanban-col-header {
+  padding: 10px 14px; font-size: 12px; font-weight: 700; letter-spacing: .06em;
+  text-transform: uppercase; color: var(--text-2); border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.kanban-col-count { font-size: 11px; background: var(--surface-2); border-radius: 10px; padding: 1px 7px; font-weight: 600; }
+.kanban-cards { padding: 8px; display: flex; flex-direction: column; gap: 6px; min-height: 80px; }
+.kanban-card {
+  background: var(--bg); border: 1px solid var(--border); border-radius: 6px;
+  padding: 9px 11px; cursor: pointer; transition: border-color .15s, box-shadow .15s;
+  font-size: 13px; color: var(--text-1); line-height: 1.4;
+}
+.kanban-card:hover { border-color: var(--accent); box-shadow: 0 2px 8px rgba(0,0,0,.15); }
+.kanban-card.done-card { opacity: .6; text-decoration: line-through; color: var(--text-3); }
+.kanban-card-note { font-size: 10px; color: var(--accent); margin-top: 4px; }
+.kanban-add-task {
+  margin: 6px 8px 8px; padding: 6px 10px; font-size: 12px; color: var(--text-3);
+  background: none; border: 1px dashed var(--border); border-radius: 6px;
+  cursor: pointer; text-align: left; transition: border-color .15s, color .15s;
+}
+.kanban-add-task:hover { border-color: var(--accent); color: var(--accent); }
+.kanban-empty { padding: 20px; text-align: center; color: var(--text-3); font-size: 12px; }
+.kanban-new-proj {
+  margin: 8px; padding: 7px 10px; font-size: 12px; color: var(--accent);
+  background: none; border: 1px dashed var(--border); border-radius: 6px; cursor: pointer;
+}
+.kanban-new-proj:hover { background: var(--accent-bg); }
+/* move buttons on card hover */
+.kanban-card-actions { display: none; gap: 4px; margin-top: 6px; }
+.kanban-card:hover .kanban-card-actions { display: flex; }
+.kanban-move-btn {
+  font-size: 10px; padding: 2px 6px; border-radius: 4px; border: 1px solid var(--border);
+  background: var(--surface); color: var(--text-2); cursor: pointer;
+}
+.kanban-move-btn:hover { background: var(--accent-bg); color: var(--accent); }
+
 /* ── Quick capture modal ────────────────────────────────────────── */
 .qc-overlay {
   position: fixed; inset: 0;
@@ -1682,6 +1748,7 @@ main {
   <button class="theme-btn" onclick="openQuickCapture()" title="Crear nota nueva rápido">✏️ Nueva</button>
   <button class="theme-btn" onclick="openStats()" title="Estadísticas del vault">📊 Stats</button>
   <button id="graph-btn" class="theme-btn" onclick="openGraph()" title="Grafo de conocimiento">⬡ Grafo</button>
+  <button id="kanban-btn" class="theme-btn" onclick="openKanban()" title="Proyectos y tareas (Ctrl+P)">📋 Kanban</button>
   <button id="chat-btn" class="theme-btn" onclick="openChat()" title="Chat con tu vault (requiere servidor)">💬 Chat</button>
   <button id="semantic-btn" class="theme-btn" onclick="toggleSemantic()" title="Búsqueda semántica (requiere servidor)">⚡ Semántica</button>
   <button id="capture-btn" class="capture-btn offline" onclick="openCapture()" title="Capturar foto / subir archivo">
@@ -1793,6 +1860,21 @@ main {
     <div class="pipeline-log" id="pipeline-log"></div>
     <div class="modal-actions">
       <button class="btn-cancel" onclick="closeCapture()">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Kanban overlay -->
+<div id="kanban-overlay" class="kanban-overlay">
+  <div class="kanban-topbar">
+    <span class="kanban-topbar-title">📋 Proyectos</span>
+    <button class="graph-ctrl" onclick="openKanbanNewProject()">+ Nuevo proyecto</button>
+    <button class="graph-ctrl" onclick="closeKanban()">✕ Cerrar</button>
+  </div>
+  <div class="kanban-body">
+    <div class="kanban-sidebar" id="kanban-sidebar"></div>
+    <div class="kanban-board" id="kanban-board">
+      <div class="kanban-empty" style="grid-column:1/-1">Selecciona un proyecto</div>
     </div>
   </div>
 </div>
@@ -3343,6 +3425,150 @@ function _buildGraphData() {
   _gEdges = edges.map(e => ({si: idxMap[e.s], ti: idxMap[e.t]}));
 }
 
+// ── Kanban ────────────────────────────────────────────────────────
+
+let _kProjects = (DATA.projects || []).map(p => JSON.parse(JSON.stringify(p)));
+let _kActiveId = null;
+
+function openKanban() {
+  document.getElementById('kanban-overlay').classList.add('open');
+  _renderKanbanSidebar();
+  if (_kProjects.length) _kSelectProject(_kProjects[0].id);
+}
+
+function closeKanban() {
+  document.getElementById('kanban-overlay').classList.remove('open');
+}
+
+function _renderKanbanSidebar() {
+  const el = document.getElementById('kanban-sidebar');
+  const statusLabel = { active: 'activo', in_progress: 'en progreso', done: 'completado', paused: 'pausado' };
+  el.innerHTML = _kProjects.map(p => `
+    <div class="kanban-proj-item${p.id === _kActiveId ? ' active' : ''}" onclick="_kSelectProject(${p.id})">
+      ${esc(p.title)}
+      <div class="kanban-proj-status">${statusLabel[p.status] || p.status} · ${_kTotalTasks(p)} tareas</div>
+    </div>`).join('') +
+    `<button class="kanban-new-proj" onclick="openKanbanNewProject()">+ Nuevo proyecto</button>`;
+}
+
+function _kTotalTasks(p) {
+  return (p.tasks.backlog||[]).length + (p.tasks.in_progress||[]).length + (p.tasks.done||[]).length;
+}
+
+function _kSelectProject(id) {
+  _kActiveId = id;
+  _renderKanbanSidebar();
+  _renderKanbanBoard();
+}
+
+function _renderKanbanBoard() {
+  const p = _kProjects.find(x => x.id === _kActiveId);
+  if (!p) return;
+  const board = document.getElementById('kanban-board');
+  const cols = [
+    { key: 'backlog',     label: 'Backlog',      color: '#6b7280' },
+    { key: 'in_progress', label: 'In Progress',  color: '#f59e0b' },
+    { key: 'done',        label: 'Done',         color: '#34d399' },
+  ];
+  board.innerHTML = cols.map(col => {
+    const tasks = p.tasks[col.key] || [];
+    const cards = tasks.map((t, i) => {
+      const moveLeft  = col.key !== 'backlog'     ? `<button class="kanban-move-btn" onclick="_kMoveTask(${p.id},'${col.key}',${i},'left')">← Atrás</button>` : '';
+      const moveRight = col.key !== 'done'        ? `<button class="kanban-move-btn" onclick="_kMoveTask(${p.id},'${col.key}',${i},'right')">→ Adelante</button>` : '';
+      const noteLink  = t.note ? `<div class="kanban-card-note" onclick="closeKanban();openNoteByPath('${esc(t.note)}')">📎 ${esc(t.note.split('/').pop())}</div>` : '';
+      return `<div class="kanban-card${col.key==='done'?' done-card':''}">
+        ${esc(t.text)}
+        ${noteLink}
+        <div class="kanban-card-actions">${moveLeft}${moveRight}
+          <button class="kanban-move-btn" style="color:#f87171" onclick="_kDeleteTask(${p.id},'${col.key}',${i})">✕</button>
+        </div>
+      </div>`;
+    }).join('');
+    return `<div class="kanban-col">
+      <div class="kanban-col-header" style="border-top:3px solid ${col.color}">
+        ${col.label} <span class="kanban-col-count">${tasks.length}</span>
+      </div>
+      <div class="kanban-cards">${cards}</div>
+      <button class="kanban-add-task" onclick="_kAddTask(${p.id},'${col.key}')">+ Agregar tarea</button>
+    </div>`;
+  }).join('');
+}
+
+const _COL_ORDER = ['backlog', 'in_progress', 'done'];
+
+function _kMoveTask(projId, fromCol, taskIdx, dir) {
+  const p = _kProjects.find(x => x.id === projId);
+  if (!p) return;
+  const fi = _COL_ORDER.indexOf(fromCol);
+  const toCol = dir === 'right' ? _COL_ORDER[fi + 1] : _COL_ORDER[fi - 1];
+  if (!toCol) return;
+  const [task] = p.tasks[fromCol].splice(taskIdx, 1);
+  task.done = toCol === 'done';
+  p.tasks[toCol].push(task);
+  _renderKanbanBoard();
+  _kSaveProject(p);
+}
+
+function _kDeleteTask(projId, col, idx) {
+  const p = _kProjects.find(x => x.id === projId);
+  if (!p) return;
+  p.tasks[col].splice(idx, 1);
+  _renderKanbanBoard();
+  _kSaveProject(p);
+}
+
+function _kAddTask(projId, col) {
+  const text = prompt('Nueva tarea:');
+  if (!text || !text.trim()) return;
+  const p = _kProjects.find(x => x.id === projId);
+  if (!p) return;
+  p.tasks[col].push({ text: text.trim(), done: col === 'done', note: null });
+  _renderKanbanBoard();
+  _kSaveProject(p);
+}
+
+async function _kSaveProject(p) {
+  if (!serverOnline) return;
+  const cols = { backlog: '## Backlog', in_progress: '## In Progress', done: '## Done' };
+  const fm = `---\ntitle: ${p.title}\ntype: project\nstatus: ${p.status}\ntags: [${p.tags.join(', ')}]\ncreated: ${p.created}\n---\n\n`;
+  let body = '';
+  for (const [key, header] of Object.entries(cols)) {
+    body += header + '\n';
+    for (const t of (p.tasks[key] || [])) {
+      const check = t.done ? '[x]' : '[ ]';
+      body += `- ${check} ${t.text}${t.note ? `\n  note: [[${t.note}]]` : ''}\n`;
+    }
+    body += '\n';
+  }
+  await fetch(`${SERVER}/note/save`, {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ path: p.path, content: fm + body })
+  });
+}
+
+function openKanbanNewProject() {
+  const title = prompt('Nombre del proyecto:');
+  if (!title || !title.trim()) return;
+  const slug = title.trim().toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+  const newP = {
+    id: _kProjects.length,
+    title: title.trim(),
+    status: 'active',
+    tags: [],
+    created: new Date().toISOString().slice(0, 10),
+    path: `Kanban/${slug}.md`,
+    tasks: { backlog: [], in_progress: [], done: [] }
+  };
+  _kProjects.push(newP);
+  _kSaveProject(newP);
+  _kSelectProject(newP.id);
+}
+
+function openNoteByPath(relPath) {
+  const note = DATA.notes.find(n => n.path === relPath || n.path.endsWith(relPath));
+  if (note) openNoteById(note.id);
+}
+
 function openGraph() {
   document.getElementById('graph-overlay').classList.add('open');
   _buildGraphData();
@@ -3790,7 +4016,9 @@ function buildStats() {
 }
 
 // ── Server detection ───────────────────────────────────────────
-const SERVER = 'http://127.0.0.1:5000';
+const SERVER = (location.hostname === 'localhost' || location.hostname === '127.0.0.1')
+  ? 'http://127.0.0.1:5000'
+  : `${location.protocol}//${location.hostname}:5000`;
 let serverOnline = false;
 
 async function checkServer() {
@@ -3905,6 +4133,7 @@ document.addEventListener('keydown', e => {
       case 'n': if (!inInput) { e.preventDefault(); openQuickCapture(); } return;
       case 'f': if (!inInput) { e.preventDefault(); document.getElementById('search')?.focus(); } return;
       case 'g': if (!inInput) { e.preventDefault(); openGraph(); } return;
+      case 'p': if (!inInput) { e.preventDefault(); openKanban(); } return;
       case 'd': if (!inInput) { e.preventDefault(); _openDailyNote(); } return;
       case '\\': e.preventDefault(); toggleSidebar(); return;
       case 't': if (e.shiftKey) { e.preventDefault(); toggleTheme(); } return;
@@ -4457,6 +4686,70 @@ def _read_body(md_path: Path) -> str:
         return ""
 
 
+def load_projects() -> list[dict]:
+    """Parse all .md files in Kanban/ folder into project dicts."""
+    kanban_dir = BASE / "Kanban"
+    if not kanban_dir.exists():
+        return []
+
+    projects = []
+    for idx, path in enumerate(sorted(kanban_dir.glob("*.md"))):
+        text = path.read_text(encoding="utf-8")
+        m = FRONTMATTER_RE.match(text)
+        fm = {}
+        if m:
+            try:
+                import yaml
+                fm = yaml.safe_load(m.group(1)) or {}
+            except Exception:
+                pass
+        body = text[m.end():] if m else text
+
+        tasks = {"backlog": [], "in_progress": [], "done": []}
+        current = None
+        SECTION_MAP = {
+            "backlog": "backlog",
+            "in progress": "in_progress",
+            "in_progress": "in_progress",
+            "done": "done",
+            "hecho": "done",
+            "en progreso": "in_progress",
+        }
+        for line in body.split("\n"):
+            h = line.strip().lstrip("#").strip().lower()
+            if line.startswith("##") and h in SECTION_MAP:
+                current = SECTION_MAP[h]
+                continue
+            if current and line.strip().startswith("- ["):
+                done = line.strip().startswith("- [x]")
+                text_part = line.strip()[5:].strip()
+                note_link = None
+                if "\n  note:" in line or "  note:" in line:
+                    pass  # handled below via next line
+                # extract inline note: [[path]]
+                import re as _re
+                note_m = _re.search(r'note:\s*\[\[([^\]]+)\]\]', text_part)
+                if note_m:
+                    note_link = note_m.group(1)
+                    text_part = text_part[:note_m.start()].strip()
+                tasks[current].append({
+                    "text": text_part,
+                    "done": done,
+                    "note": note_link,
+                })
+
+        projects.append({
+            "id":     idx,
+            "title":  fm.get("title", path.stem),
+            "status": fm.get("status", "active"),
+            "tags":   fm.get("tags", []) or [],
+            "created": str(fm.get("created", "")),
+            "path":   f"Kanban/{path.name}",
+            "tasks":  tasks,
+        })
+    return projects
+
+
 def build_dashboard(out_path: Path | None = None) -> Path:
     notes_raw = load_notes()
 
@@ -4480,7 +4773,8 @@ def build_dashboard(out_path: Path | None = None) -> Path:
         by_folder[n["folder"]] += 1
 
     data = {
-        "notes": notes_json,
+        "notes":    notes_json,
+        "projects": load_projects(),
         "stats": {
             "total":        len(notes_json),
             "by_folder":    dict(by_folder),

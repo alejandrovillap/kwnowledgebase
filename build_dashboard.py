@@ -4216,7 +4216,7 @@ function handleFileSelect(e) {
   const file = e.target.files[0];
   if (!file) return;
   document.getElementById('drop-label').textContent = file.name;
-  document.getElementById('upload-btn').style.display = '';
+  document.getElementById('upload-btn').style.display = 'flex';
 }
 
 function uploadSelectedFile() {
@@ -4237,7 +4237,7 @@ dz.addEventListener('drop', e => {
 
 async function uploadFile(file) {
   const log = document.getElementById('pipeline-log');
-  log.style.display = '';
+  log.style.display = 'block';
   log.innerHTML = `<div>Subiendo: <strong>${file.name}</strong> (${(file.size/1024).toFixed(1)} KB)…</div>`;
 
   const fd = new FormData();

@@ -594,7 +594,7 @@ def _vision(client: anthropic.Anthropic, img_b64: str, media_type: str, *, repai
     # Step 2: full extraction with the specialized prompt (Sonnet)
     msg = client.messages.create(
         model="claude-sonnet-4-6",
-        max_tokens=4096,
+        max_tokens=8192,
         system=OCR_SYSTEM,
         messages=[{
             "role": "user",
@@ -604,6 +604,11 @@ def _vision(client: anthropic.Anthropic, img_b64: str, media_type: str, *, repai
             ],
         }],
     )
+    if msg.stop_reason == "max_tokens":
+        raise ValueError(
+            f"OCR response truncated (max_tokens reached). "
+            f"Input was too large — try a smaller image or fewer pages."
+        )
     raw = msg.content[0].text.strip()
     if raw.startswith("```"):
         parts = raw.split("```")

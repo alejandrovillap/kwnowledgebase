@@ -15,6 +15,7 @@ Then open http://localhost:5000 in your browser.
 """
 
 import os
+import sys
 import json
 import shutil
 import subprocess
@@ -24,6 +25,8 @@ import time
 import numpy as np
 from pathlib import Path
 from datetime import datetime
+
+PYTHON = sys.executable
 
 import anthropic
 from dotenv import load_dotenv
@@ -96,7 +99,7 @@ def _run_pipeline(file_path: Path):
         env = os.environ.copy()
         env["PYTHONUNBUFFERED"] = "1"
         proc = subprocess.Popen(
-            ["python", str(BASE / "agent.py"), str(file_path)],
+            [PYTHON, str(BASE / "agent.py"), str(file_path)],
             cwd=str(BASE),
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
@@ -234,7 +237,7 @@ def save_note():
     def rebuild():
         try:
             subprocess.run(
-                ["python", str(BASE / "build_dashboard.py")],
+                [PYTHON, str(BASE / "build_dashboard.py")],
                 cwd=str(BASE), capture_output=True
             )
         except Exception:
@@ -475,9 +478,9 @@ def note_from_url():
     except Exception as exc:
         return jsonify({"error": str(exc)}), 500
 
-    subprocess.run(["python", str(BASE / "build_dashboard.py")], cwd=str(BASE), capture_output=True)
+    subprocess.run([PYTHON, str(BASE / "build_dashboard.py")], cwd=str(BASE), capture_output=True)
     threading.Thread(target=lambda: subprocess.run(
-        ["python", str(BASE / "build_embeddings.py")], cwd=str(BASE), capture_output=True),
+        [PYTHON, str(BASE / "build_embeddings.py")], cwd=str(BASE), capture_output=True),
         daemon=True).start()
 
     import os
@@ -528,7 +531,7 @@ def move_note():
     dest.write_text(content, encoding="utf-8")
 
     new_rel = str(dest.relative_to(BASE)).replace("\\", "/")
-    subprocess.run(["python", str(BASE / "build_dashboard.py")], cwd=str(BASE), capture_output=True)
+    subprocess.run([PYTHON, str(BASE / "build_dashboard.py")], cwd=str(BASE), capture_output=True)
     return jsonify({"ok": True, "path": new_rel})
 
 
@@ -569,9 +572,9 @@ def delete_note():
         trash_dest.write_text(f"---\n_trash_source: {rel}\n---\n" + content, encoding="utf-8")
 
     dest.unlink()
-    subprocess.run(["python", str(BASE / "build_dashboard.py")], cwd=str(BASE), capture_output=True)
+    subprocess.run([PYTHON, str(BASE / "build_dashboard.py")], cwd=str(BASE), capture_output=True)
     threading.Thread(target=lambda: subprocess.run(
-        ["python", str(BASE / "build_embeddings.py")], cwd=str(BASE), capture_output=True),
+        [PYTHON, str(BASE / "build_embeddings.py")], cwd=str(BASE), capture_output=True),
         daemon=True).start()
     return jsonify({"ok": True})
 
@@ -630,7 +633,7 @@ def trash_restore():
         return jsonify({"error": "no source path in trash metadata"}), 400
 
     src.unlink()
-    subprocess.run(["python", str(BASE / "build_dashboard.py")], cwd=str(BASE), capture_output=True)
+    subprocess.run([PYTHON, str(BASE / "build_dashboard.py")], cwd=str(BASE), capture_output=True)
     return jsonify({"ok": True, "restored_to": source})
 
 
@@ -671,12 +674,12 @@ def create_note():
     except Exception as exc:
         return jsonify({"error": str(exc)}), 500
 
-    subprocess.run(["python", str(BASE / "build_dashboard.py")],
+    subprocess.run([PYTHON, str(BASE / "build_dashboard.py")],
                    cwd=str(BASE), capture_output=True)
 
     threading.Thread(
         target=lambda: subprocess.run(
-            ["python", str(BASE / "build_embeddings.py")],
+            [PYTHON, str(BASE / "build_embeddings.py")],
             cwd=str(BASE), capture_output=True),
         daemon=True).start()
 

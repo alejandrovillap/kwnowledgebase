@@ -1854,12 +1854,13 @@ main {
     <div class="drop-zone" id="drop-zone">
       <input type="file" id="file-input" accept="image/*,.pdf" onchange="handleFileSelect(event)">
       <div class="drop-icon">📂</div>
-      <div class="drop-label">Arrastra un archivo aquí</div>
+      <div class="drop-label" id="drop-label">Arrastra un archivo aquí</div>
       <div class="drop-hint">PNG · JPG · HEIC · PDF</div>
     </div>
     <div class="pipeline-log" id="pipeline-log"></div>
     <div class="modal-actions">
       <button class="btn-cancel" onclick="closeCapture()">Cerrar</button>
+      <button class="camera-btn" id="upload-btn" style="display:none" onclick="uploadSelectedFile()">⬆ Subir</button>
     </div>
   </div>
 </div>
@@ -4212,6 +4213,13 @@ function triggerCamera(mode) {
 
 function handleFileSelect(e) {
   const file = e.target.files[0];
+  if (!file) return;
+  document.getElementById('drop-label').textContent = file.name;
+  document.getElementById('upload-btn').style.display = '';
+}
+
+function uploadSelectedFile() {
+  const file = document.getElementById('file-input').files[0];
   if (file) uploadFile(file);
 }
 

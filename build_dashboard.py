@@ -1851,8 +1851,8 @@ main {
       <button class="camera-btn" onclick="triggerCamera('capture')">📷 Cámara</button>
       <button class="camera-btn" onclick="triggerCamera('gallery')">🖼️ Galería / PDF</button>
     </div>
-    <div class="drop-zone" id="drop-zone">
-      <input type="file" id="file-input" accept="image/*,.pdf" onchange="handleFileSelect(event)">
+    <input type="file" id="file-input" accept="image/*,.pdf" style="display:none" onchange="handleFileSelect(event)">
+    <div class="drop-zone" id="drop-zone" onclick="document.getElementById('file-input').click()">
       <div class="drop-icon">📂</div>
       <div class="drop-label" id="drop-label">Arrastra un archivo aquí</div>
       <div class="drop-hint">PNG · JPG · HEIC · PDF</div>
@@ -4208,6 +4208,7 @@ function triggerCamera(mode) {
   } else {
     inp.removeAttribute('capture');
   }
+  inp.value = '';
   inp.click();
 }
 

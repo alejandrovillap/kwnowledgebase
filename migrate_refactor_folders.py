@@ -28,6 +28,21 @@ DEPRECATED = [
     BASE / "20-Learning" / "Certifications",
 ]
 
+# Micro-folders created by the old NEW SUBFOLDER RULE — map them to canonical folders
+MICRO_FOLDER_MAP = {
+    "20-Learning/Coaching-ICF":   "20-Learning/Coaching",
+    "20-Learning/Coaching-Metho": "20-Learning/Coaching",
+    "20-Learning/Coaching-Frame": "20-Learning/Coaching",
+    "20-Learning/Coaching-Conve": "20-Learning/Coaching",
+    "20-Learning/RPA-Platform":   "20-Learning/RPA",
+    "20-Learning/RPA-Tools":      "20-Learning/RPA",
+    "20-Learning/RPA-Frameworks": "20-Learning/RPA",
+    "20-Learning/Markdown":       "20-Learning",
+    "20-Learning/Frameworks":     "20-Learning",
+    "20-Learning/Prompt-Engineering": "20-Learning",
+    "20-Learning/Prompt-En":      "20-Learning",
+}
+
 # Folders that STAY (used for fallback)
 FALLBACK_FOLDER = "20-Learning"
 
@@ -185,6 +200,74 @@ def migrate(dry_run: bool = False):
                 print(f"\n  [DELETE] Carpeta {src_dir.name} eliminada (vacía)")
             else:
                 print(f"\n  [WARN]   {src_dir.name} aún tiene {len(remaining)} archivos — revisar manualmente")
+
+    # ── Consolidate micro-folders ──────────────────────────────────
+    print(f"\n{'='*60}")
+    print("Consolidando micro-carpetas de 20-Learning…")
+    print(f"{'='*60}")
+
+    for micro_key, canonical_key in MICRO_FOLDER_MAP.items():
+        micro_path = BASE / Path(micro_key.replace("/", "/"))
+        if not micro_path.exists():
+            continue
+
+        mds = sorted(micro_path.rglob("*.md"))
+        if not mds:
+            if not dry_run:
+                shutil.rmtree(micro_path, ignore_errors=True)
+            continue
+
+        print(f"\n  {micro_key}  ({len(mds)} notas)  →  {canonical_key}")
+        for md in mds:
+            fm, body = _read_note(md)
+            dest = _new_path(canonical_key, md.stem)
+            print(f"    {md.name} → {dest.relative_to(BASE)}")
+            if not dry_run:
+                new_fm = dict(fm)
+                new_fm["target_folder"] = canonical_key
+                fm_yaml = yaml.dump(new_fm, allow_unicode=True, default_flow_style=False)
+                new_content = f"---\n{fm_yaml}---\n{body}"
+                dest.write_text(new_content, encoding="utf-8")
+                md.unlink()
+            moved += 1
+
+        if not dry_run and micro_path.exists():
+            remaining = list(micro_path.rglob("*.md"))
+            if not remaining:
+                shutil.rmtree(micro_path, ignore_errors=True)
+                print(f"    [DELETE] {micro_key} eliminada (vacía)")
+
+    # Also scan for any other unknown 20-Learning/* subfolders not in MICRO_FOLDER_MAP
+    learning_path = BASE / "20-Learning"
+    known_sub = {
+        "PMI-ACP", "CCA-F", "Cognitive-PM-AI", "Antigravity",
+        "Gemini-Enterprise", "RPA", "Coaching",
+    }
+    if learning_path.exists():
+        for sub in sorted(learning_path.iterdir()):
+            if sub.is_dir() and sub.name not in known_sub:
+                mds = sorted(sub.rglob("*.md"))
+                if not mds:
+                    if not dry_run:
+                        shutil.rmtree(sub, ignore_errors=True)
+                    continue
+                print(f"\n  [UNKNOWN] 20-Learning/{sub.name}  ({len(mds)} notas) → 20-Learning")
+                for md in mds:
+                    fm, body = _read_note(md)
+                    dest = _new_path("20-Learning", md.stem)
+                    print(f"    {md.name} → {dest.relative_to(BASE)}")
+                    if not dry_run:
+                        new_fm = dict(fm)
+                        new_fm["target_folder"] = "20-Learning"
+                        fm_yaml = yaml.dump(new_fm, allow_unicode=True, default_flow_style=False)
+                        new_content = f"---\n{fm_yaml}---\n{body}"
+                        dest.write_text(new_content, encoding="utf-8")
+                        md.unlink()
+                    moved += 1
+                if not dry_run and sub.exists():
+                    if not list(sub.rglob("*.md")):
+                        shutil.rmtree(sub, ignore_errors=True)
+                        print(f"    [DELETE] 20-Learning/{sub.name} eliminada (vacía)")
 
     print(f"\n{'='*60}")
     prefix = "[DRY-RUN] " if dry_run else ""

@@ -37,6 +37,8 @@ FOLDER_MAP: dict[str, Path] = {
     "20-Learning/Cognitive-PM-AI":  BASE / "20-Learning" / "Cognitive-PM-AI",
     "20-Learning/Antigravity":      BASE / "20-Learning" / "Antigravity",
     "20-Learning/Gemini-Enterprise":BASE / "20-Learning" / "Gemini-Enterprise",
+    "20-Learning/RPA":              BASE / "20-Learning" / "RPA",
+    "20-Learning/Coaching":         BASE / "20-Learning" / "Coaching",
     "Journal":                      BASE / "Journal",
 }
 
@@ -45,7 +47,8 @@ FOLDER_DEPTH: dict[str, int] = {
     "10-Work": 1, "20-Learning": 1, "Journal": 1,
     "20-Learning/PMI-ACP": 2, "20-Learning/Antigravity": 2,
     "20-Learning/Gemini-Enterprise": 2, "20-Learning/CCA-F": 2,
-    "20-Learning/Cognitive-PM-AI": 2,
+    "20-Learning/Cognitive-PM-AI": 2, "20-Learning/RPA": 2,
+    "20-Learning/Coaching": 2,
 }
 
 
@@ -65,9 +68,9 @@ def _resolve_folder(folder_key: str) -> tuple[Path, int]:
             path = BASE / "20-Learning" / subfolder
             return path, 2
 
-    # Fallback to 40-Reference
-    print(f"[WARN] Unknown folder '{folder_key}', using 40-Reference")
-    return FOLDER_MAP["40-Reference"], 1
+    # Fallback to 20-Learning
+    print(f"[WARN] Unknown folder '{folder_key}', using 20-Learning")
+    return FOLDER_MAP["20-Learning"], 1
 
 
 def _slug(text: str) -> str:
@@ -145,7 +148,7 @@ def update_note(
         src = Path(source_path)
         shutil.move(str(src), PROCESSED / src.name)
 
-    folder_key = fm.get("target_folder", "40-Reference")
+    folder_key = fm.get("target_folder", "20-Learning")
     title      = fm.get("title", existing_md.stem)
     print(f"[UPDATE] -> {existing_md.relative_to(BASE)}")
     print(f"     folder: {folder_key} | updated: {fm['updated']}")
@@ -174,7 +177,7 @@ def file_note(
     if source_path:
         meta["source"] = Path(source_path).name
 
-    folder_key = meta.get("target_folder") or "40-Reference"
+    folder_key = meta.get("target_folder") or "20-Learning"
     dest_dir, _ = _resolve_folder(folder_key)
     dest_dir.mkdir(parents=True, exist_ok=True)
 

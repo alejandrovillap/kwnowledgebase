@@ -2095,6 +2095,16 @@ main {
 const DATA        = __DATA__;
 const FOLDER_META = __FOLDER_META__;
 
+function _folderLabel(key) {
+  if (FOLDER_META[key]?.label) return FOLDER_META[key].label;
+  // Extract last segment for unknown subfolders (e.g. "20-Learning/Foo" → "Foo")
+  const parts = key.split('/');
+  return parts[parts.length - 1];
+}
+function _folderColor(key) {
+  return FOLDER_META[key]?.color || '#94a3b8';
+}
+
 let activeFolder  = null;
 let activeTag     = null;
 let activeType    = null;
@@ -2630,7 +2640,7 @@ function buildSidebar() {
   Object.entries(DATA.stats.by_folder)
     .sort((a, b) => b[1] - a[1])
     .forEach(([key, count]) => {
-      nav.appendChild(makeFolder(key, FOLDER_META[key]?.label || key, count, FOLDER_META[key]?.color));
+      nav.appendChild(makeFolder(key, _folderLabel(key), count, _folderColor(key)));
     });
 }
 

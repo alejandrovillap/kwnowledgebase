@@ -2413,6 +2413,16 @@ function propsTagKeydown(e) {
   } else if (e.key === 'Escape') { closeProps(); }
 }
 
+// Quote a scalar for YAML frontmatter — single-quotes if it contains special chars
+function _yamlStr(v) {
+  if (v === null || v === undefined) return "''";
+  const s = String(v);
+  if (s === '') return "''";
+  if (/[:#\[\]{}|>&*!,?]/.test(s) || /^[-?'"]/.test(s) || s !== s.trim())
+    return `'${s.replace(/'/g, "''")}'`;
+  return s;
+}
+
 async function saveProps() {
   if (!_propsNoteId) return;
   const note = DATA.notes.find(n => n.id === _propsNoteId);
@@ -2424,56 +2434,59 @@ async function saveProps() {
   msg.textContent = 'Guardando…';
   msg.className = 'props-status';
 
-  const newTitle  = document.getElementById('props-title-input').value.trim();
-  const newType   = document.getElementById('props-type').value;
-  const newStatus = document.getElementById('props-status-input').value.trim();
-  const newTags   = [..._propsTags];
-
-  // Parse and patch frontmatter
-  const fmRe = /^---\n([\s\S]*?)\n---\n?/;
-  const m = _propsRaw.match(fmRe);
-  let body = _propsRaw;
-  let fm = {};
-  if (m) {
-    body = _propsRaw.slice(m[0].length);
-    // Parse key: value lines manually (avoids needing js-yaml)
-    m[1].split('\n').forEach(line => {
-      const kv = line.match(/^(\w+):\s*(.*)/);
-      if (kv) fm[kv[1]] = kv[2].trim().replace(/^['"]|['"]$/g, '');
-    });
-    // Parse tags array
-    const tagBlock = m[1].match(/^tags:\n((?:\s*-\s*.+\n?)*)/m);
-    if (tagBlock) fm._tagsArr = tagBlock[1].split('\n').map(l => l.replace(/^\s*-\s*/,'').trim()).filter(Boolean);
-    else {
-      const inline = m[1].match(/^tags:\s*\[([^\]]*)\]/m);
-      if (inline) fm._tagsArr = inline[1].split(',').map(s => s.trim().replace(/^['"]|['"]$/g,'')).filter(Boolean);
-      else fm._tagsArr = [];
-    }
-  }
-
-  // Apply changes
-  if (newTitle)  fm.title  = newTitle;
-  if (newType)   fm.type   = newType; else delete fm.type;
-  if (newStatus) fm.status = newStatus; else delete fm.status;
-  fm._tagsArr = newTags;
-
-  // Reconstruct frontmatter
-  const fmLines = [];
-  const order = ['title','date','type','status','tags','folder'];
-  const done  = new Set(['_tagsArr']);
-  order.forEach(k => {
-    if (k === 'tags') return; // handled below
-    if (fm[k] !== undefined) { fmLines.push(`${k}: ${fm[k]}`); done.add(k); }
-  });
-  // remaining keys
-  Object.keys(fm).forEach(k => { if (!done.has(k) && k !== 'tags') fmLines.push(`${k}: ${fm[k]}`); });
-  // tags block
-  if (newTags.length) fmLines.push(`tags:\n${newTags.map(t => `- ${t}`).join('\n')}`);
-  else fmLines.push('tags: []');
-
-  const newContent = `---\n${fmLines.join('\n')}\n---\n${body}`;
-
   try {
+    const titleEl  = document.getElementById('props-title-input');
+    const newTitle  = titleEl ? titleEl.value.trim() : '';
+    const newType   = document.getElementById('props-type').value;
+    const newStatus = document.getElementById('props-status-input').value.trim();
+    const newTags   = [..._propsTags];
+
+    // Parse and patch frontmatter
+    const fmRe = /^---\n([\s\S]*?)\n---\n?/;
+    const m = _propsRaw.match(fmRe);
+    let body = _propsRaw;
+    let fm = {};
+    if (m) {
+      body = _propsRaw.slice(m[0].length);
+      // Parse key: value lines (avoids needing js-yaml)
+      m[1].split('\n').forEach(line => {
+        const kv = line.match(/^(\w+):\s*(.*)/);
+        if (kv) fm[kv[1]] = kv[2].trim().replace(/^['"]|['"]$/g, '');
+      });
+      // Parse tags array
+      const tagBlock = m[1].match(/^tags:\n((?:\s*-\s*.+\n?)*)/m);
+      if (tagBlock) fm._tagsArr = tagBlock[1].split('\n').map(l => l.replace(/^\s*-\s*/,'').trim()).filter(Boolean);
+      else {
+        const inline = m[1].match(/^tags:\s*\[([^\]]*)\]/m);
+        if (inline) fm._tagsArr = inline[1].split(',').map(s => s.trim().replace(/^['"]|['"]$/g,'')).filter(Boolean);
+        else fm._tagsArr = [];
+      }
+    }
+
+    // Apply changes
+    if (newTitle)  fm.title  = newTitle;
+    if (newType)   fm.type   = newType; else delete fm.type;
+    if (newStatus) fm.status = newStatus; else delete fm.status;
+    fm._tagsArr = newTags;
+
+    // Reconstruct frontmatter with proper YAML quoting
+    const fmLines = [];
+    const order = ['title','date','updated','type','status','technology','tags','keywords','project','certification','target_folder','confidence','source'];
+    const done  = new Set(['_tagsArr']);
+    order.forEach(k => {
+      if (k === 'tags') return; // handled below
+      if (fm[k] !== undefined) { fmLines.push(`${k}: ${_yamlStr(fm[k])}`); done.add(k); }
+    });
+    // remaining keys not in order
+    Object.keys(fm).forEach(k => {
+      if (!done.has(k) && k !== 'tags') fmLines.push(`${k}: ${_yamlStr(fm[k])}`);
+    });
+    // tags block
+    if (newTags.length) fmLines.push(`tags:\n${newTags.map(t => `- ${t}`).join('\n')}`);
+    else fmLines.push('tags: []');
+
+    const newContent = `---\n${fmLines.join('\n')}\n---\n${body}`;
+
     const r = await fetch(`${SERVER}/note/save`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
@@ -2481,6 +2494,7 @@ async function saveProps() {
     });
     const d = await r.json();
     if (!r.ok) throw new Error(d.error || r.statusText);
+
     // Update DATA.notes in memory so UI reflects changes without reload
     if (newTitle) note.title = newTitle;
     note.type   = newType   || null;
@@ -2488,11 +2502,14 @@ async function saveProps() {
     note.tags   = newTags;
     msg.textContent = '✓ Guardado';
     msg.className = 'props-status ok';
+    // Re-render note list so updated title/type/tags are visible immediately
+    refreshAll();
     setTimeout(closeProps, 900);
-    // Refresh open note chips
+    // Refresh open note detail if this is the active note
     if (activeNoteId === _propsNoteId) openNoteById(_propsNoteId);
   } catch(err) {
-    msg.textContent = '✗ ' + err.message;
+    console.error('[saveProps]', err);
+    msg.textContent = '✗ ' + (err.message || 'Error desconocido');
     msg.className = 'props-status err';
     btn.disabled = false;
   }
@@ -2782,8 +2799,10 @@ function buildTimeline() {
 
 // ── Stats + active states ──────────────────────────────────────
 function updateStats(notes) {
-  document.getElementById('total-pill').textContent = notes.length + ' notas';
-  document.getElementById('date-pill').textContent  = 'actualizado ' + DATA.stats.last_updated;
+  const tp = document.getElementById('total-pill');
+  const dp = document.getElementById('date-pill');
+  if (tp) tp.textContent = notes.length + ' notas';
+  if (dp) dp.textContent = 'actualizado ' + DATA.stats.last_updated;
 }
 
 function updateActiveFolder() {

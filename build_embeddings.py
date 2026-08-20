@@ -56,17 +56,30 @@ def _hash(text: str) -> str:
 
 def _voyage_embed(texts: list[str], input_type: str = "document") -> list[np.ndarray]:
     """Call Voyage AI API and return list of normalized float32 vectors."""
+    import time
     import voyageai
     vo = voyageai.Client()
     vecs = []
     for i in range(0, len(texts), BATCH_SIZE):
         batch = texts[i : i + BATCH_SIZE]
-        result = vo.embed(batch, model=MODEL_NAME, input_type=input_type)
+        for attempt in range(5):
+            try:
+                result = vo.embed(batch, model=MODEL_NAME, input_type=input_type)
+                break
+            except voyageai.error.RateLimitError:
+                wait = 22 * (attempt + 1)
+                print(f"[embed] Rate limit — esperando {wait}s...")
+                time.sleep(wait)
+        else:
+            raise RuntimeError("Voyage AI rate limit: demasiados reintentos")
         for emb in result.embeddings:
             v = np.array(emb, dtype=np.float32)
             v /= np.linalg.norm(v) + 1e-9
             vecs.append(v)
-        print(f"[embed] {min(i + BATCH_SIZE, len(texts))}/{len(texts)} embedidos")
+        done = min(i + BATCH_SIZE, len(texts))
+        print(f"[embed] {done}/{len(texts)} embedidos")
+        if done < len(texts):
+            time.sleep(21)  # respetar 3 RPM
     return vecs
 
 

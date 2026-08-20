@@ -62,9 +62,16 @@ _embed_lock   = threading.Lock()
 
 def _voyage_encode(texts: list[str], input_type: str = "query") -> np.ndarray:
     """Call Voyage AI and return (N, D) float32 matrix, rows normalized."""
-    import voyageai
+    import time, voyageai
     vo = voyageai.Client()
-    result = vo.embed(texts, model="voyage-3-lite", input_type=input_type)
+    for attempt in range(4):
+        try:
+            result = vo.embed(texts, model="voyage-3-lite", input_type=input_type)
+            break
+        except voyageai.error.RateLimitError:
+            time.sleep(22 * (attempt + 1))
+    else:
+        raise RuntimeError("Voyage AI rate limit")
     vecs = np.array(result.embeddings, dtype=np.float32)
     norms = np.linalg.norm(vecs, axis=1, keepdims=True) + 1e-9
     return vecs / norms

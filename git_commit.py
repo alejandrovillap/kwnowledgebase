@@ -56,6 +56,11 @@ def commit(title: str, folder: str, note_date: str | None = None, update: bool =
     if code != 0:
         return False, f"git commit failed: {err or out}"
 
+    # Push to remote — non-fatal: note is safe locally even if push fails
+    push_code, _, push_err = _run(["git", "push"], BASE)
+    if push_code != 0:
+        return True, f"{msg} [WARN: push failed: {push_err[:120]}]"
+
     return True, msg
 
 

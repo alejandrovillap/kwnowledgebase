@@ -27,7 +27,7 @@ from build_index import load_notes, BASE, FRONTMATTER_RE
 EMBED_FILE  = BASE / "embeddings.npz"
 HASH_FILE   = BASE / "embeddings_hashes.json"
 MODEL_NAME  = "voyage-3-lite"
-BATCH_SIZE  = 64
+BATCH_SIZE  = 8   # free tier: 10K TPM, ~500 tok/note → 8 notes = 4K tok/batch
 MAX_CHARS   = 2000   # chars of body used per note (title + tags + excerpt)
 
 

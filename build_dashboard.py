@@ -1752,9 +1752,6 @@ main {
   <button id="capture-btn" class="capture-btn offline" onclick="openCapture()" title="Capturar foto / subir archivo">
     ＋ Capturar
   </button>
-  <div id="server-indicator" class="server-status offline" title="python kb_server.py">
-    <span class="server-dot"></span><span id="server-label">offline</span>
-  </div>
   <button class="theme-btn" onclick="toggleTheme()">◑</button>
 </header>
 

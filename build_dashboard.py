@@ -3177,6 +3177,10 @@ let _linksSuggestions = [];
 let _linksAccepted = 0, _linksRejected = 0;
 
 async function openLinks() {
+  if (!serverOnline) {
+    alert('El servidor no está corriendo. Reinicia el servicio en el VM.');
+    return;
+  }
   document.getElementById('links-overlay').classList.add('open');
   _linksAccepted = 0; _linksRejected = 0;
   await _loadLinkSuggestions();
@@ -4663,9 +4667,9 @@ async function openLinkSuggest(id) {
     if (tid !== undefined) alreadyLinked.add(tid);
   }
 
-  // Inject loading state panel
+  // Inject loading state panel before the note body wrapper
   const inner = document.getElementById('detail-inner');
-  const bodyEl = inner.querySelector('.note-body');
+  const bodyWrap = inner.querySelector('.detail-body-wrap');
   const panel = document.createElement('div');
   panel.id = 'link-suggest-panel';
   panel.className = 'link-suggest-panel';
@@ -4675,7 +4679,9 @@ async function openLinkSuggest(id) {
       <button class="link-suggest-close" onclick="closeLinkSuggest()">✕</button>
     </div>
     <div class="link-suggest-list" style="padding:12px 14px;color:var(--text-3);font-size:12px">Consultando embeddings…</div>`;
-  inner.insertBefore(panel, bodyEl);
+  // insertBefore requires a direct child — bodyWrap is a direct child of inner
+  if (bodyWrap) inner.insertBefore(panel, bodyWrap);
+  else inner.appendChild(panel);
 
   try {
     const r = await fetch(`${SERVER}/search?q=${encodeURIComponent(q)}&k=12`);

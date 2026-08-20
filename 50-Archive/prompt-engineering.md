@@ -143,3 +143,7 @@ This example is negative because it uses sarcasm.
 - Be explicit: "Here is an example input with an ideal response"
 - Include examples that address your most common failure cases
 - Explain why your example outputs are considered ideal
+
+## Relacionadas
+- [[Prompt Evaluation]]
+- [[Prompt Engineering — Techniques]]

@@ -140,3 +140,10 @@ async def handle_tools_changed_notification(session):
     tools_response = await session.list_tools()
     app.update_available_tools(session, tools_response.tools)
 ```
+
+## Relacionadas
+- [[MCP Client]]
+- [[MCP Client — JSON Schema & Deep Dive]]
+- [[MCP Client — JSON Schema & Deep Dive]]
+- [[MCP]]
+- [[Introducing MCP]]

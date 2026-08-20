@@ -125,3 +125,6 @@ Proceso de eliminación:
 - Solo yo → `~/.claude/CLAUDE.md`
 - Todo el equipo → raíz del repo
 - Solo ese directorio → subdirectorio
+
+## Relacionadas
+- [[D3 - Claude Code Configuration and Workflows]]

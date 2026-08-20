@@ -89,3 +89,7 @@ message.content[0].text
 ```
 
 This gives you clean, readable output. With these basics in place, you can start experimenting with different prompts and building more complex interactions with Claude.
+
+## Relacionadas
+- [[Claude API process]]
+- [[Conversations in Claude]]

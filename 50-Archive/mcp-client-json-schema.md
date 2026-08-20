@@ -119,3 +119,9 @@ oneOf  →  value must match EXACTLY ONE schema (fails if >1 match)
 ```
 
 For string-or-null, always use `anyOf` — less prone to unexpected validation errors.
+
+## Relacionadas
+- [[D2 - Tool Design & MCP Integration]]
+- [[Introducing MCP]]
+- [[MCP Client — JSON Schema & Deep Dive]]
+- [[MCP Client — Internals]]

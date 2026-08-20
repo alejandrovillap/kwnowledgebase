@@ -60,3 +60,6 @@ How to model Agile behaviors and mindset:
 - **Values** — You live Agile values (not just talk about them)
 - **Ethics** — You make ethical considerations in every decision
 - **Actions** — You actually are Agile (not just compliant with a process)
+
+## Relacionadas
+- [[Values]]

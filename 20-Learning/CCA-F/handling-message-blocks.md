@@ -76,3 +76,7 @@ Each step requires careful handling of the message structure so Claude has full 
 ## Updating Helper Functions
 
 If you've been using helper functions like `add_user_message()` and `add_assistant_message()`, update them to handle multi-block content. The versions that only support single text blocks need to accommodate more complex content structures that include tool use blocks.
+
+## Relacionadas
+- [[Implementing multiple turns]]
+- [[Claude Tools — Implementation]]

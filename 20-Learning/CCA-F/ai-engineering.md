@@ -76,3 +76,10 @@ Building applications on top of foundation models spans three disciplines:
 - **Growth** — new product/service capabilities
 - **Accelerating innovation** — faster R&D cycles
 - **Business continuity** — resilience and redundancy
+
+## Relacionadas
+- [[AI Glossary — CCA Reference]]
+- [[Glossary — AI & Project Risk]]
+- [[Identifying Applicable Cases]]
+- [[MLOps Foundations]]
+- [[101 SDLC]]

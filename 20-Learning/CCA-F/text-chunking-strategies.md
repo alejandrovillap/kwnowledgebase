@@ -135,3 +135,6 @@ D4 Structured Output  →  chunks are retrieved with structured queries
 The full RAG pattern = External Memory + Context Injection + Text Chunking.
 
 **Typical exam scenario:** "An agent needs to answer questions about a 500-page technical manual. The system is saturating Claude's context. What is the correct architectural solution?" → RAG + chunking + selective Context Injection — not injecting the entire manual.
+
+## Relacionadas
+- [[RAG workflow]]

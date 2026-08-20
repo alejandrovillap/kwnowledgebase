@@ -139,3 +139,8 @@ Solution: RAG = Chunking + Embedding + Vector DB
 ```
 
 Connects to D5 — External Memory. The Vector Database is exactly the D5 external memory applied to documents. Claude doesn't load all documents — it queries the database and retrieves only the relevant ones.
+
+## Relacionadas
+- [[Text chunking strategies]]
+- [[Data Management — Embeddings and Vectorization]]
+- [[RAG workflow]]

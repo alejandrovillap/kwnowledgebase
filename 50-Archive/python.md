@@ -211,3 +211,6 @@ perro["edad"] = 5
 # Conjunto (sin duplicados, sin orden)
 unicos = {1, 2, 3, 3}   # {1, 2, 3}
 ```
+
+## Relacionadas
+- [[Python]]

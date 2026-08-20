@@ -137,3 +137,8 @@ Retry Loop          →  if it doesn't meet format, it self-corrects
 ```
 
 A reliability chain: Prompt Engineering reduces error probability. Structured Output defines what an error is. Retry Loop fixes it when it occurs.
+
+## Relacionadas
+- [[Prompt Engineering — Techniques]]
+- [[Prompt Engineering — Techniques]]
+- [[Claude Code Summary]]

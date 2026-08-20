@@ -87,3 +87,6 @@ Prompts work best when specialized for your MCP server's domain:
 - Data analysis server → prompts for generating reports or visualizations
 
 The goal: prompts so well-crafted that users prefer them over writing their own instructions from scratch.
+
+## Relacionadas
+- [[MCP Accessing resources]]

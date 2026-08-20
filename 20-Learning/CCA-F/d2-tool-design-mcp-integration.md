@@ -184,3 +184,7 @@ allowedTools          → tells each subagent exactly which tools it can see
 - ❌ Upgrade to larger model
 - ❌ Add examples in system prompt
 - ✅ **Reduce to 4-5 tools per agent and distribute the rest in specialized subagents with `allowedTools`**
+
+## Relacionadas
+- [[Claude Tool Functions]]
+- [[Claude Schema — JSON Schema for Tool Use]]

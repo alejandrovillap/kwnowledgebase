@@ -241,3 +241,7 @@ Regla de prioridad: Local sobreescribe Proyecto, Proyecto sobreescribe Global. P
 | Tool con parámetro action múltiple | **D2 — separar en tools atómicas** |
 | CI/CD review en cada push trivial | **D3 — cambiar trigger a pull_request** |
 | CLAUDE.md local contradice proyecto | **D3 — el local tiene prioridad en lo que contradice** |
+
+## Relacionadas
+- [[D2 - Tool Design & MCP Integration]]
+- [[D1 — Agentic Architecture]]

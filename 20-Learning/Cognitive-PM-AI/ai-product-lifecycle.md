@@ -52,3 +52,6 @@ Best for organizations new to data science or with limited resources. Targets sp
 
 ### Hybrid Approach
 Combines platform-centric and use-case-driven strategies. Enables organizations to build a central MLOps platform while addressing specific use cases simultaneously — quick impacts through targeted projects with focus on long-term benefits.
+
+## Relacionadas
+- [[MLOps Foundations]]

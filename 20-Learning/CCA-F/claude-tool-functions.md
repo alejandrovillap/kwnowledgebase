@@ -64,3 +64,7 @@ Creating the function is just the first step. After writing the function:
 - The JSON schema in the tool definition tells Claude what parameters are available and their types.
 - Input validation is critical — Claude uses error messages to retry with corrected inputs.
 - Descriptive function and parameter names help Claude select the right tool and pass the right arguments.
+
+## Relacionadas
+- [[Claude Tools — Implementation]]
+- [[Claude Schema — JSON Schema for Tool Use]]

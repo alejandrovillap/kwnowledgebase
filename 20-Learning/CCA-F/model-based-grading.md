@@ -93,3 +93,7 @@ The average score gives you an objective metric to track as you iterate on your 
 ## Exam Relevance
 
 Falls in **D4 (Prompt Engineering)**. Connects to the eval pipeline: write baseline prompt → run_eval → get average score → apply one technique → re-evaluate → compare scores. Model grading is the practical alternative to code-based grading when the evaluation criterion requires subjective judgment (quality, helpfulness, instruction-following).
+
+## Relacionadas
+- [[Prompt Evaluation]]
+- [[Code based grading]]

@@ -56,3 +56,6 @@ Each serves a different part of your application stack:
 - **Tools** serve the model
 - **Resources** serve your app
 - **Prompts** serve your users
+
+## Relacionadas
+- [[Introducing MCP]]

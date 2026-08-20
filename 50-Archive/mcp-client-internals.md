@@ -139,3 +139,7 @@ The most common anti-pattern and exam favorite: if you have 18 tools and Claude 
 - `oneOf` — fails if the value matches **more than one** schema
 
 For string-or-null optional fields, always use `anyOf` — it's more permissive and less prone to unexpected validation errors.
+
+## Relacionadas
+- [[Introducing MCP]]
+- [[MCP Client — JSON Schema & Deep Dive]]

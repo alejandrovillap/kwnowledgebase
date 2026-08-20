@@ -54,3 +54,6 @@ Quick-reference definitions for AI/ML terminology relevant to the CCA exam.
 | Named Entity Recognition (NER) | NLP identifying names of people, organizations, locations, dates, etc. | Extracting company names from contracts, dates from emails |
 | Text Classification | NLP assigning text to a category | Spam detection, topic tagging, intent classification |
 | Text Summarization | NLP creating a shorter version while preserving main points | News summaries, meeting notes, research abstracts |
+
+## Relacionadas
+- [[Glossary — AI & Project Risk]]

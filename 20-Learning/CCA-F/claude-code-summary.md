@@ -1,15 +1,14 @@
-﻿---
+---
 title: Claude Code Summary
 date: 2026-03-24
-type: resume
-technology: "gen-ai"
-status: active
-tags: ["claude-code", "prompt-engineering", "structured-output", "retry-loop", "context-window", handoff, observability]
+type: concept
+technology: gen-ai
 keywords: [Claude Code, D4, D5, prompt engineering, structured output, retry loop, context window, handoff, reliability, idempotency, observability, confidence calibration]
-source: "notion-migration"
-project: ""
+source: notion-migration
+project: 
 certification: CCA
 confidence: high
+tags: []
 ---
 
 # Claude Code Summary

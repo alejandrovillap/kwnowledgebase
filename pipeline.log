@@ -375,3 +375,220 @@ error: merge_notes.py: failed to insert into database
 error: unable to index file 'merge_notes.py'
 fatal: updating files failed
 2026-07-15 14:23:35 [agent] INFO === Pipeline FAILURE in 63.0s: Antigravity.pdf
+2026-08-19 16:20:02 [agent] INFO === Pipeline start: 20260819_162002_1_TemplateChapterConfidentialityAgreement.pdf
+2026-08-19 16:20:02 [agent] INFO -- ocr ...
+2026-08-19 16:20:07 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-08-19 16:20:21 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-08-19 16:20:21 [agent] INFO    extracted 1396 chars, 1 diagram(s)
+2026-08-19 16:20:21 [agent] INFO -- ocr OK
+2026-08-19 16:20:21 [agent] INFO -- classify ...
+2026-08-19 16:20:25 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-08-19 16:20:25 [agent] INFO    title='Confidentiality and Records Compliance Agreement - PMI Centro México Chapter 2026'  folder=50-Archive  confidence=high
+2026-08-19 16:20:25 [agent] INFO -- classify OK
+2026-08-19 16:20:25 [agent] INFO -- file_note ...
+2026-08-19 16:20:26 [agent] INFO -- file_note OK
+2026-08-19 16:20:26 [agent] INFO -- format_note ...
+2026-08-19 16:20:38 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-08-19 16:20:38 [agent] INFO -- format_note OK
+2026-08-19 16:20:38 [agent] INFO -- git_commit ...
+2026-08-19 16:20:38 [agent] ERROR FAILED [git_commit]: git commit failed: Author identity unknown
+
+*** Please tell me who you are.
+
+Run
+
+  git config --global user.email "you@example.com"
+  git config --global user.name "Your Name"
+
+to set your account's default identity.
+Omit --global to set the identity only in this repository.
+
+fatal: empty ident name (for <alexvilla1604@knowledgebase.us-central1-a.c.sincere-beacon-278821.internal>) not allowed
+2026-08-19 16:20:38 [agent] ERROR Pipeline FAILED for 20260819_162002_1_TemplateChapterConfidentialityAgreement.pdf: git commit failed: Author identity unknown
+
+*** Please tell me who you are.
+
+Run
+
+  git config --global user.email "you@example.com"
+  git config --global user.name "Your Name"
+
+to set your account's default identity.
+Omit --global to set the identity only in this repository.
+
+fatal: empty ident name (for <alexvilla1604@knowledgebase.us-central1-a.c.sincere-beacon-278821.internal>) not allowed
+2026-08-19 16:20:38 [agent] INFO === Pipeline FAILURE in 36.4s: 20260819_162002_1_TemplateChapterConfidentialityAgreement.pdf
+2026-08-19 16:28:29 [agent] INFO === Pipeline start: 20260819_162829_1_TemplateChapterConfidentialityAgreement.pdf
+2026-08-19 16:28:29 [agent] INFO -- ocr ...
+2026-08-19 16:28:36 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-08-19 16:28:48 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-08-19 16:28:48 [agent] INFO    extracted 1421 chars, 0 diagram(s)
+2026-08-19 16:28:48 [agent] INFO -- ocr OK
+2026-08-19 16:28:48 [agent] INFO -- classify ...
+2026-08-19 16:28:51 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-08-19 16:28:51 [agent] INFO    title='Confidentiality Agreement - PMI Centro México Chapter - Ana Paula López López'  folder=50-Archive  confidence=high
+2026-08-19 16:28:51 [agent] INFO -- classify OK
+2026-08-19 16:28:51 [agent] INFO -- file_note ...
+2026-08-19 16:28:52 [agent] INFO -- file_note OK
+2026-08-19 16:28:52 [agent] INFO -- format_note ...
+2026-08-19 16:29:02 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-08-19 16:29:02 [agent] INFO -- format_note OK
+2026-08-19 16:29:02 [agent] INFO -- git_commit ...
+2026-08-19 16:29:02 [agent] ERROR FAILED [git_commit]: git commit failed: Author identity unknown
+
+*** Please tell me who you are.
+
+Run
+
+  git config --global user.email "you@example.com"
+  git config --global user.name "Your Name"
+
+to set your account's default identity.
+Omit --global to set the identity only in this repository.
+
+fatal: empty ident name (for <alexvilla1604@knowledgebase.us-central1-a.c.sincere-beacon-278821.internal>) not allowed
+2026-08-19 16:29:02 [agent] ERROR Pipeline FAILED for 20260819_162829_1_TemplateChapterConfidentialityAgreement.pdf: git commit failed: Author identity unknown
+
+*** Please tell me who you are.
+
+Run
+
+  git config --global user.email "you@example.com"
+  git config --global user.name "Your Name"
+
+to set your account's default identity.
+Omit --global to set the identity only in this repository.
+
+fatal: empty ident name (for <alexvilla1604@knowledgebase.us-central1-a.c.sincere-beacon-278821.internal>) not allowed
+2026-08-19 16:29:02 [agent] INFO === Pipeline FAILURE in 33.7s: 20260819_162829_1_TemplateChapterConfidentialityAgreement.pdf
+2026-08-19 16:31:22 [agent] INFO === Pipeline start: 20260819_161730_1_TemplateChapterConfidentialityAgreement.pdf
+2026-08-19 16:31:22 [agent] INFO -- ocr ...
+2026-08-19 16:31:23 [agent] ERROR FAILED [ocr]: no such file: '/home/alexvilla1604/knowledgebase/00-Inbox/raw/20260819_161730_1_TemplateChapterConfidentialityAgreement.pdf'
+2026-08-19 16:31:23 [agent] ERROR Pipeline FAILED for 20260819_161730_1_TemplateChapterConfidentialityAgreement.pdf: no such file: '/home/alexvilla1604/knowledgebase/00-Inbox/raw/20260819_161730_1_TemplateChapterConfidentialityAgreement.pdf'
+2026-08-19 16:31:23 [agent] INFO === Pipeline FAILURE in 1.4s: 20260819_161730_1_TemplateChapterConfidentialityAgreement.pdf
+2026-08-19 16:32:30 [agent] INFO === Pipeline start: English timeline.pdf
+2026-08-19 16:32:30 [agent] INFO -- ocr ...
+2026-08-19 16:32:51 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-08-19 16:33:09 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-08-19 16:33:09 [agent] ERROR FAILED [ocr]: Unterminated string starting at: line 2 column 11 (char 12)
+2026-08-19 16:33:09 [agent] ERROR Pipeline FAILED for English timeline.pdf: Unterminated string starting at: line 2 column 11 (char 12)
+2026-08-19 16:33:09 [agent] INFO === Pipeline FAILURE in 38.8s: English timeline.pdf
+2026-08-19 16:36:35 [agent] INFO === Pipeline start: English timeline.pdf
+2026-08-19 16:36:35 [agent] INFO -- ocr ...
+2026-08-19 16:37:09 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-08-19 16:37:26 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-08-19 16:37:26 [agent] ERROR FAILED [ocr]: Unterminated string starting at: line 2 column 11 (char 12)
+2026-08-19 16:37:26 [agent] ERROR Pipeline FAILED for English timeline.pdf: Unterminated string starting at: line 2 column 11 (char 12)
+2026-08-19 16:37:26 [agent] INFO === Pipeline FAILURE in 50.9s: English timeline.pdf
+2026-08-19 16:40:13 [agent] INFO === Pipeline start: English timeline.pdf
+2026-08-19 16:40:13 [agent] INFO -- ocr ...
+2026-08-19 16:40:40 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-08-19 16:41:02 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-08-19 16:41:02 [agent] ERROR FAILED [ocr]: Unterminated string starting at: line 2 column 11 (char 12)
+2026-08-19 16:41:02 [agent] ERROR Pipeline FAILED for English timeline.pdf: Unterminated string starting at: line 2 column 11 (char 12)
+2026-08-19 16:41:02 [agent] INFO === Pipeline FAILURE in 49.1s: English timeline.pdf
+2026-08-19 16:43:57 [agent] INFO === Pipeline start: English timeline.pdf
+2026-08-19 16:43:57 [agent] INFO -- ocr ...
+2026-08-19 16:44:17 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-08-19 16:44:43 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-08-19 16:44:43 [agent] ERROR [ocr] Raw response (first 800 chars): '{\n  "text": "## English Verb Tenses Timeline\\n\\n'
+2026-08-19 16:44:43 [agent] ERROR FAILED [ocr]: Unterminated string starting at: line 2 column 11 (char 12)
+2026-08-19 16:44:43 [agent] ERROR Pipeline FAILED for English timeline.pdf: Unterminated string starting at: line 2 column 11 (char 12)
+2026-08-19 16:44:43 [agent] INFO === Pipeline FAILURE in 46.8s: English timeline.pdf
+2026-08-19 16:47:12 [agent] INFO === Pipeline start: English timeline.pdf
+2026-08-19 16:47:12 [agent] INFO -- ocr ...
+2026-08-19 16:47:34 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-08-19 16:47:50 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-08-19 16:47:50 [agent] ERROR [ocr] Raw response (first 800 chars): '{\n  "text": "## English Verb Tenses Timeline\\n\\n'
+2026-08-19 16:47:50 [agent] ERROR FAILED [ocr]: Unterminated string starting at: line 2 column 11 (char 12)
+2026-08-19 16:47:50 [agent] ERROR Pipeline FAILED for English timeline.pdf: Unterminated string starting at: line 2 column 11 (char 12)
+2026-08-19 16:47:50 [agent] INFO === Pipeline FAILURE in 38.0s: English timeline.pdf
+2026-08-19 16:51:52 [agent] INFO === Pipeline start: English timeline.pdf
+2026-08-19 16:51:52 [agent] INFO -- ocr ...
+2026-08-19 16:52:11 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-08-19 16:52:34 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-08-19 16:52:34 [agent] INFO    extracted 56 chars, 0 diagram(s)
+2026-08-19 16:52:34 [agent] INFO -- ocr OK
+2026-08-19 16:52:34 [agent] INFO -- classify ...
+2026-08-19 16:52:37 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-08-19 16:52:37 [agent] INFO    date fallback → today (2026-08-19)
+2026-08-19 16:52:37 [agent] INFO    title='English Verb Tenses – Timeline Notes'  folder=40-Reference  confidence=medium
+2026-08-19 16:52:37 [agent] INFO -- classify OK
+2026-08-19 16:52:37 [agent] INFO -- file_note ...
+2026-08-19 16:52:37 [agent] INFO    existing note found: 2025-01-01_English_Tenses_Timeline_Overview.md — updating
+2026-08-19 16:52:37 [agent] INFO -- file_note OK
+2026-08-19 16:52:37 [agent] INFO -- format_note ...
+2026-08-19 16:52:45 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-08-19 16:52:45 [agent] INFO -- format_note OK
+2026-08-19 16:52:45 [agent] INFO -- git_commit ...
+2026-08-19 16:52:45 [agent] ERROR FAILED [git_commit]: git commit failed: Author identity unknown
+
+*** Please tell me who you are.
+
+Run
+
+  git config --global user.email "you@example.com"
+  git config --global user.name "Your Name"
+
+to set your account's default identity.
+Omit --global to set the identity only in this repository.
+
+fatal: empty ident name (for <alexvilla1604@knowledgebase.us-central1-a.c.sincere-beacon-278821.internal>) not allowed
+2026-08-19 16:52:45 [agent] ERROR Pipeline FAILED for English timeline.pdf: git commit failed: Author identity unknown
+
+*** Please tell me who you are.
+
+Run
+
+  git config --global user.email "you@example.com"
+  git config --global user.name "Your Name"
+
+to set your account's default identity.
+Omit --global to set the identity only in this repository.
+
+fatal: empty ident name (for <alexvilla1604@knowledgebase.us-central1-a.c.sincere-beacon-278821.internal>) not allowed
+2026-08-19 16:52:45 [agent] INFO === Pipeline FAILURE in 52.6s: English timeline.pdf
+2026-08-19 16:53:34 [agent] INFO === Pipeline start: English timeline.pdf
+2026-08-19 16:53:34 [agent] INFO -- ocr ...
+2026-08-19 16:53:35 [agent] ERROR FAILED [ocr]: no such file: '/home/alexvilla1604/knowledgebase/00-Inbox/raw/English timeline.pdf'
+2026-08-19 16:53:35 [agent] ERROR Pipeline FAILED for English timeline.pdf: no such file: '/home/alexvilla1604/knowledgebase/00-Inbox/raw/English timeline.pdf'
+2026-08-19 16:53:35 [agent] INFO === Pipeline FAILURE in 1.0s: English timeline.pdf
+2026-08-20 19:15:14 [agent] INFO === Pipeline start: 20260820_191513_Claude_certifiect_associate_-_foundations.pdf
+2026-08-20 19:15:14 [agent] INFO -- ocr ...
+2026-08-20 19:15:19 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-08-20 19:34:32 [agent] INFO === Pipeline start: 20260820_193432_Claude_certifiect_associate_-_foundations.pdf
+2026-08-20 19:34:32 [agent] INFO -- ocr ...
+2026-08-20 19:34:40 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-08-20 19:34:53 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-08-20 19:34:58 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-08-20 19:35:14 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-08-20 19:35:17 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-08-20 19:35:30 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-08-20 19:35:32 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-08-20 19:35:42 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-08-20 19:35:45 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-08-20 19:36:04 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-08-20 19:36:07 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-08-20 19:36:22 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-08-20 19:36:25 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-08-20 19:36:43 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-08-20 19:36:46 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-08-20 19:37:00 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-08-20 19:37:04 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-08-20 19:37:20 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-08-20 19:37:24 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-08-20 19:37:39 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-08-20 19:37:41 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-08-20 19:37:46 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-08-20 19:37:46 [agent] INFO    extracted 20255 chars, 0 diagram(s)
+2026-08-20 19:37:46 [agent] INFO -- ocr OK
+2026-08-20 19:37:46 [agent] INFO -- classify ...
+2026-08-20 19:37:52 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-08-20 19:37:52 [agent] INFO    title='Claude Certified Associate – Foundations Exam Guide'  folder=20-Learning/CCA-F  confidence=high
+2026-08-20 19:37:52 [agent] INFO -- classify OK
+2026-08-20 19:37:52 [agent] INFO -- file_note ...
+2026-08-20 19:37:53 [agent] INFO -- file_note OK
+2026-08-20 19:37:53 [agent] INFO -- format_note ...
+2026-08-20 19:39:19 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-08-20 19:39:19 [agent] INFO -- format_note OK
+2026-08-20 19:39:19 [agent] INFO -- git_commit ...

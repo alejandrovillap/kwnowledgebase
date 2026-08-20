@@ -67,3 +67,8 @@ Plantilla de reflexión personal para consolidar comprensión de los fundamentos
 -
 -
 -
+
+## Relacionadas
+- [[MCP — lo que yo entiendo]]
+- [[Herramientas & Comparativas — lo que yo entiendo]]
+- [[AI Foundations — lo que yo entiendo]]

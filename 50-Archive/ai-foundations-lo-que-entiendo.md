@@ -61,3 +61,10 @@ confidence: high
 ---
 
 ## Lo que todavía no entiendo
+
+## Relacionadas
+- [[Herramientas & Comparativas — lo que yo entiendo]]
+- [[Limitations of AI]]
+- [[MCP — lo que yo entiendo]]
+- [[AI Foundations — lo que yo entiendo]]
+- [[AI Foundations — lo que yo entiendo]]

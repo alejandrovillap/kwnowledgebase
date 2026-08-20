@@ -135,3 +135,7 @@ This example handles sarcasm — the tone appears positive but the meaning is ne
 | v2 | Clear + direct first line | 3.92 |
 | v3 | Added output guidelines (6 specific rules) | 7.86 |
 | v4 | Added examples from top-scoring outputs | 8.5+ |
+
+## Relacionadas
+- [[Prompt Evaluation]]
+- [[Prompt Engineering — Techniques]]

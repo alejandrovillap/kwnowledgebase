@@ -95,3 +95,6 @@ Anti-pattern: parsing text to detect if Claude finished
 - Claude stops completely when it wants a tool (`stop_reason: "tool_use"`) and waits for results before continuing
 - The loop runs until `end_turn` or until a stopping condition is met
 - Never parse Claude's text to detect completion — always use `stop_reason`
+
+## Relacionadas
+- [[Implementing multiple turns]]

@@ -77,3 +77,6 @@ When a user asks "What is the contents of the report.pdf document?":
 6. Claude formulates the final response
 
 The client acts as the bridge between application logic and the MCP server — accessing server functionality without worrying about underlying connection details.
+
+## Relacionadas
+- [[Defining Tools with MCP]]

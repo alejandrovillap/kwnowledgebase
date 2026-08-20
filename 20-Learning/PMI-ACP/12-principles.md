@@ -89,3 +89,6 @@ Los 12 principios son el **ADN del pensamiento ágil** y la base conceptual que 
 - **Tiempo de estudio**: 10-15 horas iniciales para mapear y traducir los 12 principios al contexto propio.
 - **Costo económico**: cero; los principios son públicos y gratuitos.
 - **ROI**: los 12 principios son el hilo conductor del PMI-ACP; dominarlos puede representar la diferencia entre aprobar y no aprobar (+$15-25k USD anuales en incremento salarial típico). Equipos que operan con estos principios entregan 20-40% más valor con mejor clima y adaptabilidad.
+
+## Relacionadas
+- [[Agile Values — Guía de Aplicación]]

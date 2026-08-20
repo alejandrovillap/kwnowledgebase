@@ -58,3 +58,10 @@ Example: user asks "What repositories do I have?"
 ```
 
 Each component has a clear responsibility. The MCP client abstracts away the complexity of server communication, letting you focus on application logic while still accessing powerful external tools.
+
+## Relacionadas
+- [[Introducing MCP]]
+- [[Implementing a client]]
+- [[MCP Client — JSON Schema & Deep Dive]]
+- [[MCP Client — Internals]]
+- [[MCP Client — JSON Schema & Deep Dive]]

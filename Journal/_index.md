@@ -1,12 +1,6 @@
 # Journal
 
-2 notes | Last updated: 2026-07-30
-
-## 2026-06 — June 2026
-
-| Date | Note | Type |
-|------|------|------|
-| 2026-06-30 | [Reencuadre cognitivo: creencias limitantes y perspectivas sobre rechazo laboral](YYYY-MM-DD_Reencuadre_cognitivo-_creencias_limitantes_y_perspectivas_sobre_rechazo_laboral.md) | `journal` · `Journal` |
+1 notes | Last updated: 2026-08-19
 
 ## 2024-01 — January 2024
 

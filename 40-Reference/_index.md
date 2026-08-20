@@ -1,6 +1,6 @@
 # Reference
 
-7 notes | Last updated: 2026-07-30
+10 notes | Last updated: 2026-08-19
 
 ## 2026-04 — April 2026
 
@@ -15,6 +15,7 @@
 | 2026-03-23 | [Framework Equivalence — TPS / Agile / PMI / Lean / Six Sigma](framework-equivalence.md) | `reference` · `40-Reference` |
 | 2026-03-22 | [Árbol de decisión](arbol-de-decision.md) | `reference` · `40-Reference` |
 | 2026-03-22 | [Families](families.md) | `reference` · `40-Reference` |
+| 2026-03-01 | [Text Prompt Best Practices](text-prompt-best-practices.md) *(updated 2026-07-31)* | `reference` · `40-Reference` |
 
 ## 2026-01 — January 2026
 
@@ -22,6 +23,13 @@
 |------|------|------|
 | 2026-01-01 | [Glossary — AI & Project Risk](glossary.md) | `reference` · `40-Reference` |
 | 2026-01-01 | [Resources](resources.md) | `reference` · `40-Reference` |
+| 2026-01-01 | [PoC — Proof of Concept](poc.md) *(updated 2026-07-31)* | `reference` · `40-Reference` |
+
+## 2025-12 — December 2025
+
+| Date | Note | Type |
+|------|------|------|
+| 2025-12-30 | [Gulf of evaluation](gulf-of-evaluation.md) *(updated 2026-07-31)* | `reference` · `40-Reference` |
 
 ## 2025-01 — January 2025
 

@@ -74,3 +74,7 @@ Both = Context Injection at scale — instead of static data you already have,
 ```
 
 RAG is External Memory (D5) applied to documents.
+
+## Relacionadas
+- [[RAG workflow]]
+- [[Text chunking strategies]]

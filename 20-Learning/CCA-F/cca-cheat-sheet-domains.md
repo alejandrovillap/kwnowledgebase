@@ -292,3 +292,8 @@ Sesión independiente → nunca la misma sesión que generó revisa
 
 10. Descripción de herramienta = mecanismo primario de selección
 ```
+
+## Relacionadas
+- [[D1 — Agentic Architecture]]
+- [[Cheat sheet]]
+- [[CCA Cheat Sheet — Quick Reference]]

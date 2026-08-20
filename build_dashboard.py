@@ -1745,6 +1745,7 @@ main {
   <button class="theme-btn" onclick="openTrash()" title="Papelera">🗑 Papelera</button>
   <button class="theme-btn" onclick="openQuickCapture()" title="Crear nota nueva rápido">✏️ Nueva</button>
   <button class="theme-btn" onclick="openStats()" title="Estadísticas del vault">📊 Stats</button>
+  <button id="links-btn" class="theme-btn" onclick="openLinks()" title="Sugerencias de conexiones">🔗 Conexiones<span id="links-badge" style="display:none;margin-left:5px;background:var(--accent);color:#fff;border-radius:99px;font-size:10px;padding:1px 6px"></span></button>
   <button id="graph-btn" class="theme-btn" onclick="openGraph()" title="Grafo de conocimiento">⬡ Grafo</button>
   <button id="kanban-btn" class="theme-btn" onclick="openKanban()" title="Proyectos y tareas (Ctrl+P)">📋 Kanban</button>
   <button id="chat-btn" class="theme-btn" onclick="openChat()" title="Chat con tu vault (requiere servidor)">💬 Chat</button>
@@ -1754,6 +1755,23 @@ main {
   </button>
   <button class="theme-btn" onclick="toggleTheme()">◑</button>
 </header>
+
+<!-- Links suggestion panel -->
+<div id="links-overlay" class="props-overlay" onclick="if(event.target===this)closeLinks()" style="z-index:250">
+  <div class="props-panel" style="width:580px;max-height:80vh;display:flex;flex-direction:column">
+    <div class="props-header">
+      <span class="props-title">🔗 Sugerencias de conexiones</span>
+      <button class="props-close" onclick="closeLinks()">✕</button>
+    </div>
+    <div id="links-body" style="flex:1;overflow-y:auto;padding:12px 18px;display:flex;flex-direction:column;gap:10px">
+      <div class="backlinks-empty">Cargando sugerencias…</div>
+    </div>
+    <div class="props-footer" style="justify-content:space-between;align-items:center">
+      <span id="links-status" class="props-status"></span>
+      <button class="props-close" onclick="closeLinks()">Cerrar</button>
+    </div>
+  </div>
+</div>
 
 <!-- Properties editor -->
 <div id="props-overlay" class="props-overlay" onclick="if(event.target===this)closeProps()">
@@ -3090,6 +3108,124 @@ function renderSemanticResults(results, query, isKeyword) {
   });
 }
 
+// ── Link suggestions ─────────────────────────────────────────────
+let _linksSuggestions = [];
+let _linksAccepted = 0, _linksRejected = 0;
+
+async function openLinks() {
+  document.getElementById('links-overlay').classList.add('open');
+  _linksAccepted = 0; _linksRejected = 0;
+  await _loadLinkSuggestions();
+}
+
+function closeLinks() {
+  document.getElementById('links-overlay').classList.remove('open');
+  if (_linksAccepted > 0) {
+    // Reload dashboard to pick up new links in graph
+    location.reload();
+  }
+}
+
+async function _loadLinkSuggestions() {
+  const body = document.getElementById('links-body');
+  const status = document.getElementById('links-status');
+  body.innerHTML = '<div class="backlinks-empty">Calculando similitudes…</div>';
+
+  try {
+    const r = await fetch(`${SERVER}/links/suggest?threshold=0.70&max=80`);
+    const d = await r.json();
+    if (d.error) { body.innerHTML = `<div class="backlinks-empty">${esc(d.error)}</div>`; return; }
+    _linksSuggestions = d.suggestions || [];
+    _renderLinkCards();
+    const badge = document.getElementById('links-badge');
+    if (_linksSuggestions.length > 0) {
+      badge.textContent = _linksSuggestions.length;
+      badge.style.display = '';
+    }
+  } catch (e) {
+    body.innerHTML = `<div class="backlinks-empty">Error: ${esc(e.message)}</div>`;
+  }
+}
+
+function _renderLinkCards() {
+  const body   = document.getElementById('links-body');
+  const status = document.getElementById('links-status');
+  if (!_linksSuggestions.length) {
+    body.innerHTML = '<div class="backlinks-empty">✅ Sin sugerencias pendientes. El vault está bien conectado.</div>';
+    document.getElementById('links-badge').style.display = 'none';
+    return;
+  }
+  document.getElementById('links-badge').textContent = _linksSuggestions.length;
+  status.textContent = `${_linksAccepted} aceptadas · ${_linksRejected} rechazadas`;
+  body.innerHTML = '';
+  _linksSuggestions.forEach((s, idx) => {
+    const pct = Math.round(s.score * 100);
+    const card = document.createElement('div');
+    card.id = `lcard-${idx}`;
+    card.style.cssText = 'background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:12px 14px;display:flex;flex-direction:column;gap:8px';
+    card.innerHTML = `
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+        <span style="font-size:13px;font-weight:600;color:var(--text-1);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(s.from_title)}</span>
+        <span style="color:var(--text-3);font-size:12px">→</span>
+        <span style="font-size:13px;color:var(--accent);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(s.to_title)}</span>
+        <span class="semantic-score">${pct}%</span>
+      </div>
+      <div class="semantic-bar" style="width:${pct}%"></div>
+      <div id="ledit-${idx}" style="display:none;margin-top:2px">
+        <input id="linput-${idx}" type="text" value="${esc(s.to_title)}"
+          style="width:100%;background:var(--surface);border:1px solid var(--accent);border-radius:4px;color:var(--text-1);font-size:12px;padding:5px 8px;outline:none">
+      </div>
+      <div style="display:flex;gap:6px;justify-content:flex-end">
+        <button onclick="_linkEdit(${idx})" class="props-close" style="font-size:11px;padding:3px 10px">✏️ Editar</button>
+        <button onclick="_linkReject(${idx})" class="props-close" style="font-size:11px;padding:3px 10px;color:#f87171;border-color:rgba(248,113,113,.3)">✗ Rechazar</button>
+        <button onclick="_linkAccept(${idx})" class="props-save" style="font-size:11px;padding:4px 14px">✓ Aceptar</button>
+      </div>`;
+    body.appendChild(card);
+  });
+}
+
+function _linkEdit(idx) {
+  const editDiv = document.getElementById(`ledit-${idx}`);
+  editDiv.style.display = editDiv.style.display === 'none' ? '' : 'none';
+  if (editDiv.style.display !== 'none') document.getElementById(`linput-${idx}`).focus();
+}
+
+async function _linkAccept(idx) {
+  const s = _linksSuggestions[idx];
+  const inputEl = document.getElementById(`linput-${idx}`);
+  const linkText = inputEl ? inputEl.value.trim() : s.to_title;
+  const card = document.getElementById(`lcard-${idx}`);
+  card.style.opacity = '0.4';
+
+  try {
+    await fetch(`${SERVER}/links/apply`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({from_id: s.from_id, to_id: s.to_id, link_text: linkText})
+    });
+    _linksAccepted++;
+    _linksSuggestions.splice(idx, 1);
+    _renderLinkCards();
+  } catch(e) {
+    card.style.opacity = '1';
+    alert('Error al aplicar: ' + e.message);
+  }
+}
+
+async function _linkReject(idx) {
+  const s = _linksSuggestions[idx];
+  try {
+    await fetch(`${SERVER}/links/reject`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({from_id: s.from_id, to_id: s.to_id})
+    });
+    _linksRejected++;
+    _linksSuggestions.splice(idx, 1);
+    _renderLinkCards();
+  } catch(e) { /* ignore */ }
+}
+
 // ── URL import ───────────────────────────────────────────────────
 function openUrlImport() {
   document.getElementById('url-overlay').classList.add('open');
@@ -4156,7 +4292,7 @@ function _feedSelect(idx) {
 
 // ── Global keyboard shortcuts ────────────────────────────────────
 function _anyModalOpen() {
-  return ['qs-overlay','chat-overlay','stats-overlay','graph-overlay','editor-overlay']
+  return ['qs-overlay','chat-overlay','stats-overlay','graph-overlay','editor-overlay','links-overlay']
     .some(id => document.getElementById(id)?.classList.contains('open'))
     || document.getElementById('upload-modal')?.style.display !== 'none'
     || document.getElementById('qc-overlay')?.style.display !== 'none'

@@ -710,6 +710,183 @@ def create_note():
     return jsonify({"ok": True, "folder": result["folder"], "title": result["title"], "path": rel_path})
 
 
+# ── Link suggestions ──────────────────────────────────────────────────────────
+
+LINKS_REJECTED = BASE / "links_rejected.json"
+
+def _load_rejected() -> set:
+    if not LINKS_REJECTED.exists():
+        return set()
+    try:
+        data = json.loads(LINKS_REJECTED.read_text(encoding="utf-8"))
+        return {(r["a"], r["b"]) for r in data}
+    except Exception:
+        return set()
+
+def _save_rejected(rejected: set):
+    data = [{"a": a, "b": b} for a, b in sorted(rejected)]
+    LINKS_REJECTED.write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")
+
+
+@app.route("/links/suggest")
+def links_suggest():
+    threshold = float(request.args.get("threshold", 0.70))
+    max_n     = min(int(request.args.get("max", 80)), 300)
+
+    with _embed_lock:
+        if not _embed_ready or _embed_matrix is None:
+            return jsonify({"error": "Embeddings not ready"}), 503
+        matrix = _embed_matrix.copy()
+        paths  = list(_embed_paths)
+        ids    = list(_embed_ids)
+
+    import re, yaml
+    wiki_re   = re.compile(r'\[\[([^\]|#]+)(?:[|#][^\]]+)?\]\]')
+    rejected  = _load_rejected()
+
+    # Build per-note metadata
+    id_to_title = {}
+    id_to_links = {}   # id → set of lowercased link targets
+    id_to_path  = dict(zip(ids, paths))
+
+    for note_id, rel_path in id_to_path.items():
+        note_file = BASE / rel_path
+        title = Path(rel_path).stem.replace("_", " ")
+        links: set = set()
+        try:
+            full = note_file.read_text(encoding="utf-8-sig")
+            m    = FRONTMATTER_RE.match(full)
+            body = full[m.end():] if m else full
+            if m:
+                fm    = yaml.safe_load(m.group(1)) or {}
+                title = fm.get("title", title)
+            for lm in wiki_re.finditer(body):
+                links.add(lm.group(1).strip().lower())
+        except Exception:
+            pass
+        id_to_title[note_id] = title
+        id_to_links[note_id] = links
+
+    # Compute similarity matrix and collect pairs above threshold
+    n   = len(ids)
+    sim = matrix @ matrix.T   # (N, N)
+
+    suggestions = []
+    seen: set   = set()
+
+    for i in range(n):
+        for j in range(i + 1, n):
+            score = float(sim[i, j])
+            if score < threshold:
+                continue
+            a, b = ids[i], ids[j]
+            pair = (min(a, b), max(a, b))
+            if pair in seen:
+                continue
+            if pair in rejected:
+                continue
+            ta = id_to_title.get(a, "")
+            tb = id_to_title.get(b, "")
+            if tb.lower() in id_to_links.get(a, set()):
+                continue
+            if ta.lower() in id_to_links.get(b, set()):
+                continue
+            seen.add(pair)
+            suggestions.append({"from_id": a, "from_title": ta,
+                                 "to_id": b,   "to_title": tb,
+                                 "score": round(score, 3)})
+
+    suggestions.sort(key=lambda s: s["score"], reverse=True)
+    return jsonify({"suggestions": suggestions[:max_n], "total": len(suggestions)})
+
+
+@app.route("/links/apply", methods=["POST"])
+def links_apply():
+    data      = request.get_json(silent=True) or {}
+    from_id   = data.get("from_id")
+    link_text = (data.get("link_text") or "").strip()
+    if from_id is None or not link_text:
+        return jsonify({"error": "from_id and link_text required"}), 400
+
+    with _embed_lock:
+        id_to_path = dict(zip(_embed_ids, _embed_paths))
+
+    rel_path = id_to_path.get(from_id)
+    if not rel_path:
+        return jsonify({"error": "Note not found in embed index"}), 404
+
+    note_file = BASE / rel_path
+    if not note_file.exists():
+        return jsonify({"error": "File not found"}), 404
+
+    content = note_file.read_text(encoding="utf-8-sig")
+    import re
+    rel_re  = re.compile(r'(## Relacionadas\n)(.*?)(\Z)', re.DOTALL)
+    link_md = f"- [[{link_text}]]"
+    m       = rel_re.search(content)
+    if m:
+        new_content = content[:m.start(2)] + link_md + "\n" + content[m.start(2):]
+    else:
+        new_content = content.rstrip() + f"\n\n## Relacionadas\n{link_md}\n"
+
+    note_file.write_text(new_content, encoding="utf-8")
+    subprocess.run([PYTHON, str(BASE / "build_dashboard.py")], cwd=str(BASE), capture_output=True)
+    return jsonify({"ok": True})
+
+
+@app.route("/links/reject", methods=["POST"])
+def links_reject():
+    data    = request.get_json(silent=True) or {}
+    from_id = data.get("from_id")
+    to_id   = data.get("to_id")
+    if from_id is None or to_id is None:
+        return jsonify({"error": "from_id and to_id required"}), 400
+    rejected = _load_rejected()
+    rejected.add((min(from_id, to_id), max(from_id, to_id)))
+    _save_rejected(rejected)
+    return jsonify({"ok": True})
+
+
+@app.route("/links/graph")
+def links_graph():
+    """Return nodes + edges for the knowledge graph."""
+    import re, yaml
+    wiki_re = re.compile(r'\[\[([^\]|#]+)(?:[|#][^\]]+)?\]\]')
+
+    from build_index import load_notes
+    notes    = load_notes()
+    id_map   = {}   # title.lower() → note index
+    note_out = []
+
+    for i, note in enumerate(notes):
+        rel = str(note["rel"]).replace("\\", "/")
+        id_map[note["title"].lower()] = i
+        note_out.append({"id": i, "title": note["title"],
+                         "folder": note["folder_key"], "path": rel})
+
+    edges = []
+    seen_edges: set = set()
+    for i, note in enumerate(notes):
+        try:
+            full = note["path"].read_text(encoding="utf-8-sig")
+            m    = FRONTMATTER_RE.match(full)
+            body = full[m.end():] if m else full
+        except Exception:
+            continue
+        for lm in wiki_re.finditer(body):
+            target = lm.group(1).strip().lower()
+            j = id_map.get(target)
+            if j is None or j == i:
+                continue
+            pair = (min(i, j), max(i, j))
+            if pair in seen_edges:
+                continue
+            seen_edges.add(pair)
+            edges.append({"source": i, "target": j})
+
+    return jsonify({"nodes": note_out, "edges": edges})
+
+
 # ── CLI ────────────────────────────────────────────────────────────────────────
 
 def main():

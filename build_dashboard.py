@@ -1368,7 +1368,7 @@ main {
 }
 .qc-overlay.open { display: flex; }
 .qc-panel {
-  background: var(--surface-1);
+  background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 12px;
   width: 100%; max-width: 660px;
@@ -1781,6 +1781,10 @@ main {
       <button class="props-close" onclick="closeProps()">✕</button>
     </div>
     <div class="props-body">
+      <div class="props-field">
+        <span class="props-label">Título</span>
+        <input id="props-title-input" class="props-input" type="text" placeholder="Título de la nota">
+      </div>
       <div class="props-field">
         <span class="props-label">Tipo</span>
         <select id="props-type" class="props-select"></select>
@@ -2356,6 +2360,9 @@ async function openProps(id) {
   _propsTags = [...(note.tags || [])];
   renderPropsTags();
 
+  // Load title
+  document.getElementById('props-title-input').value = note.title || '';
+
   // Load status
   document.getElementById('props-status-input').value = note.status || '';
   document.getElementById('props-status-msg').textContent = '';
@@ -2417,6 +2424,7 @@ async function saveProps() {
   msg.textContent = 'Guardando…';
   msg.className = 'props-status';
 
+  const newTitle  = document.getElementById('props-title-input').value.trim();
   const newType   = document.getElementById('props-type').value;
   const newStatus = document.getElementById('props-status-input').value.trim();
   const newTags   = [..._propsTags];
@@ -2444,6 +2452,7 @@ async function saveProps() {
   }
 
   // Apply changes
+  if (newTitle)  fm.title  = newTitle;
   if (newType)   fm.type   = newType; else delete fm.type;
   if (newStatus) fm.status = newStatus; else delete fm.status;
   fm._tagsArr = newTags;
@@ -2473,6 +2482,7 @@ async function saveProps() {
     const d = await r.json();
     if (!r.ok) throw new Error(d.error || r.statusText);
     // Update DATA.notes in memory so UI reflects changes without reload
+    if (newTitle) note.title = newTitle;
     note.type   = newType   || null;
     note.status = newStatus || null;
     note.tags   = newTags;

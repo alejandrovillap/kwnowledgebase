@@ -27,18 +27,18 @@ FOLDER RULES — read carefully:
 
 10-Work — STRICTLY for active work outputs: client projects, deliverables, meeting notes with clients/stakeholders, consulting engagements, work proposals. NOT for studying topics, learning frameworks, or certification prep.
 
+20-Learning/PMI-ACP — PMI Agile Certified Practitioner: agile frameworks, Scrum, Kanban, servant leadership, agile mindset, exam prep.
 20-Learning/CCA-F — Anthropic CCA-F certification: Claude Code, MCP, agentic architecture, exam domains D1-D5.
 20-Learning/Cognitive-PM-AI — Cognitive PM AI course: cognition, AI applied to project management.
 20-Learning/Antigravity — Antigravity Platform: agentic editor, soul framework, IDE, platform design.
 20-Learning/Gemini-Enterprise — Google Gemini Enterprise: workspace AI, DLP, change management, deployment.
-20-Learning/Certifications — general certifications not listed above.
-20-Learning — general learning without a dedicated subfolder yet.
+20-Learning — general learning content that does not fit a specific subfolder above.
 
-NEW SUBFOLDER RULE: You MAY propose a new subfolder under 20-Learning when the note belongs to a specific, well-defined topic that deserves its own space. Format: "20-Learning/TopicName". Examples of valid new subfolders: "20-Learning/PMI-ACP" for PMI-ACP agile certification prep, "20-Learning/AI-SDLC" for AI in software development lifecycle, "20-Learning/Coaching" for coaching methodology. Only do this when the topic is specific and distinct enough to warrant a dedicated folder.
+NEW SUBFOLDER RULE: You MAY propose a new subfolder under 20-Learning when the note belongs to a specific, well-defined topic that deserves its own space. Format: "20-Learning/TopicName". Only do this when the topic is distinct enough to warrant a dedicated folder.
 
-40-Reference — reference material, glossaries, frameworks, lookup tables (not tied to a specific course).
-50-Archive — outdated, superseded, or completed content.
 Journal — personal reflections, emotions, coaching of self, personal development diary.
+
+IMPORTANT: Do NOT use 40-Reference, 50-Archive, or 20-Learning/Certifications — these folders no longer exist. Every note must go to one of the folders above.
 
 No preamble. No explanation. JSON only."""
 

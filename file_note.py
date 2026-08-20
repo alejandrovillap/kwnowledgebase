@@ -32,22 +32,19 @@ PROCESSED = BASE / "00-Inbox" / "processed"
 FOLDER_MAP: dict[str, Path] = {
     "10-Work":                      BASE / "10-Work",
     "20-Learning":                  BASE / "20-Learning",
+    "20-Learning/PMI-ACP":          BASE / "20-Learning" / "PMI-ACP",
     "20-Learning/CCA-F":            BASE / "20-Learning" / "CCA-F",
-    "20-Learning/Certifications":   BASE / "20-Learning" / "Certifications",
     "20-Learning/Cognitive-PM-AI":  BASE / "20-Learning" / "Cognitive-PM-AI",
     "20-Learning/Antigravity":      BASE / "20-Learning" / "Antigravity",
     "20-Learning/Gemini-Enterprise":BASE / "20-Learning" / "Gemini-Enterprise",
-    "40-Reference":                 BASE / "40-Reference",
-    "50-Archive":                   BASE / "50-Archive",
     "Journal":                      BASE / "Journal",
 }
 
 # Number of path components below BASE for each folder (used for ../assets/ depth)
 FOLDER_DEPTH: dict[str, int] = {
-    "10-Work": 1, "20-Learning": 1, "40-Reference": 1,
-    "50-Archive": 1, "Journal": 1,
-    "20-Learning/Antigravity": 2, "20-Learning/Gemini-Enterprise": 2,
-    "20-Learning/CCA-F": 2, "20-Learning/Certifications": 2,
+    "10-Work": 1, "20-Learning": 1, "Journal": 1,
+    "20-Learning/PMI-ACP": 2, "20-Learning/Antigravity": 2,
+    "20-Learning/Gemini-Enterprise": 2, "20-Learning/CCA-F": 2,
     "20-Learning/Cognitive-PM-AI": 2,
 }
 

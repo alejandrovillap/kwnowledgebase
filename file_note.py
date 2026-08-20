@@ -184,8 +184,12 @@ def file_note(
     title     = meta.get("title") or "untitled"
     note_date = meta.get("date")  or _date.today().isoformat()
     slug      = _slug(title)
-    stem      = f"{note_date}_{slug}"
-    dest_md   = dest_dir / (stem + ".md")
+    dest_md   = dest_dir / (slug + ".md")
+    # Avoid collision if title already exists
+    counter = 1
+    while dest_md.exists():
+        dest_md = dest_dir / (f"{slug}_{counter}.md")
+        counter += 1
 
     body = markdown_body if markdown_body is not None else text
     content = _frontmatter(meta) + "\n" + body + "\n"

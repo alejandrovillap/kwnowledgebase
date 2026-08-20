@@ -745,14 +745,18 @@ def links_suggest():
     rejected  = _load_rejected()
 
     # Build per-note metadata
-    id_to_title = {}
-    id_to_links = {}   # id → set of lowercased link targets
-    id_to_path  = dict(zip(ids, paths))
+    id_to_title  = {}
+    id_to_links  = {}   # id → set of lowercased link targets
+    id_to_tags   = {}   # id → frozenset of tags
+    id_to_folder = {}   # id → top-level folder (e.g. "20-Learning")
+    id_to_path   = dict(zip(ids, paths))
 
     for note_id, rel_path in id_to_path.items():
         note_file = BASE / rel_path
         title = Path(rel_path).stem.replace("_", " ")
         links: set = set()
+        tags:  set = set()
+        folder = Path(rel_path).parts[0] if Path(rel_path).parts else ""
         try:
             full = note_file.read_text(encoding="utf-8-sig")
             m    = FRONTMATTER_RE.match(full)
@@ -760,12 +764,22 @@ def links_suggest():
             if m:
                 fm    = yaml.safe_load(m.group(1)) or {}
                 title = fm.get("title", title)
+                raw_tags = fm.get("tags") or []
+                if isinstance(raw_tags, list):
+                    tags = {str(t).lower().strip() for t in raw_tags if t}
             for lm in wiki_re.finditer(body):
                 links.add(lm.group(1).strip().lower())
         except Exception:
             pass
-        id_to_title[note_id] = title
-        id_to_links[note_id] = links
+        id_to_title[note_id]  = title
+        id_to_links[note_id]  = links
+        id_to_tags[note_id]   = frozenset(tags)
+        id_to_folder[note_id] = folder
+
+    # Thresholds:
+    #   same folder OR shared tags → base threshold (default 0.70)
+    #   cross-folder, no shared tags → strict threshold (0.85)
+    strict_threshold = max(threshold, 0.85)
 
     # Compute similarity matrix and collect pairs above threshold
     n   = len(ids)
@@ -785,6 +799,13 @@ def links_suggest():
                 continue
             if pair in rejected:
                 continue
+
+            # Apply stricter threshold for cross-folder pairs with no shared tags
+            shared_tags   = id_to_tags.get(a, frozenset()) & id_to_tags.get(b, frozenset())
+            same_folder   = id_to_folder.get(a) == id_to_folder.get(b)
+            if not same_folder and not shared_tags and score < strict_threshold:
+                continue
+
             ta = id_to_title.get(a, "")
             tb = id_to_title.get(b, "")
             if tb.lower() in id_to_links.get(a, set()):
@@ -794,7 +815,8 @@ def links_suggest():
             seen.add(pair)
             suggestions.append({"from_id": a, "from_title": ta,
                                  "to_id": b,   "to_title": tb,
-                                 "score": round(score, 3)})
+                                 "score": round(score, 3),
+                                 "shared_tags": sorted(shared_tags)})
 
     suggestions.sort(key=lambda s: s["score"], reverse=True)
     return jsonify({"suggestions": suggestions[:max_n], "total": len(suggestions)})

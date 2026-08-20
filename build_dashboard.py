@@ -2478,19 +2478,24 @@ async function saveProps() {
   msg.className = 'props-status';
 
   try {
+    if (!_propsRaw) throw new Error('No se pudo leer el archivo. Cierra y vuelve a abrir las propiedades.');
+
     const titleEl  = document.getElementById('props-title-input');
     const newTitle  = titleEl ? titleEl.value.trim() : '';
     const newType   = document.getElementById('props-type').value;
     const newStatus = document.getElementById('props-status-input').value.trim();
     const newTags   = [..._propsTags];
 
+    // Normalize line endings (handles Windows CRLF from OneDrive sync)
+    const raw = _propsRaw.replace(/\r\n/g, '\n');
     // Parse and patch frontmatter
     const fmRe = /^---\n([\s\S]*?)\n---\n?/;
-    const m = _propsRaw.match(fmRe);
-    let body = _propsRaw;
+    const m = raw.match(fmRe);
+    if (!m) throw new Error('Frontmatter no encontrado en el archivo. Verifica que empiece con ---');
+    let body = raw;
     let fm = {};
     if (m) {
-      body = _propsRaw.slice(m[0].length);
+      body = raw.slice(m[0].length);
       // Parse key: value lines (avoids needing js-yaml)
       m[1].split('\n').forEach(line => {
         const kv = line.match(/^(\w+):\s*(.*)/);

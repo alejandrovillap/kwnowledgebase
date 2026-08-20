@@ -1565,22 +1565,42 @@ main {
   padding: 10px 12px; transition: border-color .12s, color .12s;
 }
 .camera-btn:hover { border-color: var(--accent); color: var(--text-1); }
-.pipeline-log {
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 10px 12px;
-  font-family: var(--mono);
-  font-size: 11px;
-  color: var(--text-2);
-  max-height: 140px;
-  overflow-y: auto;
-  margin-bottom: 16px;
+.pipeline-log { display: none; }
+.capture-processing {
   display: none;
-  line-height: 1.6;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 24px 0 8px;
 }
-.pipeline-log .log-done  { color: #4ADE80; }
-.pipeline-log .log-error { color: #F87171; }
+.capture-processing.active { display: flex; }
+.capture-spinner {
+  width: 40px; height: 40px;
+  border: 3px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin .8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.capture-processing-msg {
+  font-size: 14px; font-weight: 600;
+  color: var(--text-1);
+}
+.capture-processing-sub {
+  font-size: 12px; color: var(--text-2); text-align: center;
+}
+.capture-error {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 0;
+}
+.capture-error.active { display: flex; }
+.capture-error-icon { font-size: 28px; }
+.capture-error-msg {
+  font-size: 13px; color: var(--text-2); text-align: center;
+}
 .modal-actions {
   display: flex; justify-content: flex-end; gap: 8px;
 }
@@ -1860,25 +1880,40 @@ main {
 </div>
 
 <!-- Upload modal -->
-<div id="upload-modal" style="display:none" class="modal-backdrop" onclick="if(event.target===this)closeCapture()">
+<div id="upload-modal" style="display:none" class="modal-backdrop">
   <div class="modal">
-    <div class="modal-title">Capturar nota</div>
-    <div class="modal-sub">Sube una foto, imagen o PDF para procesarla con el pipeline.</div>
-    <div class="camera-row">
-      <button class="camera-btn" onclick="triggerCamera('capture')">📷 Cámara</button>
-      <button class="camera-btn" onclick="triggerCamera('gallery')">🖼️ Galería / PDF</button>
+    <!-- Idle state -->
+    <div id="capture-idle">
+      <div class="modal-title">Capturar nota</div>
+      <div class="modal-sub">Sube una foto, imagen o PDF para procesarla.</div>
+      <div class="camera-row">
+        <button class="camera-btn" onclick="triggerCamera('capture')">📷 Cámara</button>
+        <button class="camera-btn" onclick="triggerCamera('gallery')">🖼️ Galería / PDF</button>
+      </div>
+      <input type="file" id="file-input" accept="image/*,.pdf" style="display:none" onchange="handleFileSelect(event)">
+      <div class="drop-zone" id="drop-zone" onclick="document.getElementById('file-input').click()">
+        <div class="drop-icon">📂</div>
+        <div class="drop-label" id="drop-label">Arrastra un archivo aquí</div>
+        <div class="drop-hint">PNG · JPG · HEIC · PDF</div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-cancel" onclick="closeCapture()">Cancelar</button>
+        <button class="camera-btn" id="upload-btn" style="display:none" onclick="uploadSelectedFile()">⬆ Subir</button>
+      </div>
     </div>
-    <input type="file" id="file-input" accept="image/*,.pdf" style="display:none" onchange="handleFileSelect(event)">
-    <div class="drop-zone" id="drop-zone" onclick="document.getElementById('file-input').click()">
-      <div class="drop-icon">📂</div>
-      <div class="drop-label" id="drop-label">Arrastra un archivo aquí</div>
-      <div class="drop-hint">PNG · JPG · HEIC · PDF</div>
+    <!-- Processing state -->
+    <div class="capture-processing" id="capture-processing">
+      <div class="capture-spinner"></div>
+      <div class="capture-processing-msg">Procesando…</div>
+      <div class="capture-processing-sub" id="capture-processing-sub">Esto puede tomar unos segundos</div>
+    </div>
+    <!-- Error state -->
+    <div class="capture-error" id="capture-error">
+      <div class="capture-error-icon">⚠️</div>
+      <div class="capture-error-msg" id="capture-error-msg">Error al procesar el archivo.</div>
+      <button class="btn-cancel" onclick="closeCapture()">Cerrar</button>
     </div>
     <div class="pipeline-log" id="pipeline-log"></div>
-    <div class="modal-actions">
-      <button class="btn-cancel" onclick="closeCapture()">Cerrar</button>
-      <button class="camera-btn" id="upload-btn" style="display:none" onclick="uploadSelectedFile()">⬆ Subir</button>
-    </div>
   </div>
 </div>
 
@@ -4397,13 +4432,21 @@ function openCapture() {
     alert('El servidor no está corriendo.\nEjecuta:  python kb_server.py\nLuego abre http://localhost:5000');
     return;
   }
+  _captureSetState('idle');
+  document.getElementById('drop-label').textContent = 'Arrastra un archivo aquí';
+  document.getElementById('upload-btn').style.display = 'none';
+  document.getElementById('file-input').value = '';
   document.getElementById('upload-modal').style.display = '';
-  document.getElementById('pipeline-log').style.display = 'none';
-  document.getElementById('pipeline-log').innerHTML = '';
 }
 
 function closeCapture() {
   document.getElementById('upload-modal').style.display = 'none';
+}
+
+function _captureSetState(state) {
+  document.getElementById('capture-idle').style.display        = state === 'idle'       ? '' : 'none';
+  document.getElementById('capture-processing').classList.toggle('active', state === 'processing');
+  document.getElementById('capture-error').classList.toggle('active',      state === 'error');
 }
 
 function triggerCamera(mode) {
@@ -4441,9 +4484,8 @@ dz.addEventListener('drop', e => {
 });
 
 async function uploadFile(file) {
-  const log = document.getElementById('pipeline-log');
-  log.style.display = 'block';
-  log.innerHTML = `<div>Subiendo: <strong>${file.name}</strong> (${(file.size/1024).toFixed(1)} KB)…</div>`;
+  _captureSetState('processing');
+  document.getElementById('capture-processing-sub').textContent = file.name;
 
   const fd = new FormData();
   fd.append('file', file);
@@ -4451,29 +4493,37 @@ async function uploadFile(file) {
   try {
     const r = await fetch(SERVER + '/upload', { method: 'POST', body: fd });
     const data = await r.json();
-    if (!r.ok) { log.innerHTML += `<div class="log-error">Error: ${data.error}</div>`; return; }
-    log.innerHTML += `<div>Pipeline iniciado — ${data.file}</div>`;
-    subscribeStatus(log);
+    if (!r.ok) {
+      _captureSetState('error');
+      document.getElementById('capture-error-msg').textContent = data.error || 'Error al subir el archivo.';
+      return;
+    }
+    subscribeStatus();
   } catch (err) {
-    log.innerHTML += `<div class="log-error">${err.message}</div>`;
+    _captureSetState('error');
+    document.getElementById('capture-error-msg').textContent = 'No se pudo conectar con el servidor.';
   }
 }
 
-function subscribeStatus(log) {
+function subscribeStatus() {
   const es = new EventSource(SERVER + '/status');
   es.onmessage = e => {
     const ev = JSON.parse(e.data);
-    const cls = ev.type === 'done' ? 'log-done' : ev.type === 'error' ? 'log-error' : '';
-    log.innerHTML += `<div class="${cls}">${ev.msg}</div>`;
-    log.scrollTop = log.scrollHeight;
-    if (ev.type === 'done' || ev.type === 'error') {
+    if (ev.type === 'done') {
       es.close();
-      if (ev.type === 'done') {
-        setTimeout(() => { closeCapture(); location.reload(); }, 2000);
-      }
+      closeCapture();
+      location.reload();
+    } else if (ev.type === 'error') {
+      es.close();
+      _captureSetState('error');
+      document.getElementById('capture-error-msg').textContent = ev.msg || 'Error al procesar el archivo.';
     }
   };
-  es.onerror = () => es.close();
+  es.onerror = () => {
+    es.close();
+    _captureSetState('error');
+    document.getElementById('capture-error-msg').textContent = 'Se perdió la conexión con el servidor.';
+  };
 }
 
 // ── Editor ──────────────────────────────────────────────────────

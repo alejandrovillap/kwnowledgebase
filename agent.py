@@ -176,6 +176,21 @@ def run(file_path: str | Path, *, commit: bool = True, dry_run: bool = False) ->
             dest = build_dashboard()
             log.info("   dashboard written to %s", dest.name)
 
+        # ── 7. Update embeddings (non-fatal) ──────────────────────────────────
+        try:
+            log.info("-- build_embeddings ...")
+            import subprocess as _sp
+            emb = _sp.run(
+                [sys.executable, str(BASE / "build_embeddings.py")],
+                cwd=str(BASE), capture_output=True, text=True, timeout=300
+            )
+            if emb.returncode != 0:
+                log.warning("   build_embeddings warning: %s", (emb.stderr or emb.stdout)[-200:])
+            else:
+                log.info("   build_embeddings OK")
+        except Exception as _emb_exc:
+            log.warning("   build_embeddings skipped: %s", _emb_exc)
+
         result["success"] = True
 
     except Exception as exc:

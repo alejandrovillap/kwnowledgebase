@@ -1996,6 +1996,10 @@ main {
       <span class="sidebar-label">⭐ Favoritos</span>
       <div id="starred-nav"></div>
     </div>
+    <div class="sidebar-section" id="recent-section" style="margin-top:8px">
+      <span class="sidebar-label">🕐 Recientes</span>
+      <div id="recent-nav"></div>
+    </div>
     <div class="sidebar-section" style="margin-top:8px">
       <span class="sidebar-label">Carpetas</span>
       <div id="folder-nav"></div>
@@ -2530,11 +2534,25 @@ function buildStarredNav() {
   }).join('');
 }
 
+function buildRecentNav() {
+  const nav = document.getElementById('recent-nav');
+  if (!nav) return;
+  const recent = DATA.notes.slice(0, 7);
+  nav.innerHTML = recent.map(n => {
+    const color = Object.entries(FOLDER_META).find(([k]) => n.folder?.startsWith(k))?.[1]?.color || '#6b7280';
+    return `<div class="starred-item" onclick="openNoteById(${n.id})">
+      <span class="starred-item-dot" style="background:${color}"></span>
+      <span class="starred-item-title">${esc(n.title)}</span>
+    </div>`;
+  }).join('');
+}
+
 function buildSidebar() {
   const nav   = document.getElementById('folder-nav');
   const total = DATA.notes.length;
 
   buildStarredNav();
+  buildRecentNav();
   nav.appendChild(makeFolder('all', 'Todos', total, null));
   Object.entries(DATA.stats.by_folder)
     .sort((a, b) => b[1] - a[1])
@@ -3003,22 +3021,45 @@ async function runSemanticSearch(query) {
       return;
     }
     if (!d.results.length) {
-      feed.innerHTML = '<p class="empty-state">Sin resultados semánticos.</p>';
+      const kw = _keywordFallback(query);
+      if (kw.length) {
+        renderSemanticResults(kw.map(n => ({id: n.id, score: 0})), query, true);
+      } else {
+        feed.innerHTML = '<p class="empty-state">Sin resultados.</p>';
+      }
       return;
     }
-    renderSemanticResults(d.results, query);
+    renderSemanticResults(d.results, query, false);
   } catch (err) {
-    feed.innerHTML = `<p class="empty-state">Error: ${err.message}</p>`;
+    // Server offline or error — fall back to keyword search
+    const kw = _keywordFallback(query);
+    if (kw.length) {
+      renderSemanticResults(kw.map(n => ({id: n.id, score: 0})), query, true);
+    } else {
+      feed.innerHTML = `<p class="empty-state">Sin resultados para "${esc(query)}".</p>`;
+    }
   }
 }
 
-function renderSemanticResults(results, query) {
+function _keywordFallback(query) {
+  const q = query.toLowerCase();
+  return DATA.notes.filter(n =>
+    n.title.toLowerCase().includes(q) ||
+    n.tags.join(' ').toLowerCase().includes(q) ||
+    n.folder.toLowerCase().includes(q) ||
+    (n.body || '').toLowerCase().includes(q)
+  ).slice(0, 20);
+}
+
+function renderSemanticResults(results, query, isKeyword) {
   const feed = document.getElementById('main-feed');
   feed.innerHTML = '';
 
   const header = document.createElement('div');
   header.className = 'month-header';
-  header.textContent = `⚡ Resultados semánticos para "${query}" — ${results.length} notas`;
+  header.textContent = isKeyword
+    ? `🔤 Resultados de texto para "${query}" — ${results.length} notas`
+    : `⚡ Resultados semánticos para "${query}" — ${results.length} notas`;
   feed.appendChild(header);
 
   results.forEach(({ id, score }) => {
@@ -3038,13 +3079,17 @@ function renderSemanticResults(results, query) {
       ? `<span class="badge badge-folder" style="color:${fm.color};border-color:${fm.color}55;background:${fm.color}18">${fm.label}</span>`
       : '';
 
-    row.innerHTML = `
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:3px">
-        <span class="note-title" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1">${esc(note.title)}</span>
-        <span class="semantic-score">${pct}%</span>
-        ${folderBadge}
-      </div>
-      <div class="semantic-bar" style="width:${pct}%"></div>`;
+    row.innerHTML = isKeyword
+      ? `<div style="display:flex;align-items:center;gap:8px">
+          <span class="note-title" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1">${esc(note.title)}</span>
+          ${folderBadge}
+        </div>`
+      : `<div style="display:flex;align-items:center;gap:8px;margin-bottom:3px">
+          <span class="note-title" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1">${esc(note.title)}</span>
+          <span class="semantic-score">${pct}%</span>
+          ${folderBadge}
+        </div>
+        <div class="semantic-bar" style="width:${pct}%"></div>`;
 
     feed.appendChild(row);
   });

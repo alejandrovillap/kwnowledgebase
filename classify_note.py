@@ -34,12 +34,14 @@ FOLDER RULES — read carefully:
 20-Learning/Gemini-Enterprise — Google Gemini Enterprise: workspace AI, DLP, change management, deployment.
 20-Learning/RPA — Robotic Process Automation: UiPath, Automation Anywhere, bots, workflow automation, RPA tools.
 20-Learning/Coaching — Coaching methodologies: ICF, coaching conversations, coaching frameworks, mentoring.
+20-Learning/OpenAI — OpenAI platform: GPT-4, ChatGPT, OpenAI API, DALL-E, Whisper, fine-tuning, OpenAI tools.
 20-Learning — use for ALL other learning content. This is the default when nothing above fits.
 
 Journal — personal reflections, emotions, personal development diary.
 
 STRICT RULES:
 - Do NOT invent new subfolder names. Use ONLY the exact folder keys listed above.
+- 20-Learning/OpenAI is for OpenAI/ChatGPT content; do NOT use 20-Learning/CCA-F for it (CCA-F is Anthropic only).
 - Do NOT use 40-Reference, 50-Archive, or 20-Learning/Certifications — these no longer exist.
 - When in doubt, use 20-Learning.
 

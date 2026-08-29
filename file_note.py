@@ -39,6 +39,7 @@ FOLDER_MAP: dict[str, Path] = {
     "20-Learning/Gemini-Enterprise":BASE / "20-Learning" / "Gemini-Enterprise",
     "20-Learning/RPA":              BASE / "20-Learning" / "RPA",
     "20-Learning/Coaching":         BASE / "20-Learning" / "Coaching",
+    "20-Learning/OpenAI":           BASE / "20-Learning" / "OpenAI",
     "Journal":                      BASE / "Journal",
 }
 
@@ -48,7 +49,7 @@ FOLDER_DEPTH: dict[str, int] = {
     "20-Learning/PMI-ACP": 2, "20-Learning/Antigravity": 2,
     "20-Learning/Gemini-Enterprise": 2, "20-Learning/CCA-F": 2,
     "20-Learning/Cognitive-PM-AI": 2, "20-Learning/RPA": 2,
-    "20-Learning/Coaching": 2,
+    "20-Learning/Coaching": 2, "20-Learning/OpenAI": 2,
 }
 
 

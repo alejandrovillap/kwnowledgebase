@@ -498,14 +498,15 @@ main {
 }
 .note-row {
   display: grid;
-  grid-template-columns: 76px 1fr auto;
-  gap: 0 10px;
-  align-items: center;
-  padding: 7px 8px;
+  grid-template-columns: 68px 1fr auto;
+  grid-template-rows: auto auto;
+  gap: 1px 10px;
+  align-items: start;
+  padding: 8px 8px 8px 10px;
   border-radius: var(--radius);
   transition: background .1s;
   cursor: pointer;
-  border-left: 3px solid transparent;
+  border-left: 3px solid var(--row-fc, transparent);
 }
 .note-row:hover { background: var(--surface-2); }
 .note-row.kb-selected { outline: 2px solid var(--accent); outline-offset: -2px; }
@@ -519,6 +520,7 @@ main {
   color: var(--text-3);
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
+  padding-top: 2px;
 }
 .note-title {
   font-size: 13px;
@@ -526,6 +528,7 @@ main {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  padding-top: 1px;
 }
 .note-updated {
   font-family: var(--mono);
@@ -534,15 +537,13 @@ main {
   margin-left: 6px;
 }
 .note-snippet {
-  display: block;
+  grid-column: 2 / -1;
   font-size: 11px;
   color: var(--text-3);
-  margin-top: 2px;
-  line-height: 1.4;
+  line-height: 1.35;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 100%;
 }
 .note-snippet mark {
   background: var(--accent-bg);
@@ -626,14 +627,82 @@ main {
 
 .detail-empty {
   flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--text-3);
-  font-family: var(--mono);
-  font-size: 13px;
-  gap: 8px;
+  overflow-y: auto;
+  padding: 28px 36px 60px;
 }
+/* ── Home dashboard ───────────────────────────────────────────── */
+.home-greeting {
+  font-size: 20px; font-weight: 700; color: var(--text-1);
+  margin-bottom: 4px;
+}
+.home-sub {
+  font-size: 13px; color: var(--text-3); margin-bottom: 28px;
+}
+.home-tiles {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+  margin-bottom: 32px;
+}
+@media (max-width: 900px) { .home-tiles { grid-template-columns: repeat(2, 1fr); } }
+.home-tile {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 10px; padding: 14px 16px;
+}
+.home-tile-val {
+  font-size: 30px; font-weight: 800; color: var(--text-1);
+  font-family: var(--mono); font-variant-numeric: tabular-nums; line-height: 1.1;
+}
+.home-tile-lbl { font-size: 11px; color: var(--text-3); margin-top: 5px; }
+.home-tile.ht-accent { border-color: var(--accent); background: var(--accent-bg); }
+.home-tile.ht-accent .home-tile-val { color: var(--accent); }
+.home-two { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-bottom: 32px; }
+@media (max-width: 800px) { .home-two { grid-template-columns: 1fr; } }
+.home-section-title {
+  font-size: 10px; font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--text-3);
+  margin-bottom: 12px; font-family: var(--mono);
+}
+.home-bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.home-bar-label {
+  font-size: 12px; color: var(--text-2);
+  width: 120px; flex-shrink: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.home-bar-track {
+  flex: 1; height: 7px; background: var(--surface-2); border-radius: 4px; overflow: hidden;
+}
+.home-bar-fill { height: 100%; border-radius: 4px; }
+.home-bar-count {
+  font-size: 11px; font-family: var(--mono); color: var(--text-3);
+  width: 28px; text-align: right; flex-shrink: 0; font-variant-numeric: tabular-nums;
+}
+.home-activity { display: flex; align-items: flex-end; gap: 3px; height: 64px; }
+.home-act-col { display: flex; flex-direction: column; align-items: center; gap: 3px; flex: 1; min-width: 0; }
+.home-act-bar {
+  width: 100%; border-radius: 2px 2px 0 0;
+  background: var(--accent); opacity: .55;
+  transition: opacity .15s; cursor: default;
+}
+.home-act-bar:hover { opacity: 1; }
+.home-act-lbl {
+  font-size: 7px; color: var(--text-3); font-family: var(--mono);
+  white-space: nowrap; transform: rotate(-40deg) translateX(2px);
+  transform-origin: top center; line-height: 1;
+}
+.home-recent-item {
+  display: flex; align-items: center; gap: 8px;
+  padding: 6px 8px; border-radius: 6px; cursor: pointer;
+  transition: background .1s; font-size: 13px;
+}
+.home-recent-item:hover { background: var(--surface-2); }
+.home-recent-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.home-recent-title { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--text-1); }
+.home-recent-date { font-size: 11px; color: var(--text-3); font-family: var(--mono); }
+.home-tag-cloud { display: flex; flex-wrap: wrap; gap: 5px; }
+.home-tag-chip {
+  font-size: 11px; font-family: var(--mono); padding: 3px 9px;
+  border-radius: 99px; background: var(--surface-2); border: 1px solid var(--border);
+  color: var(--text-2); cursor: pointer; transition: border-color .12s, color .12s;
+}
+.home-tag-chip:hover { border-color: var(--accent); color: var(--accent); }
 
 .detail-inner {
   padding: 28px 36px 60px;
@@ -2124,7 +2193,29 @@ main {
     <!-- Right: note detail -->
     <div class="detail-panel" id="detail-panel">
       <div class="detail-empty" id="detail-empty">
-        <span>← selecciona una nota para leerla</span>
+        <div class="home-greeting" id="home-greeting"></div>
+        <div class="home-sub" id="home-sub"></div>
+        <div class="home-tiles" id="home-tiles"></div>
+        <div class="home-two">
+          <div>
+            <div class="home-section-title">Actividad — últimos 12 meses</div>
+            <div class="home-activity" id="home-activity"></div>
+          </div>
+          <div>
+            <div class="home-section-title">Por carpeta</div>
+            <div id="home-folders"></div>
+          </div>
+        </div>
+        <div class="home-two">
+          <div>
+            <div class="home-section-title">Notas recientes</div>
+            <div id="home-recent"></div>
+          </div>
+          <div>
+            <div class="home-section-title">Tags frecuentes</div>
+            <div class="home-tag-cloud" id="home-tags"></div>
+          </div>
+        </div>
       </div>
       <div class="detail-inner" id="detail-inner" style="display:none"></div>
     </div>
@@ -2795,6 +2886,10 @@ function buildFeed(notes) {
         row.dataset.noteId = n.id;
         row.onclick = () => openNoteById(n.id);
 
+        // Folder color as left-border accent
+        const folderColor = _folderColor(n.folder);
+        row.style.setProperty('--row-fc', folderColor + 'aa');
+
         const dateEl = document.createElement('span');
         dateEl.className = 'note-date';
         dateEl.textContent = n.date;
@@ -2811,17 +2906,6 @@ function buildFeed(notes) {
 
         const meta = document.createElement('span');
         meta.className = 'note-meta';
-
-        const fm = FOLDER_META[n.folder];
-        if (fm) {
-          const fb = document.createElement('span');
-          fb.className = 'badge badge-folder';
-          fb.textContent = fm.label;
-          fb.style.color       = fm.color;
-          fb.style.borderColor = fm.color + '55';
-          fb.style.background  = fm.color + '18';
-          meta.appendChild(fb);
-        }
         if (n.type) {
           const tb = document.createElement('span');
           tb.className = 'badge badge-type';
@@ -2829,27 +2913,25 @@ function buildFeed(notes) {
           meta.appendChild(tb);
         }
 
-        // Body snippet when search matches body but not title
-        if (searchQuery) {
-          const q = searchQuery.toLowerCase();
-          const inTitle = n.title.toLowerCase().includes(q);
-          const body    = (n.body || '').replace(/^---[\s\S]*?---\n/,'');
-          const bodyIdx = body.toLowerCase().indexOf(q);
-          if (!inTitle && bodyIdx >= 0) {
-            const start   = Math.max(0, bodyIdx - 40);
-            const end     = Math.min(body.length, bodyIdx + q.length + 60);
-            const excerpt = (start > 0 ? '…' : '') + body.slice(start, end).replace(/\n/g,' ') + (end < body.length ? '…' : '');
-            const snip    = document.createElement('span');
-            snip.className = 'note-snippet';
-            snip.innerHTML = esc(excerpt).replace(
+        row.append(dateEl, titleWrap, meta);
+
+        // Snippet — always show first line of body; highlight search matches
+        const rawBody = (n.body || '').replace(/^---[\s\S]*?---\n?/, '').replace(/^#+\s+[^\n]+\n?/m, '').replace(/[#*_`\[\]]/g, '').trim();
+        const snippetText = rawBody.slice(0, 90).replace(/\n/g, ' ');
+        if (snippetText) {
+          const snip = document.createElement('span');
+          snip.className = 'note-snippet';
+          if (searchQuery) {
+            snip.innerHTML = esc(snippetText).replace(
               new RegExp(esc(searchQuery).replace(/[.*+?^${}()|[\]\\]/g,'\\$&'), 'gi'),
               m => `<mark>${m}</mark>`
             );
-            row.appendChild(snip);
+          } else {
+            snip.textContent = snippetText;
           }
+          row.appendChild(snip);
         }
 
-        row.append(dateEl, titleWrap, meta);
         group.appendChild(row);
       });
 
@@ -5027,11 +5109,119 @@ function toggleList() {
 document.getElementById('qc-title').addEventListener('input', _scheduleDupCheck);
 document.getElementById('qc-body').addEventListener('input',  _scheduleDupCheck);
 
+// ── Home dashboard ─────────────────────────────────────────────
+function renderHome() {
+  const notes = DATA.notes;
+  const total = notes.length;
+  const now   = new Date();
+
+  // Greeting
+  const h = now.getHours();
+  const saludo = h < 12 ? 'Buenos días' : h < 19 ? 'Buenas tardes' : 'Buenas noches';
+  document.getElementById('home-greeting').textContent = saludo + ' 👋';
+  document.getElementById('home-sub').textContent =
+    `Tu vault tiene ${total} nota${total !== 1 ? 's' : ''} · ${Object.keys(FOLDER_META).length} carpetas`;
+
+  // Tiles
+  const thisMonth = now.toISOString().slice(0, 7);
+  const lastMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1).toISOString().slice(0, 7);
+  const thisMonthCount = notes.filter(n => (n.date || '').startsWith(thisMonth)).length;
+  const lastMonthCount = notes.filter(n => (n.date || '').startsWith(lastMonth)).length;
+  const byTag = {};
+  notes.forEach(n => (n.tags || []).forEach(t => { byTag[t] = (byTag[t] || 0) + 1; }));
+  const uniqueTags = Object.keys(byTag).length;
+  const thisWeek = new Date(now - 7 * 86400000).toISOString().slice(0, 10);
+  const weekCount   = notes.filter(n => (n.date || '') >= thisWeek).length;
+  const activeFolders = Object.keys(DATA.stats.by_folder || {}).length;
+  const delta = thisMonthCount - lastMonthCount;
+  const deltaStr = lastMonthCount > 0 ? ` (${delta >= 0 ? '+' : ''}${delta} vs anterior)` : '';
+
+  document.getElementById('home-tiles').innerHTML = `
+    <div class="home-tile ht-accent">
+      <div class="home-tile-val">${total}</div>
+      <div class="home-tile-lbl">notas totales</div>
+    </div>
+    <div class="home-tile">
+      <div class="home-tile-val">${thisMonthCount}</div>
+      <div class="home-tile-lbl">este mes${deltaStr}</div>
+    </div>
+    <div class="home-tile">
+      <div class="home-tile-val">${uniqueTags}</div>
+      <div class="home-tile-lbl">tags únicos</div>
+    </div>
+    <div class="home-tile">
+      <div class="home-tile-val">${weekCount}</div>
+      <div class="home-tile-lbl">esta semana</div>
+    </div>`;
+
+  // Activity (12 months)
+  const byMonth = {};
+  notes.forEach(n => {
+    const k = (n.date || '').slice(0, 7);
+    if (k) byMonth[k] = (byMonth[k] || 0) + 1;
+  });
+  const actMonths = [];
+  for (let i = 11; i >= 0; i--) {
+    const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+    const k = d.toISOString().slice(0, 7);
+    actMonths.push([k, byMonth[k] || 0, d]);
+  }
+  const maxAct = Math.max(...actMonths.map(m => m[1]), 1);
+  document.getElementById('home-activity').innerHTML = actMonths.map(([k, count, d]) => {
+    const h = Math.max(4, Math.round((count / maxAct) * 52));
+    const lbl = d.toLocaleString('es', { month: 'short' }).slice(0, 3) + "'" + String(d.getFullYear()).slice(2);
+    return `<div class="home-act-col">
+      <div class="home-act-bar" style="height:${h}px" title="${count} notas — ${k}"></div>
+      <div class="home-act-lbl">${lbl}</div>
+    </div>`;
+  }).join('');
+
+  // Folders
+  const byFolder = Object.entries(DATA.stats.by_folder || {}).sort((a,b) => b[1]-a[1]).slice(0, 8);
+  const maxF = byFolder[0]?.[1] || 1;
+  document.getElementById('home-folders').innerHTML = byFolder.map(([key, count]) => {
+    const color = _folderColor(key);
+    const label = _folderLabel(key);
+    const pct   = Math.round(count / maxF * 100);
+    return `<div class="home-bar-row">
+      <span class="home-bar-label" title="${key}">${label}</span>
+      <div class="home-bar-track">
+        <div class="home-bar-fill" style="width:${pct}%;background:${color}"></div>
+      </div>
+      <span class="home-bar-count">${count}</span>
+    </div>`;
+  }).join('');
+
+  // Recent notes (last 7)
+  const recent = [...notes].sort((a,b) => (b.date||'').localeCompare(a.date||'')).slice(0, 7);
+  document.getElementById('home-recent').innerHTML = recent.map(n => {
+    const color = _folderColor(n.folder);
+    return `<div class="home-recent-item" onclick="openNoteById(${n.id})">
+      <div class="home-recent-dot" style="background:${color}"></div>
+      <span class="home-recent-title">${esc(n.title)}</span>
+      <span class="home-recent-date">${n.date || ''}</span>
+    </div>`;
+  }).join('');
+
+  // Top tags
+  const topTags = Object.entries(byTag).sort((a,b) => b[1]-a[1]).slice(0, 18);
+  document.getElementById('home-tags').innerHTML = topTags.map(([tag, count]) =>
+    `<span class="home-tag-chip" onclick="filterByTag('${esc(tag)}')">${esc(tag)} <span style="opacity:.5">${count}</span></span>`
+  ).join('');
+}
+
+function filterByTag(tag) {
+  activeTag = tag;
+  refreshAll();
+  document.querySelector(`.tag-chip[data-tag="${CSS.escape(tag)}"]`)?.classList.add('active');
+}
+
 // ── Init ───────────────────────────────────────────────────────
 buildBacklinksIndex();
 updateOrphanCount();
 buildSidebar();
 buildTimeline();
+renderHome();
 refreshAll();
 checkServer().then(() => {
   checkEmbeddings();

@@ -24,3 +24,15 @@ __pycache__/
 # OS
 .DS_Store
 Thumbs.db
+
+# Secrets
+.env
+.env.*
+
+# Personal notes
+10-Work/
+20-Learning/
+Journal/
+assets/
+00-Inbox/
+Kanban/

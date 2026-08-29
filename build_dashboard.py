@@ -19,7 +19,9 @@ from collections import defaultdict
 
 from build_index import load_notes, BASE, FRONTMATTER_RE
 
-FOLDER_META = {
+# Static overrides: curated labels and colors for known folders.
+# Any folder discovered on disk but NOT listed here gets an auto-generated entry.
+_FOLDER_META_STATIC = {
     "10-Work":                       {"label": "Work & Projects",   "color": "#5B6EF5"},
     "20-Learning/PMI-ACP":           {"label": "PMI-ACP",           "color": "#60a5fa"},
     "20-Learning/CCA-F":             {"label": "CCA-F",             "color": "#22d3ee"},
@@ -35,6 +37,43 @@ FOLDER_META = {
     "20-Learning":                   {"label": "Learning",          "color": "#a78bfa"},
     "Journal":                       {"label": "Journal",           "color": "#F87171"},
 }
+
+# Auto-color palette for dynamically discovered folders
+_AUTO_COLORS = [
+    "#f59e0b", "#84cc16", "#06b6d4", "#8b5cf6", "#ec4899",
+    "#14b8a6", "#f97316", "#6366f1", "#10b981", "#e11d48",
+]
+
+def _build_folder_meta() -> dict:
+    """Scan the vault on disk and merge with static overrides."""
+    meta = {}
+    skip = {".git", "__pycache__", "00-Inbox", "assets", "Kanban"}
+    roots = ["10-Work", "20-Learning", "Journal"]
+    color_idx = 0
+
+    for root in roots:
+        root_path = BASE / root
+        if not root_path.exists():
+            continue
+        # Subfolders first (more specific), then the root itself
+        for sub in sorted(root_path.iterdir()):
+            if sub.is_dir() and sub.name not in skip and not sub.name.startswith("."):
+                key = f"{root}/{sub.name}"
+                if key in _FOLDER_META_STATIC:
+                    meta[key] = _FOLDER_META_STATIC[key]
+                else:
+                    meta[key] = {"label": sub.name, "color": _AUTO_COLORS[color_idx % len(_AUTO_COLORS)]}
+                    color_idx += 1
+        # Root folder itself
+        if root in _FOLDER_META_STATIC:
+            meta[root] = _FOLDER_META_STATIC[root]
+        else:
+            meta[root] = {"label": root, "color": _AUTO_COLORS[color_idx % len(_AUTO_COLORS)]}
+            color_idx += 1
+
+    return meta
+
+FOLDER_META = _build_folder_meta()
 
 HTML_TEMPLATE = r"""<!doctype html>
 <html lang="es">

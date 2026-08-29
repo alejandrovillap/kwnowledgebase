@@ -239,9 +239,11 @@ def migrate(dry_run: bool = False):
 
     # Also scan for any other unknown 20-Learning/* subfolders not in MICRO_FOLDER_MAP
     learning_path = BASE / "20-Learning"
+    # Load known subs dynamically from the same roots build_dashboard uses,
+    # so this list never falls out of sync with _FOLDER_META_STATIC.
+    from build_dashboard import _FOLDER_META_STATIC
     known_sub = {
-        "PMI-ACP", "CCA-F", "Cognitive-PM-AI", "Antigravity",
-        "Gemini-Enterprise", "RPA", "Coaching",
+        k.split("/")[1] for k in _FOLDER_META_STATIC if k.startswith("20-Learning/")
     }
     if learning_path.exists():
         for sub in sorted(learning_path.iterdir()):

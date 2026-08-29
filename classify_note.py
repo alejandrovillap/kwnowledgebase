@@ -18,34 +18,72 @@ from dotenv import load_dotenv
 
 load_dotenv(Path(__file__).parent / ".env")
 
-SYSTEM_PROMPT = """You are a knowledge management assistant for a personal learning vault.
+BASE = Path(__file__).parent
+
+# Curated descriptions for known folders.
+# Any folder discovered on disk but missing here gets a generic description.
+_FOLDER_DESCRIPTIONS: dict[str, str] = {
+    "10-Work":                    "STRICTLY for active work outputs: client projects, deliverables, meeting notes with clients/stakeholders, consulting engagements, work proposals. NOT for studying topics, learning frameworks, or certification prep.",
+    "20-Learning/PMI-ACP":        "PMI Agile Certified Practitioner: agile frameworks, Scrum, Kanban, servant leadership, agile mindset, exam prep, retrospectives, user stories, velocity, sprint, backlog.",
+    "20-Learning/CCA-F":          "Anthropic CCA-F certification: Claude Code, MCP, agentic architecture, exam domains D1-D5, prompt engineering with Claude. NOT for OpenAI/ChatGPT content.",
+    "20-Learning/Cognitive-PM-AI":"Cognitive PM AI course: cognition, AI applied to project management, mental models.",
+    "20-Learning/Antigravity":    "Antigravity Platform: agentic editor, soul framework, IDE, platform design.",
+    "20-Learning/Gemini-Enterprise":"Google Gemini Enterprise: workspace AI, DLP, change management, deployment.",
+    "20-Learning/RPA":            "Robotic Process Automation: UiPath, Automation Anywhere, bots, workflow automation, RPA tools.",
+    "20-Learning/Coaching":       "Coaching methodologies: ICF, coaching conversations, coaching frameworks, mentoring.",
+    "20-Learning/OpenAI":         "OpenAI platform: GPT-4, ChatGPT, OpenAI API, DALL-E, Whisper, fine-tuning, OpenAI tools.",
+    "20-Learning/Deep-Learning":  "Deep learning and neural networks: PyTorch, TensorFlow, CNNs, transformers, model training.",
+    "20-Learning/English-Grammar":"English language learning: grammar rules, vocabulary, writing skills.",
+    "20-Learning":                "Use for ALL other learning content. This is the default when nothing above fits.",
+    "Journal":                    "Personal reflections, emotions, personal development diary.",
+}
+
+_SKIP_DIRS = {".git", "__pycache__", "00-Inbox", "assets", "Kanban"}
+
+
+def _build_folder_list() -> str:
+    """Scan vault on disk and build the folder-rules section of the prompt."""
+    lines: list[str] = []
+    roots = ["10-Work", "20-Learning", "Journal"]
+
+    for root in roots:
+        root_path = BASE / root
+        if not root_path.exists():
+            continue
+
+        # Subfolders first (most specific), then root
+        for sub in sorted(root_path.iterdir()):
+            if sub.is_dir() and sub.name not in _SKIP_DIRS and not sub.name.startswith("."):
+                key = f"{root}/{sub.name}"
+                desc = _FOLDER_DESCRIPTIONS.get(key, f"Notes about {sub.name}.")
+                lines.append(f"{key} — {desc}")
+
+        # Root folder itself
+        if root in _FOLDER_DESCRIPTIONS:
+            lines.append(f"{root} — {_FOLDER_DESCRIPTIONS[root]}")
+
+    return "\n".join(lines)
+
+
+_PROMPT_TEMPLATE = """You are a knowledge management assistant for a personal learning vault.
 
 Given OCR text of a note, return ONLY valid JSON:
-{"title":"","date":"YYYY-MM-DD","type":"idea|case|lesson-learned|question|resume|meeting|journal","status":"active|to-review|archived","technology":"gen-ai|methodology|mixed|automation|other|null","tags":[],"keywords":[],"project":"","certification":"","target_folder":"","confidence":"high|medium|low"}
+{{"title":"","date":"YYYY-MM-DD","type":"idea|case|lesson-learned|question|resume|meeting|journal","status":"active|to-review|archived","technology":"gen-ai|methodology|mixed|automation|other|null","tags":[],"keywords":[],"project":"","certification":"","target_folder":"","confidence":"high|medium|low"}}
 
 FOLDER RULES — read carefully:
 
-10-Work — STRICTLY for active work outputs: client projects, deliverables, meeting notes with clients/stakeholders, consulting engagements, work proposals. NOT for studying topics, learning frameworks, or certification prep.
-
-20-Learning/PMI-ACP — PMI Agile Certified Practitioner: agile frameworks, Scrum, Kanban, servant leadership, agile mindset, exam prep, retrospectives, user stories, velocity, sprint, backlog.
-20-Learning/CCA-F — Anthropic CCA-F certification: Claude Code, MCP, agentic architecture, exam domains D1-D5, prompt engineering with Claude.
-20-Learning/Cognitive-PM-AI — Cognitive PM AI course: cognition, AI applied to project management, mental models.
-20-Learning/Antigravity — Antigravity Platform: agentic editor, soul framework, IDE, platform design.
-20-Learning/Gemini-Enterprise — Google Gemini Enterprise: workspace AI, DLP, change management, deployment.
-20-Learning/RPA — Robotic Process Automation: UiPath, Automation Anywhere, bots, workflow automation, RPA tools.
-20-Learning/Coaching — Coaching methodologies: ICF, coaching conversations, coaching frameworks, mentoring.
-20-Learning/OpenAI — OpenAI platform: GPT-4, ChatGPT, OpenAI API, DALL-E, Whisper, fine-tuning, OpenAI tools.
-20-Learning — use for ALL other learning content. This is the default when nothing above fits.
-
-Journal — personal reflections, emotions, personal development diary.
+{folder_list}
 
 STRICT RULES:
 - Do NOT invent new subfolder names. Use ONLY the exact folder keys listed above.
-- 20-Learning/OpenAI is for OpenAI/ChatGPT content; do NOT use 20-Learning/CCA-F for it (CCA-F is Anthropic only).
 - Do NOT use 40-Reference, 50-Archive, or 20-Learning/Certifications — these no longer exist.
 - When in doubt, use 20-Learning.
 
 No preamble. No explanation. JSON only."""
+
+
+def _get_system_prompt() -> str:
+    return _PROMPT_TEMPLATE.format(folder_list=_build_folder_list())
 
 
 def _strip_fences(text: str) -> str:
@@ -73,7 +111,7 @@ def classify(ocr_text: str, source_name: str = "") -> dict:
     message = client.messages.create(
         model="claude-sonnet-4-6",
         max_tokens=1024,
-        system=SYSTEM_PROMPT,
+        system=_get_system_prompt(),
         messages=[{"role": "user", "content": user_content}],
     )
 

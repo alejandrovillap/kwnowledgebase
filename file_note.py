@@ -29,49 +29,30 @@ from classify_note import classify
 BASE      = Path(__file__).parent
 PROCESSED = BASE / "00-Inbox" / "processed"
 
-FOLDER_MAP: dict[str, Path] = {
-    "10-Work":                      BASE / "10-Work",
-    "20-Learning":                  BASE / "20-Learning",
-    "20-Learning/PMI-ACP":          BASE / "20-Learning" / "PMI-ACP",
-    "20-Learning/CCA-F":            BASE / "20-Learning" / "CCA-F",
-    "20-Learning/Cognitive-PM-AI":  BASE / "20-Learning" / "Cognitive-PM-AI",
-    "20-Learning/Antigravity":      BASE / "20-Learning" / "Antigravity",
-    "20-Learning/Gemini-Enterprise":BASE / "20-Learning" / "Gemini-Enterprise",
-    "20-Learning/RPA":              BASE / "20-Learning" / "RPA",
-    "20-Learning/Coaching":         BASE / "20-Learning" / "Coaching",
-    "20-Learning/OpenAI":           BASE / "20-Learning" / "OpenAI",
-    "Journal":                      BASE / "Journal",
-}
-
-# Number of path components below BASE for each folder (used for ../assets/ depth)
-FOLDER_DEPTH: dict[str, int] = {
-    "10-Work": 1, "20-Learning": 1, "Journal": 1,
-    "20-Learning/PMI-ACP": 2, "20-Learning/Antigravity": 2,
-    "20-Learning/Gemini-Enterprise": 2, "20-Learning/CCA-F": 2,
-    "20-Learning/Cognitive-PM-AI": 2, "20-Learning/RPA": 2,
-    "20-Learning/Coaching": 2, "20-Learning/OpenAI": 2,
-}
+# Root folders the vault recognises (depth=1). Everything else is depth=2.
+_ROOT_FOLDERS = {"10-Work", "20-Learning", "Journal"}
 
 
 def _resolve_folder(folder_key: str) -> tuple[Path, int]:
-    """Return (dest_path, depth) for a folder key.
-    Supports dynamically created subfolders under 20-Learning.
+    """Return (dest_path, depth) for any folder key.
+
+    Handles both known and brand-new subfolders: if the key looks like a valid
+    path segment we create the directory on demand rather than refusing.
     """
-    if folder_key in FOLDER_MAP:
-        depth = FOLDER_DEPTH.get(folder_key, 1)
-        return FOLDER_MAP[folder_key], depth
+    parts = folder_key.split("/")
 
-    # Allow new one-level subfolders under 20-Learning (e.g. "20-Learning/PMI-ACP")
-    if folder_key.startswith("20-Learning/"):
-        parts = folder_key.split("/")
-        if len(parts) == 2 and parts[1]:
-            subfolder = parts[1].replace(" ", "-")
-            path = BASE / "20-Learning" / subfolder
-            return path, 2
+    if len(parts) == 1:
+        # Top-level folder (10-Work, 20-Learning, Journal)
+        return BASE / parts[0], 1
 
-    # Fallback to 20-Learning
-    print(f"[WARN] Unknown folder '{folder_key}', using 20-Learning")
-    return FOLDER_MAP["20-Learning"], 1
+    if len(parts) == 2:
+        root, sub = parts
+        subfolder = sub.replace(" ", "-")
+        return BASE / root / subfolder, 2
+
+    # Deeper nesting (unsupported) → fall back to 20-Learning
+    print(f"[WARN] Folder key has unexpected depth '{folder_key}', using 20-Learning")
+    return BASE / "20-Learning", 1
 
 
 def _slug(text: str) -> str:

@@ -29,6 +29,7 @@ FOLDER_META = {
     "20-Learning/AI-SDLC":           {"label": "AI & SDLC",         "color": "#818cf8"},
     "20-Learning/Coaching":          {"label": "Coaching",          "color": "#f472b6"},
     "20-Learning/RPA":               {"label": "RPA",               "color": "#2dd4bf"},
+    "20-Learning/OpenAI":            {"label": "OpenAI",            "color": "#10b981"},
     "20-Learning/Deep-Learning":     {"label": "Deep Learning",     "color": "#c084fc"},
     "20-Learning/English-Grammar":   {"label": "English",           "color": "#94a3b8"},
     "20-Learning":                   {"label": "Learning",          "color": "#a78bfa"},
@@ -3600,6 +3601,7 @@ const FOLDER_COLORS = {
   '20-Learning/AI-SDLC':           '#818cf8',
   '20-Learning/Coaching':          '#f472b6',
   '20-Learning/RPA':               '#2dd4bf',
+  '20-Learning/OpenAI':            '#10b981',
   '20-Learning/Deep-Learning':     '#c084fc',
   '20-Learning/English-Grammar':   '#94a3b8',
   '20-Learning':                   '#a78bfa',
@@ -3615,6 +3617,7 @@ const FOLDER_DISPLAY = {
   '20-Learning/AI-SDLC':           'AI & SDLC',
   '20-Learning/Coaching':          'Coaching',
   '20-Learning/RPA':               'RPA',
+  '20-Learning/OpenAI':            'OpenAI',
   '20-Learning/Deep-Learning':     'Deep Learning',
   '20-Learning/English-Grammar':   'English',
   '20-Learning':                   'Learning',
@@ -3680,8 +3683,29 @@ function _buildGraphData() {
 }
 
 // ── Kanban ────────────────────────────────────────────────────────
+const _KANBAN_KEY = 'kb_kanban_v1';
 
-let _kProjects = (DATA.projects || []).map(p => JSON.parse(JSON.stringify(p)));
+function _kBackup(projects) {
+  try { localStorage.setItem(_KANBAN_KEY, JSON.stringify(projects)); } catch {}
+}
+function _kRestoreFromBackup() {
+  try {
+    const raw = localStorage.getItem(_KANBAN_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch { return null; }
+}
+
+// Prefer server data; fall back to localStorage backup if server had no projects
+let _kProjects = (() => {
+  const server = (DATA.projects || []).map(p => JSON.parse(JSON.stringify(p)));
+  if (server.length > 0) { _kBackup(server); return server; }
+  const backup = _kRestoreFromBackup();
+  if (backup && backup.length > 0) {
+    console.warn('[kanban] Using localStorage backup — server had no projects');
+    return backup;
+  }
+  return [];
+})();
 let _kActiveId = null;
 
 function openKanban() {
@@ -3782,7 +3806,13 @@ function _kAddTask(projId, col) {
 }
 
 async function _kSaveProject(p) {
-  if (!serverOnline) return;
+  // Always save to localStorage first so no change is ever lost
+  _kBackup(_kProjects);
+
+  if (!serverOnline) {
+    console.warn('[kanban] Server offline — saved to localStorage only');
+    return;
+  }
   const cols = { backlog: '## Backlog', in_progress: '## In Progress', done: '## Done' };
   const fm = `---\ntitle: ${p.title}\ntype: project\nstatus: ${p.status}\ntags: [${p.tags.join(', ')}]\ncreated: ${p.created}\n---\n\n`;
   let body = '';
@@ -3794,10 +3824,14 @@ async function _kSaveProject(p) {
     }
     body += '\n';
   }
-  await fetch(`${SERVER}/note/save`, {
-    method: 'POST', headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ path: p.path, content: fm + body })
-  });
+  try {
+    await fetch(`${SERVER}/note/save`, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ path: p.path, content: fm + body })
+    });
+  } catch (err) {
+    console.warn('[kanban] Server save failed, kept in localStorage:', err.message);
+  }
 }
 
 function openKanbanNewProject() {
@@ -4540,13 +4574,16 @@ function subscribeStatus() {
 }
 
 // ── Editor ──────────────────────────────────────────────────────
-let editingNoteId = null;
+let editingNoteId  = null;
+let _editorDirty   = false;   // true when user has typed since last save
+let _editorAutoInt = null;    // auto-save interval handle
 
 async function openEditor(id) {
   if (!serverOnline) return;
   const note = DATA.notes.find(n => n.id === id);
   if (!note) return;
   editingNoteId = id;
+  _editorDirty  = false;
 
   document.getElementById('editor-note-title').textContent = note.title;
   document.getElementById('editor-status').textContent = 'cargando…';
@@ -4563,22 +4600,33 @@ async function openEditor(id) {
   } catch (err) {
     document.getElementById('editor-status').textContent = 'Error: ' + err.message;
   }
+
+  // Auto-save every 60 seconds if there are unsaved changes
+  clearInterval(_editorAutoInt);
+  _editorAutoInt = setInterval(async () => {
+    if (_editorDirty && serverOnline && editingNoteId !== null) {
+      await saveNote(true);
+    }
+  }, 60_000);
 }
 
 function closeEditor() {
+  clearInterval(_editorAutoInt);
+  _editorAutoInt = null;
   document.getElementById('editor-overlay').style.display = 'none';
   editingNoteId = null;
+  _editorDirty  = false;
 }
 
-async function saveNote() {
+async function saveNote(isAuto = false) {
   if (editingNoteId === null) return;
   const note  = DATA.notes.find(n => n.id === editingNoteId);
   const content = document.getElementById('editor-textarea').value;
   const btn   = document.getElementById('editor-save-btn');
   const status = document.getElementById('editor-status');
 
-  btn.disabled = true;
-  status.textContent = 'guardando…';
+  if (!isAuto) btn.disabled = true;
+  status.textContent = isAuto ? 'auto-guardando…' : 'guardando…';
 
   try {
     const r = await fetch(SERVER + '/note/save', {
@@ -4588,17 +4636,25 @@ async function saveNote() {
     });
     const data = await r.json();
     if (!r.ok) throw new Error(data.error);
-    status.textContent = '✓ guardado';
-    btn.disabled = false;
+    _editorDirty = false;
+    const now = new Date();
+    const hhmm = now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0');
+    status.textContent = isAuto ? `✓ auto-guardado ${hhmm}` : '✓ guardado';
+    if (!isAuto) btn.disabled = false;
     // Update the note body in memory so viewer reflects changes
     const m = content.match(/^---\s*\n[\s\S]*?\n---\s*\n([\s\S]*)$/);
     note.body = m ? m[1].trim() : content.trim();
     if (activeNoteId === editingNoteId) openNoteById(editingNoteId);
   } catch (err) {
-    status.textContent = 'Error: ' + err.message;
-    btn.disabled = false;
+    status.textContent = (isAuto ? '⚠ auto-guardado falló: ' : 'Error: ') + err.message;
+    if (!isAuto) btn.disabled = false;
   }
 }
+
+// Mark dirty on any keystroke
+document.getElementById('editor-textarea').addEventListener('input', () => {
+  _editorDirty = true;
+});
 
 // Ctrl+S in editor
 document.getElementById('editor-textarea').addEventListener('keydown', e => {

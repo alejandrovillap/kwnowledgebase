@@ -909,6 +909,102 @@ def links_graph():
     return jsonify({"nodes": note_out, "edges": edges})
 
 
+# ── RSS Feed ───────────────────────────────────────────────────────────────────
+
+@app.route("/feed.xml")
+def rss_feed():
+    import re, yaml
+    from xml.sax.saxutils import escape
+
+    folder_filter = request.args.get("folder", "").strip()
+    limit = min(int(request.args.get("n", 60)), 300)
+
+    SKIP = {"00-Inbox", ".git", "assets", "__pycache__", "Kanban", "_trash"}
+    fm_re = re.compile(r"^---\s*\n(.*?)\n---\s*\n", re.DOTALL)
+
+    notes = []
+    for md in BASE.rglob("*.md"):
+        if any(part in SKIP for part in md.parts):
+            continue
+        if md.name.startswith("_"):
+            continue
+        try:
+            rel = md.relative_to(BASE)
+            parts = rel.parts
+            folder_key = "/".join(parts[:-1]) if len(parts) > 1 else parts[0]
+            if folder_filter and not folder_key.startswith(folder_filter):
+                continue
+            content = md.read_text(encoding="utf-8-sig")
+            m = fm_re.match(content)
+            fm = (yaml.safe_load(m.group(1)) if m else {}) or {}
+            body = content[m.end():] if m else content
+            notes.append({
+                "title":  fm.get("title") or md.stem.replace("_", " "),
+                "date":   str(fm.get("date") or fm.get("updated") or ""),
+                "folder": folder_key,
+                "body":   body,
+                "path":   str(rel).replace("\\", "/"),
+            })
+        except Exception:
+            continue
+
+    notes.sort(key=lambda n: n["date"] or "0000-00-00", reverse=True)
+    notes = notes[:limit]
+
+    def md_to_html(text: str) -> str:
+        text = re.sub(r"^#+\s+[^\n]+\n?", "", text, count=1)
+        text = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", text)
+        text = re.sub(r"\*(.+?)\*",     r"<em>\1</em>",         text)
+        text = re.sub(r"`([^`]+)`",     r"<code>\1</code>",      text)
+        text = re.sub(r"^###\s+(.+)$",  r"<h3>\1</h3>", text, flags=re.MULTILINE)
+        text = re.sub(r"^##\s+(.+)$",   r"<h2>\1</h2>", text, flags=re.MULTILINE)
+        text = re.sub(r"^#\s+(.+)$",    r"<h1>\1</h1>", text, flags=re.MULTILINE)
+        parts = []
+        for p in re.split(r"\n{2,}", text.strip()):
+            p = p.strip()
+            if not p:
+                continue
+            parts.append(p if p.startswith("<h") else f"<p>{p.replace(chr(10), '<br>')}</p>")
+        return "\n".join(parts)
+
+    base_url = "https://kwiyibo.app"
+    items = []
+    for n in notes:
+        pub_date = ""
+        if n["date"]:
+            try:
+                dt = datetime.strptime(n["date"], "%Y-%m-%d")
+                pub_date = f"<pubDate>{dt.strftime('%a, %d %b %Y 00:00:00 +0000')}</pubDate>"
+            except Exception:
+                pass
+        items.append(
+            f"  <item>\n"
+            f"    <title>{escape(n['title'])}</title>\n"
+            f"    <link>{base_url}/</link>\n"
+            f"    <guid isPermaLink=\"false\">kwiyibo:{n['path']}</guid>\n"
+            f"    <category>{escape(n['folder'])}</category>\n"
+            f"    {pub_date}\n"
+            f"    <description><![CDATA[{md_to_html(n['body'])}]]></description>\n"
+            f"  </item>"
+        )
+
+    feed_title = f"KnowledgeBase — {folder_filter}" if folder_filter else "KnowledgeBase"
+    xml = (
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<rss version="2.0">\n'
+        '  <channel>\n'
+        f'    <title>{escape(feed_title)}</title>\n'
+        f'    <link>{base_url}</link>\n'
+        '    <description>Notas personales de conocimiento</description>\n'
+        '    <language>es</language>\n'
+        '    <ttl>60</ttl>\n'
+        + "\n".join(items) + "\n"
+        '  </channel>\n'
+        '</rss>'
+    )
+    return Response(xml, mimetype="application/rss+xml; charset=utf-8")
+
+
 # ── CLI ────────────────────────────────────────────────────────────────────────
 
 def main():

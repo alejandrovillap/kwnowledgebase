@@ -230,7 +230,7 @@ def upload():
     t.start()
 
     # If called from PWA share target (browser navigation), redirect to dashboard
-    if "application/json" not in request.headers.get("Accept", ""):
+    if "text/html" in request.headers.get("Accept", ""):
         from flask import redirect
         return redirect("/")
 

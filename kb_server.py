@@ -182,7 +182,7 @@ def pwa_icon():
 
 @app.route("/sw.js")
 def service_worker():
-    sw = "self.addEventListener('install',e=>e.waitUntil(self.skipWaiting()));self.addEventListener('activate',e=>e.waitUntil(self.clients.claim()));self.addEventListener('fetch',e=>e.respondWith(fetch(e.request)));"
+    sw = "self.addEventListener('install',e=>e.waitUntil(self.skipWaiting()));self.addEventListener('activate',e=>e.waitUntil(self.clients.claim()));self.addEventListener('fetch',e=>{});"
     return Response(sw, mimetype="application/javascript")
 
 

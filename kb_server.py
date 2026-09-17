@@ -139,10 +139,51 @@ def _run_pipeline(file_path: Path):
 
 @app.route("/")
 def index():
-    """Serve the dashboard HTML."""
+    """Serve the dashboard HTML, injecting PWA manifest + SW registration."""
     if not DASHBOARD.exists():
         return "Dashboard not built yet. Run: python build_dashboard.py", 503
-    return send_file(DASHBOARD)
+    html = DASHBOARD.read_text(encoding="utf-8")
+    if '<link rel="manifest"' not in html:
+        inject = (
+            '<link rel="manifest" href="/manifest.json">'
+            '<script>if("serviceWorker"in navigator)'
+            'navigator.serviceWorker.register("/sw.js");</script>'
+        )
+        html = html.replace("</head>", inject + "</head>", 1)
+    return Response(html, mimetype="text/html")
+
+
+@app.route("/manifest.json")
+def pwa_manifest():
+    return jsonify({
+        "name": "kwiyibo",
+        "short_name": "kwiyibo",
+        "start_url": "/",
+        "display": "standalone",
+        "background_color": "#111827",
+        "theme_color": "#2563eb",
+        "icons": [{"src": "/icon.svg", "sizes": "any", "type": "image/svg+xml"}],
+        "share_target": {
+            "action": "/upload",
+            "method": "POST",
+            "enctype": "multipart/form-data",
+            "params": {
+                "files": [{"name": "file", "accept": ["image/*", "application/pdf"]}]
+            }
+        }
+    })
+
+
+@app.route("/icon.svg")
+def pwa_icon():
+    svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="20" fill="#2563eb"/><text y=".9em" font-size="72" x="14">📚</text></svg>'
+    return Response(svg, mimetype="image/svg+xml")
+
+
+@app.route("/sw.js")
+def service_worker():
+    sw = "self.addEventListener('install',e=>e.waitUntil(self.skipWaiting()));self.addEventListener('activate',e=>e.waitUntil(self.clients.claim()));self.addEventListener('fetch',e=>e.respondWith(fetch(e.request)));"
+    return Response(sw, mimetype="application/javascript")
 
 
 @app.route("/favicon.ico")
@@ -187,6 +228,11 @@ def upload():
 
     t = threading.Thread(target=_run_pipeline, args=(dest,), daemon=True)
     t.start()
+
+    # If called from PWA share target (browser navigation), redirect to dashboard
+    if "application/json" not in request.headers.get("Accept", ""):
+        from flask import redirect
+        return redirect("/")
 
     return jsonify({"ok": True, "file": dest.name, "msg": "Pipeline iniciado"})
 

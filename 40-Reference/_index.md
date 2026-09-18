@@ -1,6 +1,6 @@
 # Reference
 
-10 notes | Last updated: 2026-08-19
+10 notes | Last updated: 2026-09-18
 
 ## 2026-04 — April 2026
 
@@ -35,4 +35,4 @@
 
 | Date | Note | Type |
 |------|------|------|
-| 2025-01-01 | [Agente con Tools - Flujo y Hooks](2025-01-01_Agente_con_Tools_-_Flujo_y_Hooks.md) | `reference` · `40-Reference` |
+| 2025-01-01 | [Agente con Tools - Flujo y Hooks](Agente_con_Tools_-_Flujo_y_Hooks.md) | `reference` · `40-Reference` |

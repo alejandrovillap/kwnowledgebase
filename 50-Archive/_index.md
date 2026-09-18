@@ -1,13 +1,6 @@
 # Archive
 
-13 notes | Last updated: 2026-08-19
-
-## 2026-08 — August 2026
-
-| Date | Note | Type |
-|------|------|------|
-| 2026-08-17 | [Confidentiality and Records Compliance Agreement - PMI Centro México Chapter 2026](2026-08-17_Confidentiality_and_Records_Compliance_Agreement_-_PMI_Centro_México_Chapter_202.md) | `resume` · `50-Archive` |
-| 2026-08-17 | [Confidentiality Agreement - PMI Centro México Chapter - Ana Paula López López](2026-08-17_Confidentiality_Agreement_-_PMI_Centro_México_Chapter_-_Ana_Paula_López_López.md) | `resume` · `50-Archive` |
+11 notes | Last updated: 2026-09-18
 
 ## 2026-04 — April 2026
 

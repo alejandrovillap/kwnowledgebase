@@ -592,3 +592,49 @@ fatal: empty ident name (for <alexvilla1604@knowledgebase.us-central1-a.c.sincer
 2026-08-20 19:39:19 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
 2026-08-20 19:39:19 [agent] INFO -- format_note OK
 2026-08-20 19:39:19 [agent] INFO -- git_commit ...
+2026-09-17 23:46:34 [agent] INFO === Pipeline start: 20260917_234634_estoicismo.png
+2026-09-17 23:46:34 [agent] INFO -- ocr ...
+2026-09-17 23:46:39 [agent] ERROR FAILED [ocr]: "Could not resolve authentication method. Expected one of api_key, auth_token, or credentials to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted"
+2026-09-17 23:46:39 [agent] ERROR Pipeline FAILED for 20260917_234634_estoicismo.png: "Could not resolve authentication method. Expected one of api_key, auth_token, or credentials to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted"
+2026-09-17 23:46:39 [agent] INFO === Pipeline FAILURE in 5.3s: 20260917_234634_estoicismo.png
+2026-09-17 23:49:07 [agent] INFO === Pipeline start: 20260917_234907_estoicismo.png
+2026-09-17 23:49:07 [agent] INFO -- ocr ...
+2026-09-17 23:49:12 [agent] ERROR FAILED [ocr]: "Could not resolve authentication method. Expected one of api_key, auth_token, or credentials to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted"
+2026-09-17 23:49:12 [agent] ERROR Pipeline FAILED for 20260917_234907_estoicismo.png: "Could not resolve authentication method. Expected one of api_key, auth_token, or credentials to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted"
+2026-09-17 23:49:12 [agent] INFO === Pipeline FAILURE in 5.1s: 20260917_234907_estoicismo.png
+2026-09-17 23:51:59 [agent] INFO === Pipeline start: 20260917_235159_estoicismo.png
+2026-09-17 23:51:59 [agent] INFO -- ocr ...
+2026-09-17 23:52:04 [agent] ERROR FAILED [ocr]: "Could not resolve authentication method. Expected one of api_key, auth_token, or credentials to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted"
+2026-09-17 23:52:04 [agent] ERROR Pipeline FAILED for 20260917_235159_estoicismo.png: "Could not resolve authentication method. Expected one of api_key, auth_token, or credentials to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted"
+2026-09-17 23:52:04 [agent] INFO === Pipeline FAILURE in 4.6s: 20260917_235159_estoicismo.png
+2026-09-17 23:54:29 [agent] INFO === Pipeline start: 20260820_191513_Claude_certifiect_associate_-_foundations.pdf
+2026-09-17 23:54:29 [agent] INFO -- ocr ...
+2026-09-17 23:54:33 [agent] ERROR FAILED [ocr]: "Could not resolve authentication method. Expected one of api_key, auth_token, or credentials to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted"
+2026-09-17 23:54:33 [agent] ERROR Pipeline FAILED for 20260820_191513_Claude_certifiect_associate_-_foundations.pdf: "Could not resolve authentication method. Expected one of api_key, auth_token, or credentials to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted"
+2026-09-17 23:54:33 [agent] INFO === Pipeline FAILURE in 3.2s: 20260820_191513_Claude_certifiect_associate_-_foundations.pdf
+2026-09-18 22:52:20 [agent] INFO === Pipeline start: 20260917_234634_estoicismo.png
+2026-09-18 22:52:20 [agent] INFO -- ocr ...
+2026-09-18 22:52:27 [agent] ERROR FAILED [ocr]: "Could not resolve authentication method. Expected one of api_key, auth_token, or credentials to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted"
+2026-09-18 22:52:27 [agent] ERROR Pipeline FAILED for 20260917_234634_estoicismo.png: "Could not resolve authentication method. Expected one of api_key, auth_token, or credentials to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted"
+2026-09-18 22:52:27 [agent] INFO === Pipeline FAILURE in 7.5s: 20260917_234634_estoicismo.png
+2026-09-18 23:51:21 [agent] INFO === Pipeline start: 20260917_234634_estoicismo.png
+2026-09-18 23:51:21 [agent] INFO -- ocr ...
+2026-09-18 23:51:23 [agent] ERROR FAILED [ocr]: [Errno 2] No such file or directory: '/home/alexvilla1604/00-Inbox/raw/20260917_234634_estoicismo.png'
+2026-09-18 23:51:23 [agent] ERROR Pipeline FAILED for 20260917_234634_estoicismo.png: [Errno 2] No such file or directory: '/home/alexvilla1604/00-Inbox/raw/20260917_234634_estoicismo.png'
+2026-09-18 23:51:23 [agent] INFO === Pipeline FAILURE in 2.1s: 20260917_234634_estoicismo.png
+2026-09-18 23:51:52 [agent] INFO === Pipeline start: 20260917_234634_estoicismo.png
+2026-09-18 23:51:52 [agent] INFO -- ocr ...
+2026-09-18 23:51:58 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-09-18 23:52:27 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-09-18 23:52:27 [agent] INFO    extracted 2586 chars, 1 diagram(s)
+2026-09-18 23:52:27 [agent] INFO -- ocr OK
+2026-09-18 23:52:27 [agent] INFO -- classify ...
+2026-09-18 23:52:31 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-09-18 23:52:31 [agent] INFO    title='Estoicismo - Mente Abierta y Control'  folder=Journal  confidence=medium
+2026-09-18 23:52:31 [agent] INFO -- classify OK
+2026-09-18 23:52:31 [agent] INFO -- file_note ...
+2026-09-18 23:52:31 [agent] INFO -- file_note OK
+2026-09-18 23:52:31 [agent] INFO -- format_note ...
+2026-09-18 23:52:48 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-09-18 23:52:48 [agent] INFO -- format_note OK
+2026-09-18 23:52:48 [agent] INFO -- git_commit ...

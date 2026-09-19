@@ -665,3 +665,32 @@ fatal: empty ident name (for <alexvilla1604@knowledgebase.us-central1-a.c.sincer
 2026-09-18 23:58:10 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
 2026-09-18 23:58:10 [agent] INFO -- format_note OK
 2026-09-18 23:58:10 [agent] INFO -- git_commit ...
+2026-09-18 23:58:11 [agent] INFO    [agent] 2026-09-17 - Estoicismo - Locus de Control y Foco Personal → Journal
+2026-09-18 23:58:11 [agent] INFO -- git_commit OK
+2026-09-18 23:58:11 [agent] INFO -- build_index ...
+2026-09-18 23:58:12 [agent] INFO    global: 178 notes | folders updated: 5
+2026-09-18 23:58:12 [agent] INFO -- build_index OK
+2026-09-18 23:58:12 [agent] INFO -- build_dashboard ...
+2026-09-18 23:58:12 [agent] INFO    dashboard written to dashboard.html
+2026-09-18 23:58:12 [agent] INFO -- build_dashboard OK
+2026-09-18 23:58:12 [agent] INFO -- build_embeddings ...
+2026-09-18 23:58:13 [agent] INFO    build_embeddings OK
+2026-09-18 23:58:13 [agent] INFO === Pipeline SUCCESS in 73.5s: 20260917_234907_estoicismo.png
+2026-09-18 23:58:14 [agent] INFO === Pipeline start: 20260917_235159_estoicismo.png
+2026-09-18 23:58:14 [agent] INFO -- ocr ...
+2026-09-18 23:58:19 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-09-18 23:58:48 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 520 <none>"
+2026-09-18 23:58:48 [agent] INFO Retrying request to /v1/messages in 60.000000 seconds
+2026-09-19 00:00:18 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-09-19 00:00:18 [agent] INFO    extracted 2639 chars, 1 diagram(s)
+2026-09-19 00:00:18 [agent] INFO -- ocr OK
+2026-09-19 00:00:18 [agent] INFO -- classify ...
+2026-09-19 00:00:22 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-09-19 00:00:22 [agent] INFO    title='Estoicismo: Mente Abierta y Control de lo Propio'  folder=Journal  confidence=high
+2026-09-19 00:00:22 [agent] INFO -- classify OK
+2026-09-19 00:00:22 [agent] INFO -- file_note ...
+2026-09-19 00:00:22 [agent] INFO -- file_note OK
+2026-09-19 00:00:22 [agent] INFO -- format_note ...
+2026-09-19 00:00:42 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-09-19 00:00:42 [agent] INFO -- format_note OK
+2026-09-19 00:00:42 [agent] INFO -- git_commit ...

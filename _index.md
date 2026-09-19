@@ -1,13 +1,14 @@
 # KnowledgeBase — Global Index
 
-177 notes | Last updated: 2026-09-18
+178 notes | Last updated: 2026-09-18
 
-**Work & Projects** 6 | **Learning** 22 | **AI SDLC** 10 | **Antigravity** 2 | **CCA F** 70 | **Certifications** 1 | **Coaching** 2 | **Cognitive PM AI** 10 | **Deep Learning** 1 | **English Grammar** 1 | **Gemini Enterprise** 4 | **Markdown** 1 | **PMI ACP** 22 | **RPA** 2 | **Reference** 10 | **Archive** 11 | **Journal** 2
+**Work & Projects** 6 | **Learning** 22 | **AI SDLC** 10 | **Antigravity** 2 | **CCA F** 70 | **Certifications** 1 | **Coaching** 2 | **Cognitive PM AI** 10 | **Deep Learning** 1 | **English Grammar** 1 | **Gemini Enterprise** 4 | **Markdown** 1 | **PMI ACP** 22 | **RPA** 2 | **Reference** 10 | **Archive** 11 | **Journal** 3
 
 ## 2026-09 — September 2026
 
 | Date | Note | Type |
 |------|------|------|
+| 2026-09-17 | [Estoicismo - Locus de Control y Foco Personal](Journal/Estoicismo_-_Locus_de_Control_y_Foco_Personal.md) | `journal` · `Journal` |
 | 2026-09-17 | [Estoicismo - Mente Abierta y Control](Journal/Estoicismo_-_Mente_Abierta_y_Control.md) | `journal` · `Journal` |
 
 ## 2026-08 — August 2026

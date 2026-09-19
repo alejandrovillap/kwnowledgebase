@@ -694,3 +694,50 @@ fatal: empty ident name (for <alexvilla1604@knowledgebase.us-central1-a.c.sincer
 2026-09-19 00:00:42 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
 2026-09-19 00:00:42 [agent] INFO -- format_note OK
 2026-09-19 00:00:42 [agent] INFO -- git_commit ...
+2026-09-19 00:00:43 [agent] INFO    [agent] 2026-09-17 - Estoicismo: Mente Abierta y Control de lo Propio → Journal
+2026-09-19 00:00:43 [agent] INFO -- git_commit OK
+2026-09-19 00:00:43 [agent] INFO -- build_index ...
+2026-09-19 00:00:43 [agent] INFO    global: 179 notes | folders updated: 5
+2026-09-19 00:00:43 [agent] INFO -- build_index OK
+2026-09-19 00:00:43 [agent] INFO -- build_dashboard ...
+2026-09-19 00:00:44 [agent] INFO    dashboard written to dashboard.html
+2026-09-19 00:00:44 [agent] INFO -- build_dashboard OK
+2026-09-19 00:00:44 [agent] INFO -- build_embeddings ...
+2026-09-19 00:00:45 [agent] INFO    build_embeddings OK
+2026-09-19 00:00:45 [agent] INFO === Pipeline SUCCESS in 151.4s: 20260917_235159_estoicismo.png
+2026-09-19 00:00:45 [agent] INFO === Pipeline start: 20260820_191513_Claude_certifiect_associate_-_foundations.pdf
+2026-09-19 00:00:45 [agent] INFO -- ocr ...
+2026-09-19 00:00:54 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-09-19 00:01:05 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-09-19 00:01:08 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-09-19 00:01:22 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-09-19 00:01:25 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-09-19 00:01:38 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-09-19 00:01:40 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-09-19 00:01:50 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-09-19 00:01:53 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-09-19 00:02:04 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-09-19 00:02:07 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-09-19 00:02:21 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-09-19 00:02:23 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-09-19 00:02:38 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-09-19 00:02:41 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-09-19 00:02:54 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-09-19 00:02:56 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-09-19 00:03:11 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-09-19 00:03:14 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-09-19 00:03:28 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-09-19 00:03:31 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-09-19 00:03:36 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-09-19 00:03:36 [agent] INFO    extracted 20478 chars, 2 diagram(s)
+2026-09-19 00:03:36 [agent] INFO -- ocr OK
+2026-09-19 00:03:36 [agent] INFO -- classify ...
+2026-09-19 00:03:46 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-09-19 00:03:46 [agent] INFO    title='Claude Certified Associate – Foundations Exam Guide'  folder=20-Learning/CCA-F  confidence=high
+2026-09-19 00:03:46 [agent] INFO -- classify OK
+2026-09-19 00:03:46 [agent] INFO -- file_note ...
+2026-09-19 00:03:46 [agent] INFO -- file_note OK
+2026-09-19 00:03:46 [agent] INFO -- format_note ...
+2026-09-19 00:05:12 [agent] INFO HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-09-19 00:05:12 [agent] INFO -- format_note OK
+2026-09-19 00:05:12 [agent] INFO -- git_commit ...
